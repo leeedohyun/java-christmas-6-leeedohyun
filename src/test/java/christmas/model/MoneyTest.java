@@ -13,7 +13,7 @@ class MoneyTest {
         final Money money = new Money(price);
 
         // when
-        final boolean isOverTenThousand = money.isTotalPriceOverTenThousand();
+        final boolean isOverTenThousand = money.isOverTenThousand();
 
         // then
         Assertions.assertTrue(isOverTenThousand);
@@ -26,7 +26,7 @@ class MoneyTest {
         final Money money = new Money(price);
 
         // when
-        final boolean isNotOverTenThousand = money.isTotalPriceOverTenThousand();
+        final boolean isNotOverTenThousand = money.isOverTenThousand();
 
         // then
         Assertions.assertFalse(isNotOverTenThousand);
