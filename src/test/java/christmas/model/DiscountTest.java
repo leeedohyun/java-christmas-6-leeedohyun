@@ -145,4 +145,52 @@ class DiscountTest {
         // then
         Assertions.assertEquals(discountPrice, 0);
     }
+
+    @Test
+    public void 특별_할인_테스트() {
+        // given
+        int visitedDay = 3;
+        int totalPrice = 10000;
+        boolean hasStar = true;
+
+        Discount discount = new Discount();
+
+        // when
+        int discountPrice = discount.discountSpecial(visitedDay, totalPrice, hasStar);
+
+        // then
+        Assertions.assertEquals(discountPrice, 1000);
+    }
+
+    @Test
+    public void 주문_금액이_10000원을_넘지_않은_경우_특별_할인_금액은_0원이다() {
+        // given
+        int visitedDay = 3;
+        int totalPrice = 9900;
+        boolean hasStar = true;
+
+        Discount discount = new Discount();
+
+        // when
+        int discountPrice = discount.discountSpecial(visitedDay, totalPrice, hasStar);
+
+        // then
+        Assertions.assertEquals(discountPrice, 0);
+    }
+
+    @Test
+    public void 별을_가지고_있지_않은_경우_특별_할인_금액은_0원이다() {
+        // given
+        int visitedDay = 3;
+        int totalPrice = 10000;
+        boolean hasStar = false;
+
+        Discount discount = new Discount();
+
+        // when
+        int discountPrice = discount.discountSpecial(visitedDay, totalPrice, hasStar);
+
+        // then
+        Assertions.assertEquals(discountPrice, 0);
+    }
 }
