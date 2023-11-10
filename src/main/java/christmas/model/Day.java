@@ -2,9 +2,11 @@ package christmas.model;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
 public class Day {
 
+    private static final LocalDate EVENT_START_DATE = LocalDate.of(2023, 12, 1);
     private static final LocalDate CHRISTMAS = LocalDate.of(2023, 12, 25);
     private static final LocalDate EVENT_END_DATE = LocalDate.of(2023, 12, 31);
 
@@ -24,5 +26,9 @@ public class Day {
 
     public boolean isEventNotEnded() {
         return day.isBefore(EVENT_END_DATE) || day.isEqual(EVENT_END_DATE);
+    }
+
+    public int calculateDaysUntilEventStart() {
+        return (int) ChronoUnit.DAYS.between(EVENT_START_DATE, day);
     }
 }
