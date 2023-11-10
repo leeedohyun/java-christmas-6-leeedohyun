@@ -9,6 +9,7 @@ public class Discount {
     private static final int EVENT_END_DATE = 31;
     private static final int MINIMUM_ORDER_PRICE = 10000;
     private static final int WEEKDAY_AND_WEEKEND_DISCOUNT_PRICE = 2023;
+    private static final int SPECIAL_DISCONT_PRICE = 1000;
 
     public int discountDDay(int visitedDay, int totalPrice) {
         if (visitedDay <= CHRISTMAS && totalPrice >= MINIMUM_ORDER_PRICE) {
@@ -27,6 +28,13 @@ public class Discount {
     public int discountWeekend(int visitedDay, int totalPrice, int numberOfMainMenu) {
         if (visitedDay <= EVENT_END_DATE && totalPrice >= MINIMUM_ORDER_PRICE) {
             return WEEKDAY_AND_WEEKEND_DISCOUNT_PRICE * numberOfMainMenu;
+        }
+        return 0;
+    }
+
+    public int discountSpecial(int visitedDay, int totalPrice, boolean hasStar) {
+        if (visitedDay <= EVENT_END_DATE && totalPrice >= MINIMUM_ORDER_PRICE && hasStar) {
+            return SPECIAL_DISCONT_PRICE;
         }
         return 0;
     }
