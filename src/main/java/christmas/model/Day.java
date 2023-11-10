@@ -5,6 +5,8 @@ import java.time.LocalDate;
 
 public class Day {
 
+    private static final LocalDate CHRISTMAS = LocalDate.of(2023, 12, 25);
+
     private final LocalDate day;
 
     public Day(LocalDate day) {
@@ -13,5 +15,9 @@ public class Day {
 
     public boolean isWeekend() {
         return day.getDayOfWeek() == DayOfWeek.FRIDAY || day.getDayOfWeek() == DayOfWeek.SATURDAY;
+    }
+
+    public boolean isBeforeOrEqualChristmas() {
+        return day.isBefore(CHRISTMAS) || day.isEqual(CHRISTMAS);
     }
 }
