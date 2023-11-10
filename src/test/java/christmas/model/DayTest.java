@@ -96,4 +96,30 @@ class DayTest {
         // then
         Assertions.assertEquals(gapUntilEventStart, 5);
     }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"2023-12-03", "2023-12-25", "2023-12-31"})
+    public void 별이_있는_날짜는_true를_반환한다(String date) {
+        // given
+        final Day visitedDay = new Day(LocalDate.parse(date));
+
+        // when
+        final boolean hasStar = visitedDay.hasStar();
+
+        // then
+        Assertions.assertTrue(hasStar);
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"2023-12-05", "2023-12-13", "2023-12-29"})
+    public void 별이_없는_날짜는_false를_반환한다(String date) {
+        // given
+        final Day visitedDay = new Day(LocalDate.parse(date));
+
+        // when
+        final boolean hasNotStar = visitedDay.hasStar();
+
+        // then
+        Assertions.assertFalse(hasNotStar);
+    }
 }
