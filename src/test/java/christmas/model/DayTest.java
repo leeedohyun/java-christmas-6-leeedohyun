@@ -3,6 +3,8 @@ package christmas.model;
 import java.time.LocalDate;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 class DayTest {
 
@@ -30,5 +32,33 @@ class DayTest {
 
         // then
         Assertions.assertEquals(isWeekend, false);
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"2023-12-24", "2023-12-25"})
+    public void 크리스마스_이전이거나_당일인_경우_true를_반환한다(String date) {
+        // given
+        LocalDate localDate = LocalDate.parse(date);
+        Day visitedDay = new Day(localDate);
+
+        // when
+        boolean beforeOrEqualChristmas = visitedDay.isBeforeOrEqualChristmas();
+
+        // then
+        Assertions.assertEquals(beforeOrEqualChristmas, true);
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"2023-12-26", "2023-12-30"})
+    public void 크리스마스_이후인_경우_false를_반환한다(String date) {
+        // given
+        LocalDate localDate = LocalDate.parse(date);
+        Day visitedDay = new Day(localDate);
+
+        // when
+        boolean beforeOrEqualChristmas = visitedDay.isBeforeOrEqualChristmas();
+
+        // then
+        Assertions.assertEquals(beforeOrEqualChristmas, false);
     }
 }
