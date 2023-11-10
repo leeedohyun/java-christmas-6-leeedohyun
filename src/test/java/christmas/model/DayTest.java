@@ -61,4 +61,32 @@ class DayTest {
         // then
         Assertions.assertEquals(beforeOrEqualChristmas, false);
     }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"2023-12-04", "2023-12-31"})
+    public void 이벤트_이전인_경우_true를_반환한다(String date) {
+        // given
+        LocalDate localDate = LocalDate.parse(date);
+        Day visitedDay = new Day(localDate);
+
+        // when
+        boolean beforeOrEqualChristmas = visitedDay.isEventNotEnded();
+
+        // then
+        Assertions.assertEquals(beforeOrEqualChristmas, true);
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"2024-01-01", "2024-01-05"})
+    public void 이벤트_이후인_경우_false를_반환한다(String date) {
+        // given
+        LocalDate localDate = LocalDate.parse(date);
+        Day visitedDay = new Day(localDate);
+
+        // when
+        boolean beforeOrEqualChristmas = visitedDay.isEventNotEnded();
+
+        // then
+        Assertions.assertEquals(beforeOrEqualChristmas, false);
+    }
 }
