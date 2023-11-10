@@ -97,4 +97,52 @@ class DiscountTest {
         // then
         Assertions.assertEquals(discountPrice, 0);
     }
+
+    @Test
+    public void 주말_할인_금액_테스트() {
+        // given
+        int visitedDay = 31;
+        int totalPrice = 10000;
+        int numberOfMainMenu = 2;
+
+        Discount discount = new Discount();
+
+        // when
+        int discountPrice = discount.discountWeekend(visitedDay, totalPrice, numberOfMainMenu);
+
+        // then
+        Assertions.assertEquals(discountPrice, 4046);
+    }
+
+    @Test
+    public void 주문_금액이_10000원을_넘지_않는_경우_주말_할인_금액은_0원이다() {
+        // given
+        int visitedDay = 31;
+        int totalPrice = 9900;
+        int numberOfMainMenu = 2;
+
+        Discount discount = new Discount();
+
+        // when
+        int discountPrice = discount.discountWeekend(visitedDay, totalPrice, numberOfMainMenu);
+
+        // then
+        Assertions.assertEquals(discountPrice, 0);
+    }
+
+    @Test
+    public void 메인_메뉴의_개수가_0개이면_평일_할인_금액은_0원이다() {
+        // given
+        int visitedDay = 31;
+        int totalPrice = 9900;
+        int numberOfMainMenu = 0;
+
+        Discount discount = new Discount();
+
+        // when
+        int discountPrice = discount.discountWeekDay(visitedDay, totalPrice, numberOfMainMenu);
+
+        // then
+        Assertions.assertEquals(discountPrice, 0);
+    }
 }
