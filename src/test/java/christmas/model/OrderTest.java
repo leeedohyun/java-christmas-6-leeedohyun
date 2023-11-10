@@ -8,13 +8,12 @@ class OrderTest {
     @Test
     public void 할인된_금액_테스트() {
         // given
-        int totalPrice = 10_000;
-        int discountPrice = 1_000;
-
-        Order order = new Order();
+        final int totalPrice = 10000;
+        final int discountPrice = 1000;
 
         // when
-        int discountedPrice = order.calculateDiscountedPrice(totalPrice, discountPrice);
+        final Order order = new Order();
+        final int discountedPrice = order.calculateDiscountedPrice(totalPrice, discountPrice);
 
         // then
         Assertions.assertEquals(discountedPrice, 9_000);

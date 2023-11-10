@@ -8,7 +8,7 @@ public class Discount {
     private static final int WEEKDAY_AND_WEEKEND_DISCOUNT_PRICE = 2023;
     private static final int SPECIAL_DISCOUNT_PRICE = 1000;
 
-    public int discountDDay(Day visitedDay, int totalPrice) {
+    public int discountDDay(final Day visitedDay, final int totalPrice) {
         if (visitedDay.isBeforeOrEqualChristmas() && totalPrice >= MINIMUM_ORDER_PRICE) {
             return D_DAY_BASIC_DISCOUNT_PRICE
                     + visitedDay.calculateDaysUntilEventStart() * D_DAY_ADDITIONAL_DISCOUNT_PRICE;
@@ -16,21 +16,21 @@ public class Discount {
         return 0;
     }
 
-    public int discountWeekDay(Day visitedDay, int totalPrice, int numberOfDessertMenus) {
+    public int discountWeekDay(final Day visitedDay, final int totalPrice, final int numberOfDessertMenus) {
         if (visitedDay.isEventNotEnded() && !visitedDay.isWeekend() && totalPrice >= MINIMUM_ORDER_PRICE) {
             return WEEKDAY_AND_WEEKEND_DISCOUNT_PRICE * numberOfDessertMenus;
         }
         return 0;
     }
 
-    public int discountWeekend(Day visitedDay, int totalPrice, int numberOfMainMenu) {
+    public int discountWeekend(final Day visitedDay, final int totalPrice, final int numberOfMainMenu) {
         if (visitedDay.isEventNotEnded() && visitedDay.isWeekend() && totalPrice >= MINIMUM_ORDER_PRICE) {
             return WEEKDAY_AND_WEEKEND_DISCOUNT_PRICE * numberOfMainMenu;
         }
         return 0;
     }
 
-    public int discountSpecial(Day visitedDay, int totalPrice, boolean hasStar) {
+    public int discountSpecial(final Day visitedDay, final int totalPrice, final boolean hasStar) {
         if (visitedDay.isEventNotEnded() && totalPrice >= MINIMUM_ORDER_PRICE && hasStar) {
             return SPECIAL_DISCOUNT_PRICE;
         }

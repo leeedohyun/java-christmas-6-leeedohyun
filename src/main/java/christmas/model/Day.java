@@ -12,7 +12,7 @@ public class Day {
 
     private final LocalDate day;
 
-    public Day(LocalDate day) {
+    public Day(final LocalDate day) {
         this.day = day;
     }
 
@@ -21,11 +21,11 @@ public class Day {
     }
 
     public boolean isBeforeOrEqualChristmas() {
-        return day.isBefore(CHRISTMAS) || day.isEqual(CHRISTMAS);
+        return !day.isAfter(CHRISTMAS);
     }
 
     public boolean isEventNotEnded() {
-        return day.isBefore(EVENT_END_DATE) || day.isEqual(EVENT_END_DATE);
+        return !day.isAfter(EVENT_END_DATE);
     }
 
     public int calculateDaysUntilEventStart() {
