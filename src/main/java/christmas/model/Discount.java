@@ -23,4 +23,11 @@ public class Discount {
         }
         return 0;
     }
+
+    public int discountWeekend(int visitedDay, int totalPrice, int numberOfMainMenu) {
+        if (visitedDay <= EVENT_END_DATE && totalPrice >= MINIMUM_ORDER_PRICE) {
+            return WEEKDAY_AND_WEEKEND_DISCOUNT_PRICE * numberOfMainMenu;
+        }
+        return 0;
+    }
 }
