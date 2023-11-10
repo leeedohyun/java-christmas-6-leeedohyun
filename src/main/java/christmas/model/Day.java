@@ -6,9 +6,15 @@ import java.time.temporal.ChronoUnit;
 
 public class Day {
 
-    private static final LocalDate EVENT_START_DATE = LocalDate.of(2023, 12, 1);
-    private static final LocalDate CHRISTMAS = LocalDate.of(2023, 12, 25);
-    private static final LocalDate EVENT_END_DATE = LocalDate.of(2023, 12, 31);
+    private static final int YEAR = 2023;
+    private static final int Month = 12;
+    private static final int START_DATE = 1;
+    private static final int CHRISTMAS_DATE = 25;
+    private static final int END_DATE = 31;
+
+    private static final LocalDate EVENT_START_DATE = LocalDate.of(YEAR, Month, START_DATE);
+    private static final LocalDate CHRISTMAS = LocalDate.of(YEAR, Month, CHRISTMAS_DATE);
+    private static final LocalDate EVENT_END_DATE = LocalDate.of(YEAR, Month, END_DATE);
 
     private final LocalDate day;
 
