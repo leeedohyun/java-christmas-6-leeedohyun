@@ -3,18 +3,20 @@ package christmas.model;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.List;
 
 public class Day {
 
     private static final int YEAR = 2023;
-    private static final int Month = 12;
+    private static final int MONTH = 12;
     private static final int START_DATE = 1;
     private static final int CHRISTMAS_DATE = 25;
     private static final int END_DATE = 31;
+    private static final List<Integer> DAYS_WITH_STAR = List.of(3, 10, 17, 24, 25, 31);
 
-    private static final LocalDate EVENT_START_DATE = LocalDate.of(YEAR, Month, START_DATE);
-    private static final LocalDate CHRISTMAS = LocalDate.of(YEAR, Month, CHRISTMAS_DATE);
-    private static final LocalDate EVENT_END_DATE = LocalDate.of(YEAR, Month, END_DATE);
+    private static final LocalDate EVENT_START_DATE = LocalDate.of(YEAR, MONTH, START_DATE);
+    private static final LocalDate CHRISTMAS = LocalDate.of(YEAR, MONTH, CHRISTMAS_DATE);
+    private static final LocalDate EVENT_END_DATE = LocalDate.of(YEAR, MONTH, END_DATE);
 
     private final LocalDate day;
 
@@ -36,5 +38,9 @@ public class Day {
 
     public int calculateDaysUntilEventStart() {
         return (int) ChronoUnit.DAYS.between(EVENT_START_DATE, day);
+    }
+
+    public boolean hasStar() {
+        return DAYS_WITH_STAR.contains(day.getDayOfMonth());
     }
 }
