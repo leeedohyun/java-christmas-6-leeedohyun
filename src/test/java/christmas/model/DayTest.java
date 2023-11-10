@@ -60,7 +60,7 @@ class DayTest {
 
     @ParameterizedTest
     @ValueSource(strings = {"2023-12-04", "2023-12-31"})
-    public void 이벤트_이전인_경우_true를_반환한다(String date) {
+    public void 이벤트_이전인_경우_true를_반환한다(final String date) {
         // given
         LocalDate localDate = LocalDate.parse(date);
         Day visitedDay = new Day(localDate);
@@ -99,7 +99,7 @@ class DayTest {
 
     @ParameterizedTest
     @ValueSource(strings = {"2023-12-03", "2023-12-25", "2023-12-31"})
-    public void 별이_있는_날짜는_true를_반환한다(String date) {
+    public void 별이_있는_날짜는_true를_반환한다(final String date) {
         // given
         final Day visitedDay = new Day(LocalDate.parse(date));
 
@@ -112,7 +112,7 @@ class DayTest {
 
     @ParameterizedTest
     @ValueSource(strings = {"2023-12-05", "2023-12-13", "2023-12-29"})
-    public void 별이_없는_날짜는_false를_반환한다(String date) {
+    public void 별이_없는_날짜는_false를_반환한다(final String date) {
         // given
         final Day visitedDay = new Day(LocalDate.parse(date));
 
