@@ -30,8 +30,8 @@ public class Discount {
         return 0;
     }
 
-    public int discountSpecial(final Day visitedDay, final int totalPrice, final boolean hasStar) {
-        if (visitedDay.isEventNotEnded() && totalPrice >= MINIMUM_ORDER_PRICE && hasStar) {
+    public int discountSpecial(final Day visitedDay, final int totalPrice) {
+        if (visitedDay.isEventNotEnded() && visitedDay.hasStar() && totalPrice >= MINIMUM_ORDER_PRICE) {
             return SPECIAL_DISCOUNT_PRICE;
         }
         return 0;

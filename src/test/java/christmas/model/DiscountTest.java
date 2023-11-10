@@ -143,11 +143,10 @@ class DiscountTest {
         // given
         final Day visitedDay = new Day(LocalDate.of(2023, 12, 3));
         final int totalPrice = 10000;
-        final boolean hasStar = true;
 
         // when
         final Discount discount = new Discount();
-        final int discountPrice = discount.discountSpecial(visitedDay, totalPrice, hasStar);
+        final int discountPrice = discount.discountSpecial(visitedDay, totalPrice);
 
         // then
         Assertions.assertEquals(discountPrice, 1000);
@@ -158,11 +157,10 @@ class DiscountTest {
         // given
         final Day visitedDay = new Day(LocalDate.of(2023, 12, 31));
         final int totalPrice = 9900;
-        final boolean hasStar = true;
 
         // when
         final Discount discount = new Discount();
-        final int discountPrice = discount.discountSpecial(visitedDay, totalPrice, hasStar);
+        final int discountPrice = discount.discountSpecial(visitedDay, totalPrice);
 
         // then
         Assertions.assertEquals(discountPrice, 0);
@@ -171,13 +169,11 @@ class DiscountTest {
     @Test
     public void 별을_가지고_있지_않은_경우_특별_할인_금액은_0원이다() {
         // given
-        final Day visitedDay = new Day(LocalDate.of(2023, 12, 31));
+        final Day visitedDay = new Day(LocalDate.of(2023, 12, 30));
         final int totalPrice = 10000;
-        final boolean hasStar = false;
-
         // when
         final Discount discount = new Discount();
-        final int discountPrice = discount.discountSpecial(visitedDay, totalPrice, hasStar);
+        final int discountPrice = discount.discountSpecial(visitedDay, totalPrice);
 
         // then
         Assertions.assertEquals(discountPrice, 0);
