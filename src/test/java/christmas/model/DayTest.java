@@ -89,4 +89,16 @@ class DayTest {
         // then
         Assertions.assertEquals(beforeOrEqualChristmas, false);
     }
+    
+    @Test
+    public void 방문_날짜와_이벤트_시작_날짜의_차이_테스트() {
+        // given
+        Day visitedDay = new Day(LocalDate.of(2023, 12, 6));
+
+        // when
+        int gapUntilEventStart = visitedDay.calculateDaysUntilEventStart();
+
+        // then
+        Assertions.assertEquals(gapUntilEventStart, 5);
+    }
 }
