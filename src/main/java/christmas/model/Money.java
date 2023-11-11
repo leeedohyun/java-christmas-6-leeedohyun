@@ -12,6 +12,10 @@ public class Money {
         this.money = money;
     }
 
+    public Money plus(Money another) {
+        return new Money(money + another.money);
+    }
+
     public boolean isOverTenThousand() {
         return money >= MINIMUM_ORDER_PRICE;
     }

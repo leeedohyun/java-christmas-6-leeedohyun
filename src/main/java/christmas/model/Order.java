@@ -19,4 +19,11 @@ public class Order {
                 .filter(orderedMenu -> orderedMenu.getMenuType() == MenuType.DESSERT)
                 .count();
     }
+
+    public Money calculateOrderedPriceBeforeDiscount(List<Menu> orderedMenus) {
+        return orderedMenus.stream()
+                .map(Menu::getPrice)
+                .reduce(Money::plus)
+                .orElse(new Money(0));
+    }
 }

@@ -25,6 +25,10 @@ public enum Menu {
         this.menuType = menuType;
     }
 
+    public Money getPrice() {
+        return price;
+    }
+
     public MenuType getMenuType() {
         return menuType;
     }
