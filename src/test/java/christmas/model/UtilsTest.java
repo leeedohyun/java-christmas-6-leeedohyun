@@ -1,6 +1,7 @@
 package christmas.model;
 
 import java.util.List;
+import java.util.Map;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -35,5 +36,28 @@ class UtilsTest {
         // then
         Assertions.assertThat(menus).hasSize(3)
                 .contains("양송이수프-1", "바비큐립-2", "레드와인-1");
+    }
+
+    @Test
+    public void 주문_내역_Map으로_변환한다() {
+        // given
+        final List<String> menus = List.of("양송이수프-1", "바비큐립-2", "레드와인-1");
+
+        // when
+        final Map<Menu, Integer> orderedMenus = Utils.convertToMenuQuantityMap(menus);
+
+        // then
+        Assertions.assertThat(orderedMenus).hasSize(3)
+                .containsKeys(Menu.getMenuByName("양송이수프"));
+    }
+
+    @Test
+    public void 주문_메뉴의_개수가_숫자가_아니면_예외가_발생한다() {
+        // given
+        final List<String> menus = List.of("양송이수프-1j", "바비큐립-2", "레드와인-1");
+
+        // then
+        Assertions.assertThatThrownBy(() -> Utils.convertToMenuQuantityMap(menus))
+                .isInstanceOf(IllegalArgumentException.class);
     }
 }
