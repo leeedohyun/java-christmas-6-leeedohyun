@@ -1,6 +1,7 @@
 package christmas.model;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
@@ -30,5 +31,19 @@ class MoneyTest {
 
         // then
         Assertions.assertFalse(isNotOverTenThousand);
+    }
+
+    @Test
+    public void 더하기_테스트() {
+        // given
+        final Money money1 = new Money(2_000);
+        final Money money2 = new Money(4_000);
+
+        // when
+        final Money plussedMoney = money1.plus(money2);
+        System.out.println("plussedMoney = " + plussedMoney);
+
+        // then
+        Assertions.assertEquals(plussedMoney, new Money(6_000));
     }
 }
