@@ -5,7 +5,7 @@ public enum Badge {
     STAR(new Money(5_000)),
     TREE(new Money(10_000)),
     SANTA(new Money(20_000)),
-    NONE(new Money(0));
+    NONE(Constants.ZERO_WON);
 
     private final Money standardPrice;
 

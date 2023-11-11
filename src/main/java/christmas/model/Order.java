@@ -22,22 +22,24 @@ public class Order {
     }
 
     public int countMainMenu() {
-        return (int) orderedMenus.keySet().stream()
+        return orderedMenus.keySet().stream()
                 .filter(orderedMenu -> orderedMenu.getMenuType() == MenuType.MAIN)
-                .count();
+                .mapToInt(orderedMenus::get)
+                .sum();
     }
 
     public int countDessert() {
-        return (int) orderedMenus.keySet().stream()
+        return orderedMenus.keySet().stream()
                 .filter(orderedMenu -> orderedMenu.getMenuType() == MenuType.DESSERT)
-                .count();
+                .mapToInt(orderedMenus::get)
+                .sum();
     }
 
     public Money calculateOrderedPriceBeforeDiscount() {
         return orderedMenus.keySet().stream()
                 .map(menu -> menu.calculateMenuPrice(orderedMenus.get(menu)))
                 .reduce(Money::plus)
-                .orElse(new Money(0));
+                .orElse(Constants.ZERO_WON);
     }
 
     public Map<Menu, Integer> getOrderedMenus() {
