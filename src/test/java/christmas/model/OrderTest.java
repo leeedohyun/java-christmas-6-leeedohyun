@@ -32,4 +32,17 @@ class OrderTest {
         // then
         Assertions.assertEquals(countedMainMenu, 2);
     }
+
+    @Test
+    public void 주문_내역에서_디저트_개수_테스트() {
+        // given
+        final List<Menu> orderedMenu = List.of(Menu.CHAMPAGNE, Menu.CHRISTMAS_PASTA, Menu.T_BONE_STEAK, Menu.ICE_CREAM);
+
+        // when
+        final Order order = new Order();
+        final int countedMainMenu = order.countDessert(orderedMenu);
+
+        // then
+        Assertions.assertEquals(countedMainMenu, 1);
+    }
 }
