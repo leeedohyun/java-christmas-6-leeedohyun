@@ -17,8 +17,6 @@ public enum Menu {
     RED_WINE("레드와인", new Money(6_0000), MenuType.BEVERAGE),
     CHAMPAGNE("샴페인", new Money(25_000), MenuType.BEVERAGE);
 
-    private static final String MENU_NOT_FOUND_EXCEPTION_MESSAGE = "[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.";
-
     private final String name;
     private final Money price;
     private final MenuType menuType;
@@ -34,7 +32,7 @@ public enum Menu {
         return Arrays.stream(values())
                 .filter(menu -> menu.name.equals(name))
                 .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException(MENU_NOT_FOUND_EXCEPTION_MESSAGE));
+                .orElseThrow(() -> new IllegalArgumentException(Constants.MENU_NOT_FOUND_EXCEPTION_MESSAGE));
     }
 
     public Money getPrice() {
@@ -47,7 +45,7 @@ public enum Menu {
 
     private static void validateMenuPresence(final String menu) {
         if (hasNotMenu(menu)) {
-            throw new IllegalArgumentException(MENU_NOT_FOUND_EXCEPTION_MESSAGE);
+            throw new IllegalArgumentException(Constants.MENU_NOT_FOUND_EXCEPTION_MESSAGE);
         }
     }
 
