@@ -9,20 +9,28 @@ public class Money {
 
     private final int money;
 
-    public Money(int money) {
+    public Money(final int money) {
         this.money = money;
     }
 
-    public Money plus(Money another) {
+    public Money plus(final Money another) {
         return new Money(money + another.money);
     }
 
-    public Money multiply(int numberOfMenu) {
+    public Money multiply(final int numberOfMenu) {
         return new Money(money * numberOfMenu);
     }
 
     public boolean isOverTenThousand() {
         return money >= MINIMUM_ORDER_PRICE;
+    }
+
+    public boolean isEqualAndOver(final Money another) {
+        return money >= another.money;
+    }
+
+    public boolean isUnder(final Money another) {
+        return money < another.money;
     }
 
     public String getFormattedMoney() {
