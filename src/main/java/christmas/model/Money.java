@@ -1,5 +1,6 @@
 package christmas.model;
 
+import java.text.DecimalFormat;
 import java.util.Objects;
 
 public class Money {
@@ -22,6 +23,11 @@ public class Money {
 
     public boolean isOverTenThousand() {
         return money >= MINIMUM_ORDER_PRICE;
+    }
+
+    public String getFormattedMoney() {
+        DecimalFormat decimalFormat = new DecimalFormat("###,###");
+        return decimalFormat.format(money);
     }
 
     @Override

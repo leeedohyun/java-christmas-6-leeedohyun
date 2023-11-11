@@ -1,5 +1,6 @@
 package christmas.model;
 
+import java.util.Collections;
 import java.util.Map;
 
 public class Order {
@@ -37,6 +38,10 @@ public class Order {
                 .map(menu -> menu.calculateMenuPrice(orderedMenus.get(menu)))
                 .reduce(Money::plus)
                 .orElse(new Money(0));
+    }
+
+    public Map<Menu, Integer> getOrderedMenus() {
+        return Collections.unmodifiableMap(orderedMenus);
     }
 
     private void validateOrderForBeverages(final Map<Menu, Integer> orderedMenus) {

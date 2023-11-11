@@ -41,4 +41,12 @@ public class Day {
     public boolean hasStar() {
         return DAYS_WITH_STAR.contains(day.getDayOfMonth());
     }
+
+    public int getMonth() {
+        return day.getMonthValue();
+    }
+
+    public int getDay() {
+        return day.getDayOfMonth();
+    }
 }
