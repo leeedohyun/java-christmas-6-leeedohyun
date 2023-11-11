@@ -5,8 +5,6 @@ import java.util.Objects;
 
 public class Money {
 
-    private static final int MINIMUM_ORDER_PRICE = 10000;
-
     private final int money;
 
     public Money(final int money) {
@@ -19,10 +17,6 @@ public class Money {
 
     public Money multiply(final int numberOfMenu) {
         return new Money(money * numberOfMenu);
-    }
-
-    public boolean isOverTenThousand() {
-        return money >= MINIMUM_ORDER_PRICE;
     }
 
     public boolean isEqualAndOver(final Money another) {
