@@ -1,6 +1,8 @@
 package christmas.model;
 
+import java.util.List;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
@@ -20,5 +22,18 @@ class UtilsTest {
         // then
         Assertions.assertThatThrownBy(() -> Utils.convertStringToInt(day))
                 .isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @Test
+    public void 콤마를_기준으로_서로_다른_메뉴를_분리한다() {
+        // given
+        final String input = "양송이수프-1,바비큐립-2,레드와인-1";
+
+        // when
+        final List<String> menus = Utils.splitDifferentMenus(input);
+
+        // then
+        Assertions.assertThat(menus).hasSize(3)
+                .contains("양송이수프-1", "바비큐립-2", "레드와인-1");
     }
 }
