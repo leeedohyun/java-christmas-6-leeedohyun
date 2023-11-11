@@ -69,4 +69,24 @@ class OrderTest {
         // then
         Assertions.assertThrows(IllegalArgumentException.class, () -> new Order(orderedMenu));
     }
+
+    @Test
+    public void 총_주문_개수가_20이_넘으면_예외가_발생한다() {
+        // given
+        final Map<Menu, Integer> orderedMenu = Map.of(Menu.CHAMPAGNE, 5,
+                Menu.CHRISTMAS_PASTA, 4, Menu.T_BONE_STEAK, 5, Menu.ICE_CREAM, 7);
+
+        // then
+        Assertions.assertThrows(IllegalArgumentException.class, () -> new Order(orderedMenu));
+    }
+
+    @Test
+    public void 주문_개수가_1개미만인_메뉴가_있으면_예외가_발생한다() {
+        // given
+        final Map<Menu, Integer> orderedMenu = Map.of(Menu.CHAMPAGNE, -1,
+                Menu.CHRISTMAS_PASTA, 4, Menu.T_BONE_STEAK, 5, Menu.ICE_CREAM, 7);
+
+        // then
+        Assertions.assertThrows(IllegalArgumentException.class, () -> new Order(orderedMenu));
+    }
 }
