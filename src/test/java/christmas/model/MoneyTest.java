@@ -41,7 +41,19 @@ class MoneyTest {
 
         // when
         final Money plussedMoney = money1.plus(money2);
-        System.out.println("plussedMoney = " + plussedMoney);
+
+        // then
+        Assertions.assertEquals(plussedMoney, new Money(6_000));
+    }
+
+    @Test
+    public void 곱하기_테스트() {
+        // given
+        final Money money = new Money(2_000);
+        final int quantity = 3;
+
+        // when
+        final Money plussedMoney = money.multiply(quantity);
 
         // then
         Assertions.assertEquals(plussedMoney, new Money(6_000));

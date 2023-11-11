@@ -58,7 +58,7 @@ class OrderTest {
         final Money priceBeforeDiscount = order.calculateOrderedPriceBeforeDiscount();
 
         // then
-        Assertions.assertEquals(priceBeforeDiscount, new Money(110_000));
+        Assertions.assertEquals(priceBeforeDiscount, new Money(245_000));
     }
 
     @Test
