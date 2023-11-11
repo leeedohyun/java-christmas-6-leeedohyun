@@ -29,10 +29,12 @@ public enum Menu {
         this.menuType = menuType;
     }
 
-    public static void validateMenuPresence(final String menu) {
-        if (!hasMenu(menu)) {
-            throw new IllegalArgumentException(MENU_NOT_FOUND_EXCEPTION_MESSAGE);
-        }
+    public static Menu getMenuByName(final String name) {
+        validateMenuPresence(name);
+        return Arrays.stream(values())
+                .filter(menu -> menu.name.equals(name))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException(MENU_NOT_FOUND_EXCEPTION_MESSAGE));
     }
 
     public Money getPrice() {
@@ -43,8 +45,14 @@ public enum Menu {
         return menuType;
     }
 
-    private static boolean hasMenu(final String menu) {
+    private static void validateMenuPresence(final String menu) {
+        if (hasNotMenu(menu)) {
+            throw new IllegalArgumentException(MENU_NOT_FOUND_EXCEPTION_MESSAGE);
+        }
+    }
+
+    private static boolean hasNotMenu(final String menu) {
         return Arrays.stream(values())
-                .anyMatch(value -> value.name.equals(menu));
+                .noneMatch(value -> value.name.equals(menu));
     }
 }
