@@ -34,7 +34,7 @@ public class Order {
 
     public Money calculateOrderedPriceBeforeDiscount() {
         return orderedMenus.keySet().stream()
-                .map(Menu::getPrice)
+                .map(menu -> menu.calculateMenuPrice(orderedMenus.get(menu)))
                 .reduce(Money::plus)
                 .orElse(new Money(0));
     }

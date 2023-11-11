@@ -16,6 +16,10 @@ public class Money {
         return new Money(money + another.money);
     }
 
+    public Money multiply(int numberOfMenu) {
+        return new Money(money * numberOfMenu);
+    }
+
     public boolean isOverTenThousand() {
         return money >= MINIMUM_ORDER_PRICE;
     }
