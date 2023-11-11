@@ -1,5 +1,7 @@
 package christmas.model;
 
+import java.util.Arrays;
+
 public enum Menu {
 
     MUSHROOM_SOUP("양송이수프", new Money(6_000), MenuType.APPETIZER),
@@ -15,14 +17,22 @@ public enum Menu {
     RED_WINE("레드와인", new Money(6_0000), MenuType.BEVERAGE),
     CHAMPAGNE("샴페인", new Money(25_000), MenuType.BEVERAGE);
 
+    private static final String MENU_NOT_FOUND_EXCEPTION_MESSAGE = "[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.";
+
     private final String name;
     private final Money price;
     private final MenuType menuType;
 
-    Menu(String name, Money price, MenuType menuType) {
+    Menu(final String name, final Money price, final MenuType menuType) {
         this.name = name;
         this.price = price;
         this.menuType = menuType;
+    }
+
+    public static void validateMenuPresence(final String menu) {
+        if (!hasMenu(menu)) {
+            throw new IllegalArgumentException(MENU_NOT_FOUND_EXCEPTION_MESSAGE);
+        }
     }
 
     public Money getPrice() {
@@ -31,5 +41,10 @@ public enum Menu {
 
     public MenuType getMenuType() {
         return menuType;
+    }
+
+    private static boolean hasMenu(final String menu) {
+        return Arrays.stream(values())
+                .anyMatch(value -> value.name.equals(menu));
     }
 }
