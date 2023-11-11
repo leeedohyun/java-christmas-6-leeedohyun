@@ -4,10 +4,15 @@ import java.util.Map;
 
 public class Order {
 
+    private static final int MINIMUM_ORDERED_MENUS = 1;
+    private static final int MAXIMUM_ORDERED_MENUS = 20;
+
     private final Map<Menu, Integer> orderedMenus;
 
-    public Order(Map<Menu, Integer> orderedMenus) {
+    public Order(final Map<Menu, Integer> orderedMenus) {
         validateOrderForBeverages(orderedMenus);
+        validateNumberOfOrderedMenus(orderedMenus);
+        validateMinimumOrderQuantity(orderedMenus);
         this.orderedMenus = orderedMenus;
     }
 
@@ -34,14 +39,42 @@ public class Order {
                 .orElse(new Money(0));
     }
 
-    public void validateOrderForBeverages(Map<Menu, Integer> orderedMenus) {
+    private void validateOrderForBeverages(final Map<Menu, Integer> orderedMenus) {
         if (containsOnlyBeverages(orderedMenus)) {
             throw new IllegalArgumentException(Constants.MENU_NOT_FOUND_EXCEPTION_MESSAGE);
         }
     }
 
-    private boolean containsOnlyBeverages(Map<Menu, Integer> orderedMenus) {
+    private boolean containsOnlyBeverages(final Map<Menu, Integer> orderedMenus) {
         return orderedMenus.keySet().stream()
                 .allMatch(menu -> menu.getMenuType() == MenuType.BEVERAGE);
+    }
+
+    private void validateNumberOfOrderedMenus(final Map<Menu, Integer> orderedMenus) {
+        int numberOfMenus = countNumberOfOrderedMenus(orderedMenus);
+        if (isInvalidNumberOfMenus(numberOfMenus)) {
+            throw new IllegalArgumentException(Constants.MENU_NOT_FOUND_EXCEPTION_MESSAGE);
+        }
+    }
+
+    private boolean isInvalidNumberOfMenus(final int numberOfMenus) {
+        return numberOfMenus > MAXIMUM_ORDERED_MENUS;
+    }
+
+    private int countNumberOfOrderedMenus(final Map<Menu, Integer> orderedMenus) {
+        return orderedMenus.values().stream()
+                .mapToInt(Integer::intValue)
+                .sum();
+    }
+
+    private void validateMinimumOrderQuantity(final Map<Menu, Integer> orderedMenus) {
+        if (isInvalidNumberOfMenu(orderedMenus)) {
+            throw new IllegalArgumentException(Constants.MENU_NOT_FOUND_EXCEPTION_MESSAGE);
+        }
+    }
+
+    private boolean isInvalidNumberOfMenu(final Map<Menu, Integer> orderedMenus) {
+        return orderedMenus.values().stream()
+                .anyMatch(quantity -> quantity < MINIMUM_ORDERED_MENUS);
     }
 }
