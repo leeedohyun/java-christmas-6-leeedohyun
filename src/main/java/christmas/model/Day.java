@@ -7,16 +7,14 @@ import java.util.List;
 
 public class Day {
 
-    private static final int YEAR = 2023;
-    private static final int MONTH = 12;
     private static final int START_DATE = 1;
     private static final int CHRISTMAS_DATE = 25;
     private static final int END_DATE = 31;
     private static final List<Integer> DAYS_WITH_STAR = List.of(3, 10, 17, 24, 25, 31);
 
-    private static final LocalDate EVENT_START_DATE = LocalDate.of(YEAR, MONTH, START_DATE);
-    private static final LocalDate CHRISTMAS = LocalDate.of(YEAR, MONTH, CHRISTMAS_DATE);
-    private static final LocalDate EVENT_END_DATE = LocalDate.of(YEAR, MONTH, END_DATE);
+    private static final LocalDate EVENT_START_DATE = LocalDate.of(Constants.YEAR, Constants.MONTH, START_DATE);
+    private static final LocalDate CHRISTMAS = LocalDate.of(Constants.YEAR, Constants.MONTH, CHRISTMAS_DATE);
+    private static final LocalDate EVENT_END_DATE = LocalDate.of(Constants.YEAR, Constants.MONTH, END_DATE);
 
     private final LocalDate day;
 

@@ -1,5 +1,7 @@
 package christmas.model;
 
+import java.time.DateTimeException;
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -14,10 +16,10 @@ public final class Utils {
     private Utils() {
     }
 
-    public static int convertStringToInt(final String string) {
+    public static LocalDate convertStringToLocalDate(final String day) {
         try {
-            return Integer.parseInt(string);
-        } catch (NumberFormatException numberFormatException) {
+            return LocalDate.of(Constants.YEAR, Constants.MONTH, convertStringToInt(day));
+        } catch (final DateTimeException dateTimeException) {
             throw new IllegalArgumentException(DATE_FORMAT_EXCEPTION_MESSAGE);
         }
     }
@@ -27,12 +29,20 @@ public final class Utils {
                 .toList();
     }
 
-    public static Map<Menu, Integer> convertToMenuQuantityMap(List<String> menus) {
+    public static Map<Menu, Integer> convertToMenuQuantityMap(final List<String> menus) {
         return menus.stream()
                 .map(menu -> Arrays.asList(menu.split(MENU_AND_QUANTITY_SEPARATOR)))
                 .collect(Collectors.toMap(
                         menu -> Menu.getMenuByName(menu.get(0)),
                         menu -> convertStringToInt(menu.get(1)))
                 );
+    }
+
+    private static int convertStringToInt(final String string) {
+        try {
+            return Integer.parseInt(string);
+        } catch (final NumberFormatException numberFormatException) {
+            throw new IllegalArgumentException(DATE_FORMAT_EXCEPTION_MESSAGE);
+        }
     }
 }
