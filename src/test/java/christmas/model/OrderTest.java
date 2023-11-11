@@ -30,21 +30,21 @@ class OrderTest {
         final int countedMainMenu = order.countMainMenu();
 
         // then
-        Assertions.assertEquals(countedMainMenu, 2);
+        Assertions.assertEquals(countedMainMenu, 5);
     }
 
     @Test
     public void 주문_내역에서_디저트_개수_테스트() {
         // given
         final Map<Menu, Integer> orderedMenu = Map.of(Menu.CHAMPAGNE, 1,
-                Menu.CHRISTMAS_PASTA, 2, Menu.T_BONE_STEAK, 3, Menu.ICE_CREAM, 1);
+                Menu.CHRISTMAS_PASTA, 2, Menu.T_BONE_STEAK, 3, Menu.ICE_CREAM, 2);
 
         // when
         final Order order = new Order(orderedMenu);
         final int countedMainMenu = order.countDessert();
 
         // then
-        Assertions.assertEquals(countedMainMenu, 1);
+        Assertions.assertEquals(countedMainMenu, 2);
     }
 
     @Test
