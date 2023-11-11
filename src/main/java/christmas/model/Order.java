@@ -13,4 +13,10 @@ public class Order {
                 .filter(orderedMenu -> orderedMenu.getMenuType() == MenuType.MAIN)
                 .count();
     }
+
+    public int countDessert(List<Menu> orderedMenus) {
+        return (int) orderedMenus.stream()
+                .filter(orderedMenu -> orderedMenu.getMenuType() == MenuType.DESSERT)
+                .count();
+    }
 }
