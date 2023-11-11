@@ -14,7 +14,7 @@ class MoneyTest {
         final Money money = new Money(price);
 
         // when
-        final boolean isOverTenThousand = money.isOverTenThousand();
+        final boolean isOverTenThousand = money.isEqualAndOver(new Money(10_000));
 
         // then
         Assertions.assertTrue(isOverTenThousand);
@@ -22,15 +22,15 @@ class MoneyTest {
 
     @ParameterizedTest
     @ValueSource(ints = {9_999, 8_000, 7_000})
-    public void 총_주문_금액이_10000원_이하이면_false를_반환한다(final int price) {
+    public void 총_주문_금액이_10000원_미만이면_true를_반환한다(final int price) {
         // given
         final Money money = new Money(price);
 
         // when
-        final boolean isNotOverTenThousand = money.isOverTenThousand();
+        final boolean isNotOverTenThousand = money.isUnder(new Money(10_000));
 
         // then
-        Assertions.assertFalse(isNotOverTenThousand);
+        Assertions.assertTrue(isNotOverTenThousand);
     }
 
     @Test
