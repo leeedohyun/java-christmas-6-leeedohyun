@@ -11,11 +11,13 @@ import christmas.model.Order;
 import christmas.model.Utils;
 import christmas.model.discount.DDay;
 import christmas.model.discount.Discount;
+import christmas.model.discount.DiscountManager;
 import christmas.model.discount.Special;
 import christmas.model.discount.WeekDay;
 import christmas.model.discount.Weekend;
 import christmas.view.InputView;
 import christmas.view.OutputView;
+import java.util.List;
 import java.util.Map;
 
 public class ChristmasController {
@@ -48,33 +50,38 @@ public class ChristmasController {
         Discount weekendDiscount = new Weekend();
         Discount specialDiscount = new Special();
 
-        Money dDay = dDayDiscount.discount(day, total, 0);
-        Money weekDay = weekDayDiscount.discount(day, total, order.countDessert());
-        Money weekend = weekendDiscount.discount(day, total, order.countMainMenu());
-        Money special = specialDiscount.discount(day, total, 0);
+        DiscountManager discountManager = new DiscountManager();
 
-        System.out.println("<혜택 내역>");
+        List<Money> discountPrices = discountManager.calculateTotalDiscountPrice(day, total, order);
+        Money discountPrice = discountPrices.stream()
+                .reduce(Money::plus)
+                .orElse(Constants.ZERO_WON);
+
+        Money dDay = dDayDiscount.discount(day, total, order);
+        Money weekDay = weekDayDiscount.discount(day, total, order);
+        Money weekend = weekendDiscount.discount(day, total, order);
+        Money special = specialDiscount.discount(day, total, order);
+
         Money event = giveawayEvent.getGiveawayMenuPrice();
 
+        System.out.println("<혜택 내역>");
         outputView.printBenefitDetails("크리스마스 디데이 할인", dDay);
         outputView.printBenefitDetails("평일 할인", weekDay);
         outputView.printBenefitDetails("주말 할인", weekend);
         outputView.printBenefitDetails("특별 할인", special);
         outputView.printBenefitDetails("증정 이벤트", event);
 
-        if (dDay.equals(Constants.ZERO_WON) && weekDay.equals(Constants.ZERO_WON) && weekend.equals(
-                Constants.ZERO_WON)
-                && special.equals(Constants.ZERO_WON) && !giveawayEvent.isEventActive()) {
-            System.out.println("없음\n");
+        if (discountPrice.equals(Constants.ZERO_WON) && !giveawayEvent.isEventActive()) {
+            System.out.println("없음");
         }
 
         System.out.println();
-        Money discountPrice = dDay.plus(weekDay.plus(weekend.plus(special.plus(event))));
-        outputView.printTotalBenefitPrice(discountPrice);
+        Money totalBenefitPrice = discountPrice.plus(event);
+        outputView.printTotalBenefitPrice(totalBenefitPrice);
 
-        outputView.printDiscountedPrice(total.plus(discountPrice.multiply(-1).plus(event)));
+        outputView.printDiscountedPrice(total.plus(discountPrice));
 
-        Badge badge = Badge.decide(discountPrice);
+        Badge badge = Badge.decide(totalBenefitPrice);
         outputView.printBadge(badge);
 
     }

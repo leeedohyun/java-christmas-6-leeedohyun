@@ -3,6 +3,7 @@ package christmas.model.discount;
 import christmas.model.Constants;
 import christmas.model.Day;
 import christmas.model.Money;
+import christmas.model.Order;
 
 public class Weekend implements Discount {
 
@@ -10,9 +11,9 @@ public class Weekend implements Discount {
     private static final Money MINIMUM_ORDER_PRICE = new Money(10_000);
 
     @Override
-    public Money discount(final Day visitedDay, final Money totalPrice, final int numberOfMenus) {
+    public Money discount(final Day visitedDay, final Money totalPrice, final Order order) {
         if (visitedDay.isEventNotEnded() && visitedDay.isWeekend() && totalPrice.isEqualAndOver(MINIMUM_ORDER_PRICE)) {
-            return WEEKEND_DISCOUNT_PRICE.multiply(numberOfMenus);
+            return WEEKEND_DISCOUNT_PRICE.multiply(order.countMainMenu());
         }
         return Constants.ZERO_WON;
     }

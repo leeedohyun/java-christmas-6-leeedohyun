@@ -17,6 +17,7 @@ public class OutputView {
     private static final String ORDER_MENU_FORMAT = "%s %d개\n";
     private static final String PRICE_BEFORE_DISCOUNT_HEADER = "<할인 전 총주문 금액>";
     private static final String PRICE_FORMAT = "%s원\n";
+    private static final String DISCOUNT_PRICE_FORMAT = "-%s원\n";
     public static final String TOTAL_BENEFIT_PRICE_HEADER = "<총혜택 금액>";
     private static final String DISCOUNTED_PRICE_HEADER = "<할인 후 예상 결제 금액>";
     private static final String BADGE_HEADER = "<12월 이벤트 배지>";
@@ -53,7 +54,7 @@ public class OutputView {
 
     public void printTotalBenefitPrice(final Money totalBenefitPrice) {
         System.out.println(TOTAL_BENEFIT_PRICE_HEADER);
-        System.out.printf(PRICE_FORMAT, totalBenefitPrice.getFormattedMoney());
+        System.out.printf(DISCOUNT_PRICE_FORMAT, totalBenefitPrice.getFormattedMoney());
         printEmptyLine();
     }
 
