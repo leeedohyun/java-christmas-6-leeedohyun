@@ -58,4 +58,17 @@ class MoneyTest {
         // then
         Assertions.assertEquals(plussedMoney, new Money(6_000));
     }
+
+    @Test
+    public void 빼기_테스트() {
+        // given
+        final Money money1 = new Money(3_000);
+        final Money money2 = new Money(1_000);
+
+        // when
+        final Money minusedMoney = money1.minus(money2);
+
+        // then
+        Assertions.assertEquals(minusedMoney, new Money(2_000));
+    }
 }
