@@ -9,14 +9,15 @@ class OrderTest {
     @Test
     public void 할인된_금액_테스트() {
         // given
-        final int totalPrice = 10_000;
-        final int discountPrice = 1_000;
+        final Money totalPrice = new Money(10_000);
+        final Money discountPrice = new Money(1_000);
 
         // when
-        final int discountedPrice = Order.calculateDiscountedPrice(totalPrice, discountPrice);
+
+        final Money discountedPrice = Order.calculateDiscountedPrice(totalPrice, discountPrice);
 
         // then
-        Assertions.assertEquals(discountedPrice, 9_000);
+        Assertions.assertEquals(discountedPrice, new Money(9_000));
     }
 
     @Test
@@ -27,7 +28,7 @@ class OrderTest {
 
         // when
         final Order order = new Order(orderedMenu);
-        final int countedMainMenu = order.countMainMenu();
+        final int countedMainMenu = order.countNumberOfMenusByMenuType(MenuType.MAIN);
 
         // then
         Assertions.assertEquals(countedMainMenu, 5);
@@ -41,7 +42,7 @@ class OrderTest {
 
         // when
         final Order order = new Order(orderedMenu);
-        final int countedMainMenu = order.countDessert();
+        final int countedMainMenu = order.countNumberOfMenusByMenuType(MenuType.DESSERT);
 
         // then
         Assertions.assertEquals(countedMainMenu, 2);
