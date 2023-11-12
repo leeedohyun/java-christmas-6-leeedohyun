@@ -1,5 +1,10 @@
 package christmas.model;
 
+import christmas.model.discount.DDay;
+import christmas.model.discount.Discount;
+import christmas.model.discount.Special;
+import christmas.model.discount.WeekDay;
+import christmas.model.discount.Weekend;
 import java.time.LocalDate;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -13,8 +18,8 @@ class DiscountTest {
         final Money totalPrice = new Money(10000);
 
         // when
-        final Discount discount = new Discount();
-        final Money discountPrice = discount.discountDDay(visitedDay, totalPrice);
+        final Discount dDay = new DDay();
+        final Money discountPrice = dDay.discount(visitedDay, totalPrice, 0);
 
         // then
         Assertions.assertEquals(discountPrice, new Money(1900));
@@ -27,8 +32,8 @@ class DiscountTest {
         final Money totalPrice = new Money(10000);
 
         // when
-        final Discount discount = new Discount();
-        final Money discountPrice = discount.discountDDay(visitedDay, totalPrice);
+        final Discount dDay = new DDay();
+        final Money discountPrice = dDay.discount(visitedDay, totalPrice, 0);
 
         // then
         Assertions.assertEquals(discountPrice, new Money(0));
@@ -41,8 +46,8 @@ class DiscountTest {
         final Money totalPrice = new Money(9900);
 
         // when
-        final Discount discount = new Discount();
-        final Money discountPrice = discount.discountDDay(visitedDay, totalPrice);
+        final Discount dDay = new DDay();
+        final Money discountPrice = dDay.discount(visitedDay, totalPrice, 0);
 
         // then
         Assertions.assertEquals(discountPrice, new Money(0));
@@ -56,8 +61,8 @@ class DiscountTest {
         final int numberOfDessertMenu = 3;
 
         // when
-        final Discount discount = new Discount();
-        final Money discountPrice = discount.discountWeekDay(visitedDay, totalPrice, numberOfDessertMenu);
+        final Discount weekDay = new WeekDay();
+        final Money discountPrice = weekDay.discount(visitedDay, totalPrice, numberOfDessertMenu);
 
         // then
         Assertions.assertEquals(discountPrice, new Money(6069));
@@ -71,8 +76,8 @@ class DiscountTest {
         final int numberOfDessertMenu = 3;
 
         // when
-        final Discount discount = new Discount();
-        final Money discountPrice = discount.discountWeekDay(visitedDay, totalPrice, numberOfDessertMenu);
+        final Discount weekDay = new WeekDay();
+        final Money discountPrice = weekDay.discount(visitedDay, totalPrice, numberOfDessertMenu);
 
         // then
         Assertions.assertEquals(discountPrice, new Money(0));
@@ -86,8 +91,8 @@ class DiscountTest {
         final int numberOfDessertMenu = 0;
 
         // when
-        final Discount discount = new Discount();
-        final Money discountPrice = discount.discountWeekDay(visitedDay, totalPrice, numberOfDessertMenu);
+        final Discount weekDay = new WeekDay();
+        final Money discountPrice = weekDay.discount(visitedDay, totalPrice, numberOfDessertMenu);
 
         // then
         Assertions.assertEquals(discountPrice, new Money(0));
@@ -101,8 +106,8 @@ class DiscountTest {
         final int numberOfMainMenu = 2;
 
         // when
-        final Discount discount = new Discount();
-        final Money discountPrice = discount.discountWeekend(visitedDay, totalPrice, numberOfMainMenu);
+        final Discount weekend = new Weekend();
+        final Money discountPrice = weekend.discount(visitedDay, totalPrice, numberOfMainMenu);
 
         // then
         Assertions.assertEquals(discountPrice, new Money(4046));
@@ -116,25 +121,23 @@ class DiscountTest {
         final int numberOfMainMenu = 2;
 
         // when
-        final Discount discount = new Discount();
-        final Money discountPrice = discount.discountWeekend(visitedDay, totalPrice, numberOfMainMenu);
+        final Discount weekend = new Weekend();
+        final Money discountPrice = weekend.discount(visitedDay, totalPrice, numberOfMainMenu);
 
         // then
         Assertions.assertEquals(discountPrice, new Money(0));
     }
 
     @Test
-    public void 메인_메뉴의_개수가_0개이면_평일_할인_금액은_0원이다() {
+    public void 메인_메뉴의_개수가_0개이면_주말_할인_금액은_0원이다() {
         // given
         final Day visitedDay = new Day(LocalDate.of(2023, 12, 30));
         final Money totalPrice = new Money(9900);
         final int numberOfMainMenu = 0;
 
         // when
-        final Discount discount = new Discount();
-        final Money discountPrice = discount.discountWeekDay(visitedDay, totalPrice, numberOfMainMenu);
-
-        // then
+        final Discount weekend = new Weekend();
+        final Money discountPrice = weekend.discount(visitedDay, totalPrice, numberOfMainMenu);
         Assertions.assertEquals(discountPrice, new Money(0));
     }
 
@@ -145,8 +148,8 @@ class DiscountTest {
         final Money totalPrice = new Money(10000);
 
         // when
-        final Discount discount = new Discount();
-        final Money discountPrice = discount.discountSpecial(visitedDay, totalPrice);
+        final Discount special = new Special();
+        final Money discountPrice = special.discount(visitedDay, totalPrice, 0);
 
         // then
         Assertions.assertEquals(discountPrice, new Money(1000));
@@ -159,8 +162,8 @@ class DiscountTest {
         final Money totalPrice = new Money(9900);
 
         // when
-        final Discount discount = new Discount();
-        final Money discountPrice = discount.discountSpecial(visitedDay, totalPrice);
+        final Discount special = new Special();
+        final Money discountPrice = special.discount(visitedDay, totalPrice, 0);
 
         // then
         Assertions.assertEquals(discountPrice, new Money(0));
@@ -173,8 +176,8 @@ class DiscountTest {
         final Money totalPrice = new Money(10000);
 
         // when
-        final Discount discount = new Discount();
-        final Money discountPrice = discount.discountSpecial(visitedDay, totalPrice);
+        final Discount special = new Special();
+        final Money discountPrice = special.discount(visitedDay, totalPrice, 0);
 
         // then
         Assertions.assertEquals(discountPrice, new Money(0));
