@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public final class Utils {
@@ -16,14 +17,12 @@ public final class Utils {
     private Utils() {
     }
 
-    public static LocalDate convertStringToLocalDate(final String day) {
-        try {
-            return LocalDate.of(Constants.YEAR, Constants.MONTH, convertStringToInt(day));
-        } catch (final DateTimeException dateTimeException) {
-            throw new IllegalArgumentException(DATE_FORMAT_EXCEPTION_MESSAGE);
-        }
+    public static LocalDate convertStringToLocalDate(final String inputDate) {
+        int date = convertStringToInt(inputDate)
+                .orElseThrow(() -> new IllegalArgumentException(DATE_FORMAT_EXCEPTION_MESSAGE));
+        return createLocalDate(date);
     }
-
+    
     public static List<String> splitDifferentMenus(final String string) {
         return Arrays.stream(string.split(MENU_SEPARATOR))
                 .toList();
@@ -34,15 +33,28 @@ public final class Utils {
                 .map(menu -> Arrays.asList(menu.split(MENU_AND_QUANTITY_SEPARATOR)))
                 .collect(Collectors.toMap(
                         menu -> Menu.getMenuByName(menu.get(0)),
-                        menu -> convertStringToInt(menu.get(1)))
+                        menu -> convertStringToMenuQuantity(menu.get(1)))
                 );
     }
 
-    private static int convertStringToInt(final String string) {
+    private static Optional<Integer> convertStringToInt(final String string) {
         try {
-            return Integer.parseInt(string);
+            return Optional.of(Integer.parseInt(string));
         } catch (final NumberFormatException numberFormatException) {
+            return Optional.empty();
+        }
+    }
+
+    private static LocalDate createLocalDate(final int date) {
+        try {
+            return LocalDate.of(Constants.YEAR, Constants.MONTH, date);
+        } catch (final DateTimeException dateTimeException) {
             throw new IllegalArgumentException(DATE_FORMAT_EXCEPTION_MESSAGE);
         }
+    }
+
+    private static int convertStringToMenuQuantity(final String quantity) {
+        return convertStringToInt(quantity)
+                .orElseThrow(() -> new IllegalArgumentException(Constants.MENU_NOT_FOUND_EXCEPTION_MESSAGE));
     }
 }
