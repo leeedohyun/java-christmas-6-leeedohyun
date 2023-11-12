@@ -17,20 +17,13 @@ public class Order {
         this.orderedMenus = orderedMenus;
     }
 
-    public static int calculateDiscountedPrice(final int totalPrice, final int discountPrice) {
-        return totalPrice - discountPrice;
+    public static Money calculateDiscountedPrice(final Money totalPrice, final Money discountPrice) {
+        return totalPrice.minus(discountPrice);
     }
 
-    public int countMainMenu() {
+    public int countNumberOfMenusByMenuType(final MenuType menuType) {
         return orderedMenus.keySet().stream()
-                .filter(orderedMenu -> orderedMenu.getMenuType() == MenuType.MAIN)
-                .mapToInt(orderedMenus::get)
-                .sum();
-    }
-
-    public int countDessert() {
-        return orderedMenus.keySet().stream()
-                .filter(orderedMenu -> orderedMenu.getMenuType() == MenuType.DESSERT)
+                .filter(orderedMenu -> orderedMenu.getMenuType() == menuType)
                 .mapToInt(orderedMenus::get)
                 .sum();
     }

@@ -19,6 +19,10 @@ public class Money {
         return new Money(money * numberOfMenu);
     }
 
+    public Money minus(final Money another) {
+        return new Money(money - another.money);
+    }
+
     public boolean isEqualAndOver(final Money another) {
         return money >= another.money;
     }
