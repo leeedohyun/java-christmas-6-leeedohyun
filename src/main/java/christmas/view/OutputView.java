@@ -66,6 +66,10 @@ public class OutputView {
         System.out.println(badge.getName());
     }
 
+    public void printExceptionMessage(final Exception exception) {
+        System.out.println(exception.getMessage());
+    }
+
     private void printEmptyLine() {
         System.out.println();
     }

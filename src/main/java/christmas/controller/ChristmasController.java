@@ -1,5 +1,6 @@
 package christmas.controller;
 
+import christmas.exception.ExceptionHandler;
 import christmas.model.Badge;
 import christmas.model.Constants;
 import christmas.model.Day;
@@ -25,91 +26,79 @@ public class ChristmasController {
 
     public void play() {
         outputView.printWelcomeMessage();
-        try {
-            Day day = createValidDate();
+        Day day = createValidDate();
 
-            Order order = createValidOrder();
+        Order order = createValidOrder();
 
-            outputView.printEventPreview(day);
-            outputView.printOrderedMenus(order);
+        outputView.printEventPreview(day);
+        outputView.printOrderedMenus(order);
 
-            Money total = order.calculateOrderedPriceBeforeDiscount();
-            outputView.printPriceBeforeDiscount(total);
+        Money total = order.calculateOrderedPriceBeforeDiscount();
+        outputView.printPriceBeforeDiscount(total);
 
-            System.out.println("<증정 메뉴>");
-            GiveawayEvent giveawayEvent = GiveawayEvent.create(total);
-            System.out.println(giveawayEvent.getGiveawayMenu());
+        System.out.println("<증정 메뉴>");
+        GiveawayEvent giveawayEvent = GiveawayEvent.create(total);
+        System.out.println(giveawayEvent.getGiveawayMenu());
 
-            Discount discount = new Discount();
+        Discount discount = new Discount();
 
-            Money dDay = discount.discountDDay(day, total);
-            Money weekDay = discount.discountWeekDay(day, total, order.countDessert());
-            Money weekend = discount.discountWeekend(day, total, order.countMainMenu());
-            Money special = discount.discountSpecial(day, total);
+        Money dDay = discount.discountDDay(day, total);
+        Money weekDay = discount.discountWeekDay(day, total, order.countDessert());
+        Money weekend = discount.discountWeekend(day, total, order.countMainMenu());
+        Money special = discount.discountSpecial(day, total);
 
-            System.out.println();
-            System.out.println("<혜택 내역>");
-            Money event = giveawayEvent.getGiveawayMenuPrice();
-            if (!dDay.equals(Constants.ZERO_WON)) {
-                System.out.printf("크리스마스 디데이 할인: -%s원\n", dDay.getFormattedMoney());
-            }
-            if (!weekDay.equals(Constants.ZERO_WON)) {
-                System.out.printf("평일 할인: -%s원\n", weekDay.getFormattedMoney());
-            }
-            if (!weekend.equals(Constants.ZERO_WON)) {
-                System.out.printf("주말 할인: -%s원\n", weekend.getFormattedMoney());
-            }
-            if (!special.equals(Constants.ZERO_WON)) {
-                System.out.printf("특별 할인: -%s원\n", special.getFormattedMoney());
-            }
-            if (giveawayEvent.isEventActive()) {
-                System.out.printf("증정 이벤트: -%s원\n", event.getFormattedMoney());
-                System.out.println();
-            }
-            if (dDay.equals(Constants.ZERO_WON) && weekDay.equals(Constants.ZERO_WON) && weekend.equals(
-                    Constants.ZERO_WON)
-                    && special.equals(Constants.ZERO_WON) && !giveawayEvent.isEventActive()) {
-                System.out.println("없음\n");
-            }
-
-            System.out.println();
-            Money discountPrice = dDay.plus(weekDay.plus(weekend.plus(special.plus(event))));
-            outputView.printTotalBenefitPrice(discountPrice);
-
-            outputView.printDiscountedPrice(total.plus(discountPrice.multiply(-1).plus(event)));
-
-            Badge badge = Badge.decide(discountPrice);
-            outputView.printBadge(badge);
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
+        System.out.println();
+        System.out.println("<혜택 내역>");
+        Money event = giveawayEvent.getGiveawayMenuPrice();
+        if (!dDay.equals(Constants.ZERO_WON)) {
+            System.out.printf("크리스마스 디데이 할인: -%s원\n", dDay.getFormattedMoney());
         }
+        if (!weekDay.equals(Constants.ZERO_WON)) {
+            System.out.printf("평일 할인: -%s원\n", weekDay.getFormattedMoney());
+        }
+        if (!weekend.equals(Constants.ZERO_WON)) {
+            System.out.printf("주말 할인: -%s원\n", weekend.getFormattedMoney());
+        }
+        if (!special.equals(Constants.ZERO_WON)) {
+            System.out.printf("특별 할인: -%s원\n", special.getFormattedMoney());
+        }
+        if (giveawayEvent.isEventActive()) {
+            System.out.printf("증정 이벤트: -%s원\n", event.getFormattedMoney());
+            System.out.println();
+        }
+        if (dDay.equals(Constants.ZERO_WON) && weekDay.equals(Constants.ZERO_WON) && weekend.equals(
+                Constants.ZERO_WON)
+                && special.equals(Constants.ZERO_WON) && !giveawayEvent.isEventActive()) {
+            System.out.println("없음\n");
+        }
+
+        System.out.println();
+        Money discountPrice = dDay.plus(weekDay.plus(weekend.plus(special.plus(event))));
+        outputView.printTotalBenefitPrice(discountPrice);
+
+        outputView.printDiscountedPrice(total.plus(discountPrice.multiply(-1).plus(event)));
+
+        Badge badge = Badge.decide(discountPrice);
+        outputView.printBadge(badge);
+
     }
 
     private Day createValidDate() {
-        try {
+        return ExceptionHandler.createValidObject(() -> {
             outputView.printVisitDateMessage();
             return new Day(inputView.inputVisitedDate());
-        } catch (final IllegalArgumentException illegalArgumentException) {
-            System.out.println(illegalArgumentException.getMessage());
-            return createValidDate();
-        }
+        }, outputView::printExceptionMessage);
     }
 
     private Map<Menu, Integer> createValidMenus() {
-        try {
+        return ExceptionHandler.createValidObject(() -> {
             outputView.printOrderInstruction();
             return Utils.convertToMenuQuantityMap(inputView.inputMenusWithQuantity());
-        } catch (IllegalStateException illegalStateException) {
-            throw new IllegalStateException(Constants.MENU_NOT_FOUND_EXCEPTION_MESSAGE);
-        }
+        }, outputView::printExceptionMessage);
     }
 
     private Order createValidOrder() {
-        try {
-            return new Order(createValidMenus());
-        } catch (final IllegalArgumentException | IllegalStateException exception) {
-            System.out.println(exception.getMessage());
-            return createValidOrder();
-        }
+        return ExceptionHandler.createValidObject(() -> new Order(createValidMenus()),
+                outputView::printExceptionMessage);
     }
 }
