@@ -40,9 +40,8 @@ public class ChristmasController {
         Money total = order.calculateOrderedPriceBeforeDiscount();
         outputView.printPriceBeforeDiscount(total);
 
-        System.out.println("<증정 메뉴>");
         GiveawayEvent giveawayEvent = GiveawayEvent.create(total);
-        System.out.println(giveawayEvent.getGiveawayMenu());
+        outputView.printGiveawayMenu(giveawayEvent);
 
         Discount dDayDiscount = new DDay();
         Discount weekDayDiscount = new WeekDay();
@@ -54,25 +53,15 @@ public class ChristmasController {
         Money weekend = weekendDiscount.discount(day, total, order.countMainMenu());
         Money special = specialDiscount.discount(day, total, 0);
 
-        System.out.println();
         System.out.println("<혜택 내역>");
         Money event = giveawayEvent.getGiveawayMenuPrice();
-        if (!dDay.equals(Constants.ZERO_WON)) {
-            System.out.printf("크리스마스 디데이 할인: -%s원\n", dDay.getFormattedMoney());
-        }
-        if (!weekDay.equals(Constants.ZERO_WON)) {
-            System.out.printf("평일 할인: -%s원\n", weekDay.getFormattedMoney());
-        }
-        if (!weekend.equals(Constants.ZERO_WON)) {
-            System.out.printf("주말 할인: -%s원\n", weekend.getFormattedMoney());
-        }
-        if (!special.equals(Constants.ZERO_WON)) {
-            System.out.printf("특별 할인: -%s원\n", special.getFormattedMoney());
-        }
-        if (giveawayEvent.isEventActive()) {
-            System.out.printf("증정 이벤트: -%s원\n", event.getFormattedMoney());
-            System.out.println();
-        }
+
+        outputView.printBenefitDetails("크리스마스 디데이 할인", dDay);
+        outputView.printBenefitDetails("평일 할인", weekDay);
+        outputView.printBenefitDetails("주말 할인", weekend);
+        outputView.printBenefitDetails("특별 할인", special);
+        outputView.printBenefitDetails("증정 이벤트", event);
+
         if (dDay.equals(Constants.ZERO_WON) && weekDay.equals(Constants.ZERO_WON) && weekend.equals(
                 Constants.ZERO_WON)
                 && special.equals(Constants.ZERO_WON) && !giveawayEvent.isEventActive()) {

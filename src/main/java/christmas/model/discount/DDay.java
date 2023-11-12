@@ -10,7 +10,6 @@ public class DDay implements Discount {
     private static final Money D_DAY_ADDITIONAL_DISCOUNT_PRICE = new Money(100);
     private static final Money MINIMUM_ORDER_PRICE = new Money(10_000);
 
-
     @Override
     public Money discount(final Day visitedDay, final Money totalPrice, final int numberOfMenus) {
         if (visitedDay.isBeforeOrEqualChristmas() && totalPrice.isEqualAndOver(MINIMUM_ORDER_PRICE)) {

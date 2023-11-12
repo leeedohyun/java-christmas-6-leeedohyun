@@ -1,7 +1,9 @@
 package christmas.view;
 
 import christmas.model.Badge;
+import christmas.model.Constants;
 import christmas.model.Day;
+import christmas.model.GiveawayEvent;
 import christmas.model.Money;
 import christmas.model.Order;
 
@@ -68,6 +70,18 @@ public class OutputView {
 
     public void printExceptionMessage(final Exception exception) {
         System.out.println(exception.getMessage());
+    }
+
+    public void printGiveawayMenu(GiveawayEvent giveawayEvent) {
+        System.out.println("<증정 메뉴>");
+        System.out.println(giveawayEvent.getGiveawayMenu());
+        printEmptyLine();
+    }
+
+    public void printBenefitDetails(final String message, final Money discountPrice) {
+        if (!discountPrice.equals(Constants.ZERO_WON)) {
+            System.out.printf("%s: -%s원\n", message, discountPrice.getFormattedMoney());
+        }
     }
 
     private void printEmptyLine() {
