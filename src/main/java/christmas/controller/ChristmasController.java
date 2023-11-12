@@ -4,12 +4,16 @@ import christmas.exception.ExceptionHandler;
 import christmas.model.Badge;
 import christmas.model.Constants;
 import christmas.model.Day;
-import christmas.model.Discount;
 import christmas.model.GiveawayEvent;
 import christmas.model.Menu;
 import christmas.model.Money;
 import christmas.model.Order;
 import christmas.model.Utils;
+import christmas.model.discount.DDay;
+import christmas.model.discount.Discount;
+import christmas.model.discount.Special;
+import christmas.model.discount.WeekDay;
+import christmas.model.discount.Weekend;
 import christmas.view.InputView;
 import christmas.view.OutputView;
 import java.util.Map;
@@ -40,12 +44,15 @@ public class ChristmasController {
         GiveawayEvent giveawayEvent = GiveawayEvent.create(total);
         System.out.println(giveawayEvent.getGiveawayMenu());
 
-        Discount discount = new Discount();
+        Discount dDayDiscount = new DDay();
+        Discount weekDayDiscount = new WeekDay();
+        Discount weekendDiscount = new Weekend();
+        Discount specialDiscount = new Special();
 
-        Money dDay = discount.discountDDay(day, total);
-        Money weekDay = discount.discountWeekDay(day, total, order.countDessert());
-        Money weekend = discount.discountWeekend(day, total, order.countMainMenu());
-        Money special = discount.discountSpecial(day, total);
+        Money dDay = dDayDiscount.discount(day, total, 0);
+        Money weekDay = weekDayDiscount.discount(day, total, order.countDessert());
+        Money weekend = weekendDiscount.discount(day, total, order.countMainMenu());
+        Money special = specialDiscount.discount(day, total, 0);
 
         System.out.println();
         System.out.println("<혜택 내역>");
