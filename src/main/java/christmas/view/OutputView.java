@@ -21,6 +21,9 @@ public class OutputView {
     public static final String TOTAL_BENEFIT_PRICE_HEADER = "<총혜택 금액>";
     private static final String DISCOUNTED_PRICE_HEADER = "<할인 후 예상 결제 금액>";
     private static final String BADGE_HEADER = "<12월 이벤트 배지>";
+    private static final String DEFAULT_GIVEAWAY_MENU_HEADER = "<증정 메뉴>";
+    private static final String BENEFIT_DETAIL_FORMAT = "%s: -%s원\n";
+    private static final String NO_BENEFIT_MESSAGE = "없음";
 
     public void printWelcomeMessage() {
         System.out.println(WELCOME_MESSAGE);
@@ -73,16 +76,23 @@ public class OutputView {
         System.out.println(exception.getMessage());
     }
 
-    public void printGiveawayMenu(GiveawayEvent giveawayEvent) {
-        System.out.println("<증정 메뉴>");
+    public void printGiveawayMenu(final GiveawayEvent giveawayEvent) {
+        System.out.println(DEFAULT_GIVEAWAY_MENU_HEADER);
         System.out.println(giveawayEvent.getGiveawayMenu());
         printEmptyLine();
     }
 
     public void printBenefitDetails(final String message, final Money discountPrice) {
         if (!discountPrice.equals(Constants.ZERO_WON)) {
-            System.out.printf("%s: -%s원\n", message, discountPrice.getFormattedMoney());
+            System.out.printf(BENEFIT_DETAIL_FORMAT, message, discountPrice.getFormattedMoney());
         }
+    }
+
+    public void printNoBenefitIfApplicable(final Money discountPrice, final GiveawayEvent giveawayEvent) {
+        if (discountPrice.equals(Constants.ZERO_WON) && !giveawayEvent.isEventActive()) {
+            System.out.println(NO_BENEFIT_MESSAGE);
+        }
+        printEmptyLine();
     }
 
     private void printEmptyLine() {

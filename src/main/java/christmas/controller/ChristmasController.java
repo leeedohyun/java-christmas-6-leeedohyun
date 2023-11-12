@@ -17,10 +17,12 @@ import java.util.Map;
 
 public class ChristmasController {
 
+    private static final List<String> BENEFIT_DETAIL_MESSAGES = List.of("크리스마스 디데이 할인", "평일 할인", "주말 할인", "특별 할인");
+
     private final InputView inputView;
     private final OutputView outputView;
 
-    public ChristmasController(InputView inputView, OutputView outputView) {
+    public ChristmasController(final InputView inputView, final OutputView outputView) {
         this.inputView = inputView;
         this.outputView = outputView;
     }
@@ -43,31 +45,24 @@ public class ChristmasController {
         DiscountManager discountManager = new DiscountManager();
 
         List<Money> discountPrices = discountManager.calculateTotalDiscountPrice(day, total, order);
-        Money discountPrice = discountPrices.stream()
-                .reduce(Money::plus)
-                .orElse(Constants.ZERO_WON);
+        Money discountPrice = calculateTotalDiscountPrice(discountPrices);
 
         Money event = giveawayEvent.getGiveawayMenuPrice();
 
         System.out.println("<혜택 내역>");
-        outputView.printBenefitDetails("크리스마스 디데이 할인", discountPrices.get(0));
-        outputView.printBenefitDetails("평일 할인", discountPrices.get(1));
-        outputView.printBenefitDetails("주말 할인", discountPrices.get(2));
-        outputView.printBenefitDetails("특별 할인", discountPrices.get(3));
+        for (int i = 0; i < 4; i++) {
+            outputView.printBenefitDetails(BENEFIT_DETAIL_MESSAGES.get(i), discountPrices.get(i));
+        }
         outputView.printBenefitDetails("증정 이벤트", event);
 
-        if (discountPrice.equals(Constants.ZERO_WON) && !giveawayEvent.isEventActive()) {
-            System.out.println("없음");
-        }
+        outputView.printNoBenefitIfApplicable(discountPrice, giveawayEvent);
 
-        System.out.println();
         Money totalBenefitPrice = discountPrice.plus(event);
         outputView.printTotalBenefitPrice(totalBenefitPrice);
 
-        outputView.printDiscountedPrice(Order.calculateDiscountedPrice(total, totalBenefitPrice));
+        outputView.printDiscountedPrice(Order.calculateDiscountedPrice(total, discountPrice));
 
         outputView.printBadge(Badge.decide(totalBenefitPrice));
-
     }
 
     private Day createValidDate() {
@@ -87,5 +82,11 @@ public class ChristmasController {
     private Order createValidOrder() {
         return ExceptionHandler.createValidObject(() -> new Order(createValidMenus()),
                 outputView::printExceptionMessage);
+    }
+
+    private Money calculateTotalDiscountPrice(final List<Money> discountPrices) {
+        return discountPrices.stream()
+                .reduce(Money::plus)
+                .orElse(Constants.ZERO_WON);
     }
 }
