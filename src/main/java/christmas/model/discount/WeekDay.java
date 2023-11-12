@@ -2,6 +2,7 @@ package christmas.model.discount;
 
 import christmas.model.Constants;
 import christmas.model.Day;
+import christmas.model.MenuType;
 import christmas.model.Money;
 import christmas.model.Order;
 
@@ -13,7 +14,7 @@ public class WeekDay implements Discount {
     @Override
     public Money discount(final Day visitedDay, final Money totalPrice, final Order order) {
         if (visitedDay.isEventNotEnded() && !visitedDay.isWeekend() && totalPrice.isEqualAndOver(MINIMUM_ORDER_PRICE)) {
-            return WEEKDAY_DISCOUNT_PRICE.multiply(order.countDessert());
+            return WEEKDAY_DISCOUNT_PRICE.multiply(order.countNumberOfMenusByMenuType(MenuType.DESSERT));
         }
         return Constants.ZERO_WON;
     }
