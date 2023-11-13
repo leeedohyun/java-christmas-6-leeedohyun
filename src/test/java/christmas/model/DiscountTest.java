@@ -17,11 +17,11 @@ class DiscountTest {
         // given
         final Day visitedDay = new Day(LocalDate.of(2023, 12, 10));
         final Money totalPrice = new Money(10000);
-        final Order order = new Order(Map.of(Menu.T_BONE_STEAK, 1));
+        final OrderDetail orderDetail = new OrderDetail(Map.of(Menu.T_BONE_STEAK, 1));
 
         // when
         final Discount dDay = new DDay();
-        final Money discountPrice = dDay.discount(visitedDay, totalPrice, order);
+        final Money discountPrice = dDay.discount(visitedDay, totalPrice, orderDetail);
 
         // then
         Assertions.assertEquals(discountPrice, new Money(1900));
@@ -32,11 +32,11 @@ class DiscountTest {
         // given
         final Day visitedDay = new Day(LocalDate.of(2023, 12, 26));
         final Money totalPrice = new Money(10000);
-        final Order order = new Order(Map.of(Menu.T_BONE_STEAK, 1));
+        final OrderDetail orderDetail = new OrderDetail(Map.of(Menu.T_BONE_STEAK, 1));
 
         // when
         final Discount dDay = new DDay();
-        final Money discountPrice = dDay.discount(visitedDay, totalPrice, order);
+        final Money discountPrice = dDay.discount(visitedDay, totalPrice, orderDetail);
 
         // then
         Assertions.assertEquals(discountPrice, new Money(0));
@@ -47,11 +47,11 @@ class DiscountTest {
         // given
         final Day visitedDay = new Day(LocalDate.of(2023, 12, 10));
         final Money totalPrice = new Money(9900);
-        final Order order = new Order(Map.of(Menu.T_BONE_STEAK, 1));
+        final OrderDetail orderDetail = new OrderDetail(Map.of(Menu.T_BONE_STEAK, 1));
 
         // when
         final Discount dDay = new DDay();
-        final Money discountPrice = dDay.discount(visitedDay, totalPrice, order);
+        final Money discountPrice = dDay.discount(visitedDay, totalPrice, orderDetail);
 
         // then
         Assertions.assertEquals(discountPrice, new Money(0));
@@ -62,11 +62,11 @@ class DiscountTest {
         // given
         final Day visitedDay = new Day(LocalDate.of(2023, 12, 10));
         final Money totalPrice = new Money(10000);
-        final Order order = new Order(Map.of(Menu.T_BONE_STEAK, 1, Menu.CHOCOLATE_CAKE, 1, Menu.ICE_CREAM, 2));
+        final OrderDetail orderDetail = new OrderDetail(Map.of(Menu.T_BONE_STEAK, 1, Menu.CHOCOLATE_CAKE, 1, Menu.ICE_CREAM, 2));
 
         // when
         final Discount weekDay = new WeekDay();
-        final Money discountPrice = weekDay.discount(visitedDay, totalPrice, order);
+        final Money discountPrice = weekDay.discount(visitedDay, totalPrice, orderDetail);
 
         // then
         Assertions.assertEquals(discountPrice, new Money(6069));
@@ -77,11 +77,11 @@ class DiscountTest {
         // given
         final Day visitedDay = new Day(LocalDate.of(2023, 12, 10));
         final Money totalPrice = new Money(9900);
-        final Order order = new Order(Map.of(Menu.T_BONE_STEAK, 1, Menu.CHOCOLATE_CAKE, 1, Menu.ICE_CREAM, 2));
+        final OrderDetail orderDetail = new OrderDetail(Map.of(Menu.T_BONE_STEAK, 1, Menu.CHOCOLATE_CAKE, 1, Menu.ICE_CREAM, 2));
 
         // when
         final Discount weekDay = new WeekDay();
-        final Money discountPrice = weekDay.discount(visitedDay, totalPrice, order);
+        final Money discountPrice = weekDay.discount(visitedDay, totalPrice, orderDetail);
 
         // then
         Assertions.assertEquals(discountPrice, new Money(0));
@@ -92,11 +92,11 @@ class DiscountTest {
         // given
         final Day visitedDay = new Day(LocalDate.of(2023, 12, 10));
         final Money totalPrice = new Money(9900);
-        final Order order = new Order(Map.of(Menu.T_BONE_STEAK, 1));
+        final OrderDetail orderDetail = new OrderDetail(Map.of(Menu.T_BONE_STEAK, 1));
 
         // when
         final Discount weekDay = new WeekDay();
-        final Money discountPrice = weekDay.discount(visitedDay, totalPrice, order);
+        final Money discountPrice = weekDay.discount(visitedDay, totalPrice, orderDetail);
 
         // then
         Assertions.assertEquals(discountPrice, new Money(0));
@@ -107,12 +107,12 @@ class DiscountTest {
         // given
         final Day visitedDay = new Day(LocalDate.of(2023, 12, 30));
         final Money totalPrice = new Money(10000);
-        final Order order = new Order(Map.of(Menu.T_BONE_STEAK, 1, Menu.ICE_CREAM, 2, Menu.BBQ_RIBS, 1));
+        final OrderDetail orderDetail = new OrderDetail(Map.of(Menu.T_BONE_STEAK, 1, Menu.ICE_CREAM, 2, Menu.BBQ_RIBS, 1));
 
 
         // when
         final Discount weekend = new Weekend();
-        final Money discountPrice = weekend.discount(visitedDay, totalPrice, order);
+        final Money discountPrice = weekend.discount(visitedDay, totalPrice, orderDetail);
 
         // then
         Assertions.assertEquals(discountPrice, new Money(4046));
@@ -123,11 +123,11 @@ class DiscountTest {
         // given
         final Day visitedDay = new Day(LocalDate.of(2023, 12, 30));
         final Money totalPrice = new Money(9900);
-        final Order order = new Order(Map.of(Menu.T_BONE_STEAK, 1, Menu.ICE_CREAM, 2, Menu.BBQ_RIBS, 1));
+        final OrderDetail orderDetail = new OrderDetail(Map.of(Menu.T_BONE_STEAK, 1, Menu.ICE_CREAM, 2, Menu.BBQ_RIBS, 1));
 
         // when
         final Discount weekend = new Weekend();
-        final Money discountPrice = weekend.discount(visitedDay, totalPrice, order);
+        final Money discountPrice = weekend.discount(visitedDay, totalPrice, orderDetail);
 
         // then
         Assertions.assertEquals(discountPrice, new Money(0));
@@ -138,11 +138,11 @@ class DiscountTest {
         // given
         final Day visitedDay = new Day(LocalDate.of(2023, 12, 30));
         final Money totalPrice = new Money(9900);
-        final Order order = new Order(Map.of(Menu.ICE_CREAM, 2, Menu.CAESAR_SALAD, 4));
+        final OrderDetail orderDetail = new OrderDetail(Map.of(Menu.ICE_CREAM, 2, Menu.CAESAR_SALAD, 4));
 
         // when
         final Discount weekend = new Weekend();
-        final Money discountPrice = weekend.discount(visitedDay, totalPrice, order);
+        final Money discountPrice = weekend.discount(visitedDay, totalPrice, orderDetail);
         Assertions.assertEquals(discountPrice, new Money(0));
     }
 
@@ -151,11 +151,11 @@ class DiscountTest {
         // given
         final Day visitedDay = new Day(LocalDate.of(2023, 12, 3));
         final Money totalPrice = new Money(10000);
-        final Order order = new Order(Map.of(Menu.T_BONE_STEAK, 1, Menu.ICE_CREAM, 2, Menu.BBQ_RIBS, 1));
+        final OrderDetail orderDetail = new OrderDetail(Map.of(Menu.T_BONE_STEAK, 1, Menu.ICE_CREAM, 2, Menu.BBQ_RIBS, 1));
 
         // when
         final Discount special = new Special();
-        final Money discountPrice = special.discount(visitedDay, totalPrice, order);
+        final Money discountPrice = special.discount(visitedDay, totalPrice, orderDetail);
 
         // then
         Assertions.assertEquals(discountPrice, new Money(1000));
@@ -166,11 +166,11 @@ class DiscountTest {
         // given
         final Day visitedDay = new Day(LocalDate.of(2023, 12, 31));
         final Money totalPrice = new Money(9900);
-        final Order order = new Order(Map.of(Menu.T_BONE_STEAK, 1, Menu.ICE_CREAM, 2, Menu.BBQ_RIBS, 1));
+        final OrderDetail orderDetail = new OrderDetail(Map.of(Menu.T_BONE_STEAK, 1, Menu.ICE_CREAM, 2, Menu.BBQ_RIBS, 1));
 
         // when
         final Discount special = new Special();
-        final Money discountPrice = special.discount(visitedDay, totalPrice, order);
+        final Money discountPrice = special.discount(visitedDay, totalPrice, orderDetail);
 
         // then
         Assertions.assertEquals(discountPrice, new Money(0));
@@ -181,11 +181,11 @@ class DiscountTest {
         // given
         final Day visitedDay = new Day(LocalDate.of(2023, 12, 30));
         final Money totalPrice = new Money(10000);
-        final Order order = new Order(Map.of(Menu.T_BONE_STEAK, 1, Menu.ICE_CREAM, 2, Menu.BBQ_RIBS, 1));
+        final OrderDetail orderDetail = new OrderDetail(Map.of(Menu.T_BONE_STEAK, 1, Menu.ICE_CREAM, 2, Menu.BBQ_RIBS, 1));
 
         // when
         final Discount special = new Special();
-        final Money discountPrice = special.discount(visitedDay, totalPrice, order);
+        final Money discountPrice = special.discount(visitedDay, totalPrice, orderDetail);
 
         // then
         Assertions.assertEquals(discountPrice, new Money(0));

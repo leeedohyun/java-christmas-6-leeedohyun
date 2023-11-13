@@ -2,7 +2,7 @@ package christmas.model.discount;
 
 import christmas.model.Day;
 import christmas.model.Money;
-import christmas.model.Order;
+import christmas.model.OrderDetail;
 import java.util.List;
 
 public class DiscountManager {
@@ -13,9 +13,9 @@ public class DiscountManager {
         this.discountPolicies = List.of(new DDay(), new WeekDay(), new Weekend(), new Special());
     }
 
-    public List<Money> calculateDiscountPrices(Day visitedDay, Money totalPrice, Order order) {
+    public List<Money> calculateDiscountPrices(Day visitedDay, Money totalPrice, OrderDetail orderDetail) {
         return discountPolicies.stream()
-                .map(discountPolicy -> discountPolicy.discount(visitedDay, totalPrice, order))
+                .map(discountPolicy -> discountPolicy.discount(visitedDay, totalPrice, orderDetail))
                 .toList();
     }
 }

@@ -4,7 +4,7 @@ import java.util.Map;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-class OrderTest {
+class OrderDetailTest {
 
     @Test
     public void 할인된_금액_테스트() {
@@ -14,7 +14,7 @@ class OrderTest {
 
         // when
 
-        final Money discountedPrice = Order.calculateDiscountedPrice(totalPrice, discountPrice);
+        final Money discountedPrice = OrderDetail.calculateDiscountedPrice(totalPrice, discountPrice);
 
         // then
         Assertions.assertEquals(discountedPrice, new Money(9_000));
@@ -27,8 +27,8 @@ class OrderTest {
                 Menu.CHRISTMAS_PASTA, 2, Menu.T_BONE_STEAK, 3, Menu.ICE_CREAM, 1);
 
         // when
-        final Order order = new Order(orderedMenu);
-        final int countedMainMenu = order.countNumberOfMenusByMenuType(MenuType.MAIN);
+        final OrderDetail orderDetail = new OrderDetail(orderedMenu);
+        final int countedMainMenu = orderDetail.countNumberOfMenusByMenuType(MenuType.MAIN);
 
         // then
         Assertions.assertEquals(countedMainMenu, 5);
@@ -41,8 +41,8 @@ class OrderTest {
                 Menu.CHRISTMAS_PASTA, 2, Menu.T_BONE_STEAK, 3, Menu.ICE_CREAM, 2);
 
         // when
-        final Order order = new Order(orderedMenu);
-        final int countedMainMenu = order.countNumberOfMenusByMenuType(MenuType.DESSERT);
+        final OrderDetail orderDetail = new OrderDetail(orderedMenu);
+        final int countedMainMenu = orderDetail.countNumberOfMenusByMenuType(MenuType.DESSERT);
 
         // then
         Assertions.assertEquals(countedMainMenu, 2);
@@ -55,8 +55,8 @@ class OrderTest {
                 Menu.CHRISTMAS_PASTA, 2, Menu.T_BONE_STEAK, 3, Menu.ICE_CREAM, 1);
 
         // when
-        final Order order = new Order(orderedMenu);
-        final Money priceBeforeDiscount = order.calculateOrderedPriceBeforeDiscount();
+        final OrderDetail orderDetail = new OrderDetail(orderedMenu);
+        final Money priceBeforeDiscount = orderDetail.calculateOrderedPriceBeforeDiscount();
 
         // then
         Assertions.assertEquals(priceBeforeDiscount, new Money(245_000));
@@ -68,7 +68,7 @@ class OrderTest {
         final Map<Menu, Integer> orderedMenu = Map.of(Menu.CHAMPAGNE, 3, Menu.RED_WINE, 2);
 
         // then
-        Assertions.assertThrows(IllegalArgumentException.class, () -> new Order(orderedMenu));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> new OrderDetail(orderedMenu));
     }
 
     @Test
@@ -78,7 +78,7 @@ class OrderTest {
                 Menu.CHRISTMAS_PASTA, 4, Menu.T_BONE_STEAK, 5, Menu.ICE_CREAM, 7);
 
         // then
-        Assertions.assertThrows(IllegalArgumentException.class, () -> new Order(orderedMenu));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> new OrderDetail(orderedMenu));
     }
 
     @Test
@@ -88,6 +88,6 @@ class OrderTest {
                 Menu.CHRISTMAS_PASTA, 4, Menu.T_BONE_STEAK, 5, Menu.ICE_CREAM, 7);
 
         // then
-        Assertions.assertThrows(IllegalArgumentException.class, () -> new Order(orderedMenu));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> new OrderDetail(orderedMenu));
     }
 }

@@ -3,7 +3,7 @@ package christmas.model.discount;
 import christmas.model.Day;
 import christmas.model.Menu;
 import christmas.model.Money;
-import christmas.model.Order;
+import christmas.model.OrderDetail;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
@@ -17,12 +17,12 @@ class DiscountManagerTest {
         // given
         Day day = new Day(LocalDate.of(2023, 12, 3));
         Money money = new Money(142_000);
-        Order order = new Order(
+        OrderDetail orderDetail = new OrderDetail(
                 Map.of(Menu.T_BONE_STEAK, 1, Menu.BBQ_RIBS, 1, Menu.CHOCOLATE_CAKE, 2, Menu.ZERO_COLA, 1));
 
         // when
         DiscountManager discountManager = new DiscountManager();
-        List<Money> monies = discountManager.calculateDiscountPrices(day, money, order);
+        List<Money> monies = discountManager.calculateDiscountPrices(day, money, orderDetail);
 
         // then
         Assertions.assertThat(monies)

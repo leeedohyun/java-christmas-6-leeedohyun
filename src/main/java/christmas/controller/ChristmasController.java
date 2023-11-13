@@ -5,8 +5,8 @@ import christmas.model.Day;
 import christmas.model.GiveawayEvent;
 import christmas.model.Menu;
 import christmas.model.Money;
+import christmas.model.OrderDetail;
 import christmas.model.Order;
-import christmas.model.Orders;
 import christmas.model.Utils;
 import christmas.model.discount.DiscountManager;
 import christmas.view.InputView;
@@ -27,27 +27,27 @@ public class ChristmasController {
         outputView.printWelcomeMessage();
 
         final Day day = createValidDate();
-        final Order order = createValidOrder();
+        final OrderDetail orderDetail = createValidOrder();
 
-        outputView.printOrderDetails(day, order);
+        outputView.printOrderDetails(day, orderDetail);
 
-        final Orders orders = crateOrders(day, order);
-        outputView.printDiscountBenefitDetails(orders.getDiscountPrices(), orders.getGiveawayEventMenuPrice());
+        final Order order = crateOrders(day, orderDetail);
+        outputView.printDiscountBenefitDetails(order.getDiscountPrices(), order.getGiveawayEventMenuPrice());
 
-        final Money discountPrice = orders.calculateTotalDiscountPrice();
-        outputView.printNoBenefitIfApplicable(discountPrice, orders.getGiveawayEventMenuPrice());
+        final Money discountPrice = order.calculateTotalDiscountPrice();
+        outputView.printNoBenefitIfApplicable(discountPrice, order.getGiveawayEventMenuPrice());
 
-        final Money totalBenefitPrice = orders.calculateTotalBenefitPrice();
-        outputView.printTotalAndDiscountPrice(totalBenefitPrice, orders, discountPrice);
+        final Money totalBenefitPrice = order.calculateTotalBenefitPrice();
+        outputView.printTotalAndDiscountPrice(totalBenefitPrice, order, discountPrice);
     }
 
-    private Orders crateOrders(final Day day, final Order order) {
-        final Money priceBeforeDiscount = order.calculateOrderedPriceBeforeDiscount();
+    private Order crateOrders(final Day day, final OrderDetail orderDetail) {
+        final Money priceBeforeDiscount = orderDetail.calculateOrderedPriceBeforeDiscount();
         final GiveawayEvent giveawayEvent = GiveawayEvent.create(priceBeforeDiscount);
 
         outputView.printPriceBeforeDiscount(priceBeforeDiscount);
         outputView.printGiveawayMenu(giveawayEvent);
-        return new Orders(day, order, priceBeforeDiscount, new DiscountManager(), giveawayEvent);
+        return new Order(day, orderDetail, priceBeforeDiscount, new DiscountManager(), giveawayEvent);
     }
 
     private Day createValidDate() {
@@ -64,8 +64,8 @@ public class ChristmasController {
         }, outputView::printExceptionMessage);
     }
 
-    private Order createValidOrder() {
-        return ExceptionHandler.createValidObject(() -> new Order(createValidMenus()),
+    private OrderDetail createValidOrder() {
+        return ExceptionHandler.createValidObject(() -> new OrderDetail(createValidMenus()),
                 outputView::printExceptionMessage);
     }
 }

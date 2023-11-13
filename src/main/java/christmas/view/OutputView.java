@@ -5,8 +5,8 @@ import christmas.model.Constants;
 import christmas.model.Day;
 import christmas.model.GiveawayEvent;
 import christmas.model.Money;
+import christmas.model.OrderDetail;
 import christmas.model.Order;
-import christmas.model.Orders;
 import java.util.List;
 
 public class OutputView {
@@ -23,9 +23,9 @@ public class OutputView {
         System.out.println(ViewConstants.ORDER_INSTRUCTION_MESSAGE);
     }
 
-    public void printOrderDetails(final Day day, final Order order) {
+    public void printOrderDetails(final Day day, final OrderDetail orderDetail) {
         printEventPreview(day);
-        printOrderedMenus(order);
+        printOrderedMenus(orderDetail);
     }
 
     public void printPriceBeforeDiscount(final Money priceBeforeDiscount) {
@@ -34,10 +34,10 @@ public class OutputView {
         printEmptyLine();
     }
 
-    public void printTotalAndDiscountPrice(final Money totalBenefitPrice, final Orders orders,
+    public void printTotalAndDiscountPrice(final Money totalBenefitPrice, final Order order,
                                            final Money discountPrice) {
         printTotalBenefitPrice(totalBenefitPrice);
-        printDiscountedPrice(orders.calculateDiscountedPrice(discountPrice));
+        printDiscountedPrice(order.calculateDiscountedPrice(discountPrice));
         printBadge(Badge.decide(totalBenefitPrice));
     }
 
@@ -80,9 +80,9 @@ public class OutputView {
         printEmptyLine();
     }
 
-    private void printOrderedMenus(final Order order) {
+    private void printOrderedMenus(final OrderDetail orderDetail) {
         System.out.println(ViewConstants.ORDER_MENU_HEADER);
-        order.getOrderedMenus()
+        orderDetail.getOrderedMenus()
                 .forEach((menu, quantity) ->
                         System.out.printf(ViewConstants.ORDER_MENU_FORMAT, menu.getName(), quantity));
         printEmptyLine();
