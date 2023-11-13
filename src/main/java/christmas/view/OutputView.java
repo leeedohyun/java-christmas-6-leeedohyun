@@ -4,7 +4,7 @@ import christmas.model.Badge;
 import christmas.model.Constants;
 import christmas.model.Day;
 import christmas.model.GiveawayEvent;
-import christmas.model.Money;
+import christmas.model.Price;
 import christmas.model.OrderDetail;
 import christmas.model.Order;
 import java.util.List;
@@ -28,14 +28,14 @@ public class OutputView {
         printOrderedMenus(orderDetail);
     }
 
-    public void printPriceBeforeDiscount(final Money priceBeforeDiscount) {
+    public void printPriceBeforeDiscount(final Price priceBeforeDiscount) {
         System.out.println(ViewConstants.PRICE_BEFORE_DISCOUNT_HEADER);
         System.out.printf(ViewConstants.PRICE_FORMAT, priceBeforeDiscount.getFormattedMoney());
         printEmptyLine();
     }
 
-    public void printTotalAndDiscountPrice(final Money totalBenefitPrice, final Order order,
-                                           final Money discountPrice) {
+    public void printTotalAndDiscountPrice(final Price totalBenefitPrice, final Order order,
+                                           final Price discountPrice) {
         printTotalBenefitPrice(totalBenefitPrice);
         printDiscountedPrice(order.calculateDiscountedPrice(discountPrice));
         printBadge(Badge.decide(totalBenefitPrice));
@@ -51,7 +51,7 @@ public class OutputView {
         printEmptyLine();
     }
 
-    public void printDiscountBenefitDetails(final List<Money> discountPrices, final Money event) {
+    public void printDiscountBenefitDetails(final List<Price> discountPrices, final Price event) {
         System.out.println(ViewConstants.BENEFIT_HEADER);
         printBenefitDetails(ViewConstants.BENEFIT_DETAIL_MESSAGES.get(ViewConstants.CHRISTMAS_DAY_DISCOUNT_INDEX),
                 discountPrices.get(ViewConstants.CHRISTMAS_DAY_DISCOUNT_INDEX));
@@ -64,7 +64,7 @@ public class OutputView {
         printBenefitDetails(ViewConstants.GIVEAWAY_EVENT_MESSAGE, event);
     }
 
-    public void printNoBenefitIfApplicable(final Money discountPrice, final Money giveawayEventMenuPrice) {
+    public void printNoBenefitIfApplicable(final Price discountPrice, final Price giveawayEventMenuPrice) {
         if (discountPrice.equals(Constants.ZERO_WON) && giveawayEventMenuPrice.equals(Constants.ZERO_WON)) {
             System.out.println(ViewConstants.NO_BENEFIT_MESSAGE);
         }
@@ -88,13 +88,13 @@ public class OutputView {
         printEmptyLine();
     }
 
-    private void printTotalBenefitPrice(final Money totalBenefitPrice) {
+    private void printTotalBenefitPrice(final Price totalBenefitPrice) {
         System.out.println(ViewConstants.TOTAL_BENEFIT_PRICE_HEADER);
         System.out.printf(ViewConstants.DISCOUNT_PRICE_FORMAT, totalBenefitPrice.getFormattedMoney());
         printEmptyLine();
     }
 
-    private void printDiscountedPrice(final Money discountedPrice) {
+    private void printDiscountedPrice(final Price discountedPrice) {
         System.out.println(ViewConstants.DISCOUNTED_PRICE_HEADER);
         System.out.printf(ViewConstants.PRICE_FORMAT, discountedPrice.getFormattedMoney());
         printEmptyLine();
@@ -105,7 +105,7 @@ public class OutputView {
         System.out.println(badge.getName());
     }
 
-    private void printBenefitDetails(final String message, final Money discountPrice) {
+    private void printBenefitDetails(final String message, final Price discountPrice) {
         if (!discountPrice.equals(Constants.ZERO_WON)) {
             System.out.printf(ViewConstants.BENEFIT_DETAIL_FORMAT, message, discountPrice.getFormattedMoney());
         }

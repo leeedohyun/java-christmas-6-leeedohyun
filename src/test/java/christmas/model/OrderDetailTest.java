@@ -9,15 +9,15 @@ class OrderDetailTest {
     @Test
     public void 할인된_금액_테스트() {
         // given
-        final Money totalPrice = new Money(10_000);
-        final Money discountPrice = new Money(1_000);
+        final Price totalPrice = new Price(10_000);
+        final Price discountPrice = new Price(1_000);
 
         // when
 
-        final Money discountedPrice = OrderDetail.calculateDiscountedPrice(totalPrice, discountPrice);
+        final Price discountedPrice = OrderDetail.calculateDiscountedPrice(totalPrice, discountPrice);
 
         // then
-        Assertions.assertEquals(discountedPrice, new Money(9_000));
+        Assertions.assertEquals(discountedPrice, new Price(9_000));
     }
 
     @Test
@@ -56,10 +56,10 @@ class OrderDetailTest {
 
         // when
         final OrderDetail orderDetail = new OrderDetail(orderedMenu);
-        final Money priceBeforeDiscount = orderDetail.calculateOrderedPriceBeforeDiscount();
+        final Price priceBeforeDiscount = orderDetail.calculateOrderedPriceBeforeDiscount();
 
         // then
-        Assertions.assertEquals(priceBeforeDiscount, new Money(245_000));
+        Assertions.assertEquals(priceBeforeDiscount, new Price(245_000));
     }
 
     @Test

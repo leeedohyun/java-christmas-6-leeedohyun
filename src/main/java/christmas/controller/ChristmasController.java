@@ -4,7 +4,7 @@ import christmas.exception.ExceptionHandler;
 import christmas.model.Day;
 import christmas.model.GiveawayEvent;
 import christmas.model.Menu;
-import christmas.model.Money;
+import christmas.model.Price;
 import christmas.model.OrderDetail;
 import christmas.model.Order;
 import christmas.model.Utils;
@@ -34,15 +34,15 @@ public class ChristmasController {
         final Order order = crateOrders(day, orderDetail);
         outputView.printDiscountBenefitDetails(order.getDiscountPrices(), order.getGiveawayEventMenuPrice());
 
-        final Money discountPrice = order.calculateTotalDiscountPrice();
+        final Price discountPrice = order.calculateTotalDiscountPrice();
         outputView.printNoBenefitIfApplicable(discountPrice, order.getGiveawayEventMenuPrice());
 
-        final Money totalBenefitPrice = order.calculateTotalBenefitPrice();
+        final Price totalBenefitPrice = order.calculateTotalBenefitPrice();
         outputView.printTotalAndDiscountPrice(totalBenefitPrice, order, discountPrice);
     }
 
     private Order crateOrders(final Day day, final OrderDetail orderDetail) {
-        final Money priceBeforeDiscount = orderDetail.calculateOrderedPriceBeforeDiscount();
+        final Price priceBeforeDiscount = orderDetail.calculateOrderedPriceBeforeDiscount();
         final GiveawayEvent giveawayEvent = GiveawayEvent.create(priceBeforeDiscount);
 
         outputView.printPriceBeforeDiscount(priceBeforeDiscount);

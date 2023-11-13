@@ -12,7 +12,7 @@ public class OrderDetail {
         this.orderedMenus = orderedMenus;
     }
 
-    public static Money calculateDiscountedPrice(final Money totalPrice, final Money discountPrice) {
+    public static Price calculateDiscountedPrice(final Price totalPrice, final Price discountPrice) {
         return totalPrice.minus(discountPrice);
     }
 
@@ -23,10 +23,10 @@ public class OrderDetail {
                 .sum();
     }
 
-    public Money calculateOrderedPriceBeforeDiscount() {
+    public Price calculateOrderedPriceBeforeDiscount() {
         return orderedMenus.keySet().stream()
                 .map(menu -> menu.calculateMenuPrice(orderedMenus.get(menu)))
-                .reduce(Money::plus)
+                .reduce(Price::plus)
                 .orElse(Constants.ZERO_WON);
     }
 

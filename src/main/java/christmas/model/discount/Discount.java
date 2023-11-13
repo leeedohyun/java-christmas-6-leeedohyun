@@ -1,10 +1,10 @@
 package christmas.model.discount;
 
 import christmas.model.Day;
-import christmas.model.Money;
+import christmas.model.Price;
 import christmas.model.OrderDetail;
 
 public interface Discount {
 
-    Money discount(final Day visitedDay, final Money totalPrice, final OrderDetail orderDetail);
+    Price discount(final Day visitedDay, final Price totalPrice, final OrderDetail orderDetail);
 }

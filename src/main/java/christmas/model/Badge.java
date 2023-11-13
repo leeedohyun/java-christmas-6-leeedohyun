@@ -2,20 +2,20 @@ package christmas.model;
 
 public enum Badge {
 
-    STAR("별", new Money(5_000)),
-    TREE("트리", new Money(10_000)),
-    SANTA("산타", new Money(20_000)),
+    STAR("별", new Price(5_000)),
+    TREE("트리", new Price(10_000)),
+    SANTA("산타", new Price(20_000)),
     NONE("없음", Constants.ZERO_WON);
 
     private final String name;
-    private final Money standardPrice;
+    private final Price standardPrice;
 
-    Badge(final String name, final Money standardPrice) {
+    Badge(final String name, final Price standardPrice) {
         this.name = name;
         this.standardPrice = standardPrice;
     }
 
-    public static Badge decide(final Money totalBenefitPrice) {
+    public static Badge decide(final Price totalBenefitPrice) {
         if (totalBenefitPrice.isEqualAndOver(STAR.standardPrice) && totalBenefitPrice.isUnder(TREE.standardPrice)) {
             return STAR;
         }

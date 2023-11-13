@@ -5,16 +5,16 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
-class MoneyTest {
+class PriceTest {
 
     @ParameterizedTest
     @ValueSource(ints = {10_000, 15_000, 20_000})
     public void 총_주문_금액이_10000원_이상이면_true를_반환한다(final int price) {
         // given
-        final Money money = new Money(price);
+        final Price money = new Price(price);
 
         // when
-        final boolean isOverTenThousand = money.isEqualAndOver(new Money(10_000));
+        final boolean isOverTenThousand = money.isEqualAndOver(new Price(10_000));
 
         // then
         Assertions.assertTrue(isOverTenThousand);
@@ -24,10 +24,10 @@ class MoneyTest {
     @ValueSource(ints = {9_999, 8_000, 7_000})
     public void 총_주문_금액이_10000원_미만이면_true를_반환한다(final int price) {
         // given
-        final Money money = new Money(price);
+        final Price money = new Price(price);
 
         // when
-        final boolean isNotOverTenThousand = money.isUnder(new Money(10_000));
+        final boolean isNotOverTenThousand = money.isUnder(new Price(10_000));
 
         // then
         Assertions.assertTrue(isNotOverTenThousand);
@@ -36,39 +36,39 @@ class MoneyTest {
     @Test
     public void 더하기_테스트() {
         // given
-        final Money money1 = new Money(2_000);
-        final Money money2 = new Money(4_000);
+        final Price price1 = new Price(2_000);
+        final Price price2 = new Price(4_000);
 
         // when
-        final Money plussedMoney = money1.plus(money2);
+        final Price plussedPrice = price1.plus(price2);
 
         // then
-        Assertions.assertEquals(plussedMoney, new Money(6_000));
+        Assertions.assertEquals(plussedPrice, new Price(6_000));
     }
 
     @Test
     public void 곱하기_테스트() {
         // given
-        final Money money = new Money(2_000);
+        final Price price = new Price(2_000);
         final int quantity = 3;
 
         // when
-        final Money plussedMoney = money.multiply(quantity);
+        final Price plussedPrice = price.multiply(quantity);
 
         // then
-        Assertions.assertEquals(plussedMoney, new Money(6_000));
+        Assertions.assertEquals(plussedPrice, new Price(6_000));
     }
 
     @Test
     public void 빼기_테스트() {
         // given
-        final Money money1 = new Money(3_000);
-        final Money money2 = new Money(1_000);
+        final Price price1 = new Price(3_000);
+        final Price price2 = new Price(1_000);
 
         // when
-        final Money minusedMoney = money1.minus(money2);
+        final Price minusedPrice = price1.minus(price2);
 
         // then
-        Assertions.assertEquals(minusedMoney, new Money(2_000));
+        Assertions.assertEquals(minusedPrice, new Price(2_000));
     }
 }

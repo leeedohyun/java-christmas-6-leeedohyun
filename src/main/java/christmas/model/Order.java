@@ -7,11 +7,11 @@ public class Order {
 
     private final Day day;
     private final OrderDetail orderDetail;
-    private final Money priceBeforeDiscount;
+    private final Price priceBeforeDiscount;
     private final DiscountManager discountManager;
     private final GiveawayEvent giveawayEvent;
 
-    public Order(final Day day, final OrderDetail orderDetail, final Money priceBeforeDiscount,
+    public Order(final Day day, final OrderDetail orderDetail, final Price priceBeforeDiscount,
                  final DiscountManager discountManager,
                  final GiveawayEvent giveawayEvent) {
         this.day = day;
@@ -21,27 +21,27 @@ public class Order {
         this.giveawayEvent = giveawayEvent;
     }
 
-    public Money calculateTotalDiscountPrice() {
-        final List<Money> discountPrices = getDiscountPrices();
+    public Price calculateTotalDiscountPrice() {
+        final List<Price> discountPrices = getDiscountPrices();
         return discountPrices.stream()
-                .reduce(Money::plus)
+                .reduce(Price::plus)
                 .orElse(Constants.ZERO_WON);
     }
 
-    public Money calculateDiscountedPrice(final Money discountPrice) {
+    public Price calculateDiscountedPrice(final Price discountPrice) {
         return priceBeforeDiscount.minus(discountPrice);
     }
 
-    public List<Money> getDiscountPrices() {
+    public List<Price> getDiscountPrices() {
         return discountManager.calculateDiscountPrices(day, priceBeforeDiscount, orderDetail);
     }
 
-    public Money calculateTotalBenefitPrice() {
-        final Money discountPrice = calculateTotalDiscountPrice();
+    public Price calculateTotalBenefitPrice() {
+        final Price discountPrice = calculateTotalDiscountPrice();
         return discountPrice.plus(giveawayEvent.getGiveawayEventMenuPrice());
     }
 
-    public Money getGiveawayEventMenuPrice() {
+    public Price getGiveawayEventMenuPrice() {
         return giveawayEvent.getGiveawayEventMenuPrice();
     }
 }

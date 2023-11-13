@@ -3,31 +3,31 @@ package christmas.model;
 import java.text.DecimalFormat;
 import java.util.Objects;
 
-public class Money {
+public class Price {
 
     private final int money;
 
-    public Money(final int money) {
+    public Price(final int money) {
         this.money = money;
     }
 
-    public Money plus(final Money another) {
-        return new Money(money + another.money);
+    public Price plus(final Price another) {
+        return new Price(money + another.money);
     }
 
-    public Money multiply(final int numberOfMenu) {
-        return new Money(money * numberOfMenu);
+    public Price multiply(final int numberOfMenu) {
+        return new Price(money * numberOfMenu);
     }
 
-    public Money minus(final Money another) {
-        return new Money(money - another.money);
+    public Price minus(final Price another) {
+        return new Price(money - another.money);
     }
 
-    public boolean isEqualAndOver(final Money another) {
+    public boolean isEqualAndOver(final Price another) {
         return money >= another.money;
     }
 
-    public boolean isUnder(final Money another) {
+    public boolean isUnder(final Price another) {
         return money < another.money;
     }
 
@@ -41,10 +41,10 @@ public class Money {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof Money money1)) {
+        if (!(o instanceof Price price1)) {
             return false;
         }
-        return money == money1.money;
+        return money == price1.money;
     }
 
     @Override
