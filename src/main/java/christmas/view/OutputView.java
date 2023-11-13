@@ -6,6 +6,8 @@ import christmas.model.Day;
 import christmas.model.GiveawayEvent;
 import christmas.model.Money;
 import christmas.model.Order;
+import christmas.model.Orders;
+import java.util.List;
 
 public class OutputView {
 
@@ -24,6 +26,13 @@ public class OutputView {
     private static final String DEFAULT_GIVEAWAY_MENU_HEADER = "<증정 메뉴>";
     private static final String BENEFIT_DETAIL_FORMAT = "%s: -%s원\n";
     private static final String NO_BENEFIT_MESSAGE = "없음";
+    private static final List<String> BENEFIT_DETAIL_MESSAGES = List.of("크리스마스 디데이 할인", "평일 할인", "주말 할인", "특별 할인");
+    private static final int CHRISTMAS_DAY_DISCOUNT_INDEX = 0;
+    private static final int WEEKDAY_DISCOUNT_INDEX = 1;
+    private static final int WEEKEND_DISCOUNT_INDEX = 2;
+    private static final int SPECIAL_DISCOUNT_INDEX = 3;
+    private static final String BENEFIT_HEADER = "<혜택 내역>";
+    private static final String GIVEAWAY_EVENT_MESSAGE = "증정 이벤트";
 
     public void printWelcomeMessage() {
         System.out.println(WELCOME_MESSAGE);
@@ -37,16 +46,9 @@ public class OutputView {
         System.out.println(ORDER_INSTRUCTION_MESSAGE);
     }
 
-    public void printEventPreview(final Day visitedDay) {
-        System.out.printf(EVENT_PREVIEW_MESSAGE_FORMAT, visitedDay.getMonth(), visitedDay.getDay());
-        printEmptyLine();
-    }
-
-    public void printOrderedMenus(final Order order) {
-        System.out.println(ORDER_MENU_HEADER);
-        order.getOrderedMenus()
-                .forEach((menu, quantity) -> System.out.printf(ORDER_MENU_FORMAT, menu.getName(), quantity));
-        printEmptyLine();
+    public void printOrderDetails(final Day day, final Order order) {
+        printEventPreview(day);
+        printOrderedMenus(order);
     }
 
     public void printPriceBeforeDiscount(final Money priceBeforeDiscount) {
@@ -55,21 +57,11 @@ public class OutputView {
         printEmptyLine();
     }
 
-    public void printTotalBenefitPrice(final Money totalBenefitPrice) {
-        System.out.println(TOTAL_BENEFIT_PRICE_HEADER);
-        System.out.printf(DISCOUNT_PRICE_FORMAT, totalBenefitPrice.getFormattedMoney());
-        printEmptyLine();
-    }
-
-    public void printDiscountedPrice(final Money discountedPrice) {
-        System.out.println(DISCOUNTED_PRICE_HEADER);
-        System.out.printf(PRICE_FORMAT, discountedPrice.getFormattedMoney());
-        printEmptyLine();
-    }
-
-    public void printBadge(final Badge badge) {
-        System.out.println(BADGE_HEADER);
-        System.out.println(badge.getName());
+    public void printTotalAndDiscountPrice(final Money totalBenefitPrice, final Orders orders,
+                                           final Money discountPrice) {
+        printTotalBenefitPrice(totalBenefitPrice);
+        printDiscountedPrice(orders.calculateDiscountedPrice(discountPrice));
+        printBadge(Badge.decide(totalBenefitPrice));
     }
 
     public void printExceptionMessage(final Exception exception) {
@@ -82,10 +74,17 @@ public class OutputView {
         printEmptyLine();
     }
 
-    public void printBenefitDetails(final String message, final Money discountPrice) {
-        if (!discountPrice.equals(Constants.ZERO_WON)) {
-            System.out.printf(BENEFIT_DETAIL_FORMAT, message, discountPrice.getFormattedMoney());
-        }
+    public void printDiscountBenefitDetails(final List<Money> discountPrices, final Money event) {
+        System.out.println(BENEFIT_HEADER);
+        printBenefitDetails(BENEFIT_DETAIL_MESSAGES.get(CHRISTMAS_DAY_DISCOUNT_INDEX),
+                discountPrices.get(CHRISTMAS_DAY_DISCOUNT_INDEX));
+        printBenefitDetails(BENEFIT_DETAIL_MESSAGES.get(WEEKDAY_DISCOUNT_INDEX),
+                discountPrices.get(WEEKDAY_DISCOUNT_INDEX));
+        printBenefitDetails(BENEFIT_DETAIL_MESSAGES.get(WEEKEND_DISCOUNT_INDEX),
+                discountPrices.get(WEEKEND_DISCOUNT_INDEX));
+        printBenefitDetails(BENEFIT_DETAIL_MESSAGES.get(SPECIAL_DISCOUNT_INDEX),
+                discountPrices.get(SPECIAL_DISCOUNT_INDEX));
+        printBenefitDetails(GIVEAWAY_EVENT_MESSAGE, event);
     }
 
     public void printNoBenefitIfApplicable(final Money discountPrice, final Money giveawayEventMenuPrice) {
@@ -97,5 +96,40 @@ public class OutputView {
 
     private void printEmptyLine() {
         System.out.println();
+    }
+
+    private void printEventPreview(final Day visitedDay) {
+        System.out.printf(EVENT_PREVIEW_MESSAGE_FORMAT, visitedDay.getMonth(), visitedDay.getDay());
+        printEmptyLine();
+    }
+
+    private void printOrderedMenus(final Order order) {
+        System.out.println(ORDER_MENU_HEADER);
+        order.getOrderedMenus()
+                .forEach((menu, quantity) -> System.out.printf(ORDER_MENU_FORMAT, menu.getName(), quantity));
+        printEmptyLine();
+    }
+
+    private void printTotalBenefitPrice(final Money totalBenefitPrice) {
+        System.out.println(TOTAL_BENEFIT_PRICE_HEADER);
+        System.out.printf(DISCOUNT_PRICE_FORMAT, totalBenefitPrice.getFormattedMoney());
+        printEmptyLine();
+    }
+
+    private void printDiscountedPrice(final Money discountedPrice) {
+        System.out.println(DISCOUNTED_PRICE_HEADER);
+        System.out.printf(PRICE_FORMAT, discountedPrice.getFormattedMoney());
+        printEmptyLine();
+    }
+
+    private void printBadge(final Badge badge) {
+        System.out.println(BADGE_HEADER);
+        System.out.println(badge.getName());
+    }
+
+    private void printBenefitDetails(final String message, final Money discountPrice) {
+        if (!discountPrice.equals(Constants.ZERO_WON)) {
+            System.out.printf(BENEFIT_DETAIL_FORMAT, message, discountPrice.getFormattedMoney());
+        }
     }
 }

@@ -1,7 +1,6 @@
 package christmas.controller;
 
 import christmas.exception.ExceptionHandler;
-import christmas.model.Badge;
 import christmas.model.Day;
 import christmas.model.GiveawayEvent;
 import christmas.model.Menu;
@@ -12,12 +11,9 @@ import christmas.model.Utils;
 import christmas.model.discount.DiscountManager;
 import christmas.view.InputView;
 import christmas.view.OutputView;
-import java.util.List;
 import java.util.Map;
 
 public class ChristmasController {
-
-    private static final List<String> BENEFIT_DETAIL_MESSAGES = List.of("크리스마스 디데이 할인", "평일 할인", "주말 할인", "특별 할인");
 
     private final InputView inputView;
     private final OutputView outputView;
@@ -30,34 +26,28 @@ public class ChristmasController {
     public void play() {
         outputView.printWelcomeMessage();
 
-        Day day = createValidDate();
-        Order order = createValidOrder();
+        final Day day = createValidDate();
+        final Order order = createValidOrder();
 
-        outputView.printEventPreview(day);
-        outputView.printOrderedMenus(order);
+        outputView.printOrderDetails(day, order);
 
-        Money priceBeforeDiscount = order.calculateOrderedPriceBeforeDiscount();
-        Orders orders = new Orders(day, order, priceBeforeDiscount, new DiscountManager(),
-                GiveawayEvent.create(priceBeforeDiscount));
-        outputView.printPriceBeforeDiscount(priceBeforeDiscount);
-        outputView.printGiveawayMenu(orders.getGiveawayEvent());
-        printDiscountBenefitDetails(orders.getDiscountPrices(), orders.getGiveawayEventMenuPrice());
+        final Orders orders = crateOrders(day, order);
+        outputView.printDiscountBenefitDetails(orders.getDiscountPrices(), orders.getGiveawayEventMenuPrice());
 
-        Money discountPrice = orders.calculateTotalDiscountPrice();
+        final Money discountPrice = orders.calculateTotalDiscountPrice();
         outputView.printNoBenefitIfApplicable(discountPrice, orders.getGiveawayEventMenuPrice());
 
-        Money totalBenefitPrice = orders.calculateTotalBenefitPrice();
-        outputView.printTotalBenefitPrice(totalBenefitPrice);
-        outputView.printDiscountedPrice(orders.calculateDiscountedPrice(discountPrice));
-        outputView.printBadge(Badge.decide(totalBenefitPrice));
+        final Money totalBenefitPrice = orders.calculateTotalBenefitPrice();
+        outputView.printTotalAndDiscountPrice(totalBenefitPrice, orders, discountPrice);
     }
 
-    private void printDiscountBenefitDetails(List<Money> discountPrices, Money event) {
-        System.out.println("<혜택 내역>");
-        for (int i = 0; i < 4; i++) {
-            outputView.printBenefitDetails(BENEFIT_DETAIL_MESSAGES.get(i), discountPrices.get(i));
-        }
-        outputView.printBenefitDetails("증정 이벤트", event);
+    private Orders crateOrders(final Day day, final Order order) {
+        final Money priceBeforeDiscount = order.calculateOrderedPriceBeforeDiscount();
+        final GiveawayEvent giveawayEvent = GiveawayEvent.create(priceBeforeDiscount);
+
+        outputView.printPriceBeforeDiscount(priceBeforeDiscount);
+        outputView.printGiveawayMenu(giveawayEvent);
+        return new Orders(day, order, priceBeforeDiscount, new DiscountManager(), giveawayEvent);
     }
 
     private Day createValidDate() {
