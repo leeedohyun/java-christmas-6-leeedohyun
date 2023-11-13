@@ -2,17 +2,19 @@ package christmas.model;
 
 public class GiveawayEvent {
 
+    private final Money giveawayEventMenuPrice;
     private final boolean eventActive;
 
-    private GiveawayEvent(boolean eventActive) {
+    private GiveawayEvent(final Money giveawayEventMenuPrice, final boolean eventActive) {
+        this.giveawayEventMenuPrice = giveawayEventMenuPrice;
         this.eventActive = eventActive;
     }
 
-    public static GiveawayEvent create(Money priceBeforeDiscount) {
+    public static GiveawayEvent create(final Money priceBeforeDiscount) {
         if (priceBeforeDiscount.isEqualAndOver(new Money(120_000))) {
-            return new GiveawayEvent(true);
+            return new GiveawayEvent(Menu.getPriceByMenu(Menu.CHAMPAGNE), true);
         }
-        return new GiveawayEvent(false);
+        return new GiveawayEvent(Constants.ZERO_WON, false);
     }
 
     public String getGiveawayMenu() {
@@ -22,11 +24,8 @@ public class GiveawayEvent {
         return "없음";
     }
 
-    public Money getGiveawayMenuPrice() {
-        if (eventActive) {
-            return Menu.getPriceByMenu(Menu.CHAMPAGNE);
-        }
-        return Constants.ZERO_WON;
+    public Money getGiveawayEventMenuPrice() {
+        return giveawayEventMenuPrice;
     }
 
     public boolean isEventActive() {

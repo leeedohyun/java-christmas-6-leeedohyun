@@ -88,8 +88,8 @@ public class OutputView {
         }
     }
 
-    public void printNoBenefitIfApplicable(final Money discountPrice, final GiveawayEvent giveawayEvent) {
-        if (discountPrice.equals(Constants.ZERO_WON) && !giveawayEvent.isEventActive()) {
+    public void printNoBenefitIfApplicable(final Money discountPrice, final Money giveawayEventMenuPrice) {
+        if (discountPrice.equals(Constants.ZERO_WON) && giveawayEventMenuPrice.equals(Constants.ZERO_WON)) {
             System.out.println(NO_BENEFIT_MESSAGE);
         }
         printEmptyLine();

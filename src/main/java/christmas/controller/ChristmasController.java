@@ -2,12 +2,12 @@ package christmas.controller;
 
 import christmas.exception.ExceptionHandler;
 import christmas.model.Badge;
-import christmas.model.Constants;
 import christmas.model.Day;
 import christmas.model.GiveawayEvent;
 import christmas.model.Menu;
 import christmas.model.Money;
 import christmas.model.Order;
+import christmas.model.Orders;
 import christmas.model.Utils;
 import christmas.model.discount.DiscountManager;
 import christmas.view.InputView;
@@ -29,38 +29,35 @@ public class ChristmasController {
 
     public void play() {
         outputView.printWelcomeMessage();
-        Day day = createValidDate();
 
+        Day day = createValidDate();
         Order order = createValidOrder();
 
         outputView.printEventPreview(day);
         outputView.printOrderedMenus(order);
 
-        Money total = order.calculateOrderedPriceBeforeDiscount();
-        outputView.printPriceBeforeDiscount(total);
+        Money priceBeforeDiscount = order.calculateOrderedPriceBeforeDiscount();
+        Orders orders = new Orders(day, order, priceBeforeDiscount, new DiscountManager(),
+                GiveawayEvent.create(priceBeforeDiscount));
+        outputView.printPriceBeforeDiscount(priceBeforeDiscount);
+        outputView.printGiveawayMenu(orders.getGiveawayEvent());
+        printDiscountBenefitDetails(orders.getDiscountPrices(), orders.getGiveawayEventMenuPrice());
 
-        GiveawayEvent giveawayEvent = GiveawayEvent.create(total);
-        outputView.printGiveawayMenu(giveawayEvent);
+        Money discountPrice = orders.calculateTotalDiscountPrice();
+        outputView.printNoBenefitIfApplicable(discountPrice, orders.getGiveawayEventMenuPrice());
 
-        DiscountManager discountManager = new DiscountManager();
+        Money totalBenefitPrice = orders.calculateTotalBenefitPrice();
+        outputView.printTotalBenefitPrice(totalBenefitPrice);
+        outputView.printDiscountedPrice(orders.calculateDiscountedPrice(discountPrice));
+        outputView.printBadge(Badge.decide(totalBenefitPrice));
+    }
 
-        List<Money> discountPrices = discountManager.calculateDiscountPrices(day, total, order);
-
+    private void printDiscountBenefitDetails(List<Money> discountPrices, Money event) {
         System.out.println("<혜택 내역>");
         for (int i = 0; i < 4; i++) {
             outputView.printBenefitDetails(BENEFIT_DETAIL_MESSAGES.get(i), discountPrices.get(i));
         }
-
-        Money event = giveawayEvent.getGiveawayMenuPrice();
         outputView.printBenefitDetails("증정 이벤트", event);
-
-        Money discountPrice = calculateTotalDiscountPrice(discountPrices);
-        outputView.printNoBenefitIfApplicable(discountPrice, giveawayEvent);
-
-        Money totalBenefitPrice = discountPrice.plus(event);
-        outputView.printTotalBenefitPrice(totalBenefitPrice);
-        outputView.printDiscountedPrice(Order.calculateDiscountedPrice(total, discountPrice));
-        outputView.printBadge(Badge.decide(totalBenefitPrice));
     }
 
     private Day createValidDate() {
@@ -80,11 +77,5 @@ public class ChristmasController {
     private Order createValidOrder() {
         return ExceptionHandler.createValidObject(() -> new Order(createValidMenus()),
                 outputView::printExceptionMessage);
-    }
-
-    private Money calculateTotalDiscountPrice(List<Money> discountPrices) {
-        return discountPrices.stream()
-                .reduce(Money::plus)
-                .orElse(Constants.ZERO_WON);
     }
 }
