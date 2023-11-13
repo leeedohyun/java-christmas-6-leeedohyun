@@ -22,7 +22,7 @@ class DiscountManagerTest {
 
         // when
         DiscountManager discountManager = new DiscountManager();
-        List<Money> monies = discountManager.calculateTotalDiscountPrice(day, money, order);
+        List<Money> monies = discountManager.calculateDiscountPrices(day, money, order);
 
         // then
         Assertions.assertThat(monies)

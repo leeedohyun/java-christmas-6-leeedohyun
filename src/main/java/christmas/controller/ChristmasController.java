@@ -44,24 +44,22 @@ public class ChristmasController {
 
         DiscountManager discountManager = new DiscountManager();
 
-        List<Money> discountPrices = discountManager.calculateTotalDiscountPrice(day, total, order);
-        Money discountPrice = calculateTotalDiscountPrice(discountPrices);
-
-        Money event = giveawayEvent.getGiveawayMenuPrice();
+        List<Money> discountPrices = discountManager.calculateDiscountPrices(day, total, order);
 
         System.out.println("<혜택 내역>");
         for (int i = 0; i < 4; i++) {
             outputView.printBenefitDetails(BENEFIT_DETAIL_MESSAGES.get(i), discountPrices.get(i));
         }
+
+        Money event = giveawayEvent.getGiveawayMenuPrice();
         outputView.printBenefitDetails("증정 이벤트", event);
 
+        Money discountPrice = calculateTotalDiscountPrice(discountPrices);
         outputView.printNoBenefitIfApplicable(discountPrice, giveawayEvent);
 
         Money totalBenefitPrice = discountPrice.plus(event);
         outputView.printTotalBenefitPrice(totalBenefitPrice);
-
         outputView.printDiscountedPrice(Order.calculateDiscountedPrice(total, discountPrice));
-
         outputView.printBadge(Badge.decide(totalBenefitPrice));
     }
 
@@ -84,7 +82,7 @@ public class ChristmasController {
                 outputView::printExceptionMessage);
     }
 
-    private Money calculateTotalDiscountPrice(final List<Money> discountPrices) {
+    private Money calculateTotalDiscountPrice(List<Money> discountPrices) {
         return discountPrices.stream()
                 .reduce(Money::plus)
                 .orElse(Constants.ZERO_WON);
