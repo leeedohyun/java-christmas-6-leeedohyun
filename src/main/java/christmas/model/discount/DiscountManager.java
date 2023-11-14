@@ -2,7 +2,7 @@ package christmas.model.discount;
 
 import christmas.model.Day;
 import christmas.model.Price;
-import christmas.model.OrderDetail;
+import christmas.model.order.OrderDetail;
 import java.util.List;
 
 public class DiscountManager {

@@ -3,7 +3,7 @@ package christmas.model.discount;
 import christmas.model.Day;
 import christmas.model.Menu;
 import christmas.model.Price;
-import christmas.model.OrderDetail;
+import christmas.model.order.OrderDetail;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;

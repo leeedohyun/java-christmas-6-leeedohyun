@@ -1,5 +1,9 @@
-package christmas.model;
+package christmas.model.order;
 
+import christmas.model.Constants;
+import christmas.model.Day;
+import christmas.model.GiveawayEvent;
+import christmas.model.Price;
 import christmas.model.discount.DiscountManager;
 import java.util.List;
 

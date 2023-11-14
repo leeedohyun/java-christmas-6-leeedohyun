@@ -1,6 +1,12 @@
-package christmas.model;
+package christmas.model.order;
 
+import christmas.model.Day;
+import christmas.model.GiveawayEvent;
+import christmas.model.Menu;
+import christmas.model.Price;
 import christmas.model.discount.DiscountManager;
+import christmas.model.order.Order;
+import christmas.model.order.OrderDetail;
 import java.time.LocalDate;
 import java.util.Map;
 import org.junit.jupiter.api.Assertions;

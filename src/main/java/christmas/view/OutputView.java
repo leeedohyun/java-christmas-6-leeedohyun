@@ -5,8 +5,8 @@ import christmas.model.Constants;
 import christmas.model.Day;
 import christmas.model.GiveawayEvent;
 import christmas.model.Price;
-import christmas.model.OrderDetail;
-import christmas.model.Order;
+import christmas.model.order.OrderDetail;
+import christmas.model.order.Order;
 import java.util.List;
 
 public class OutputView {

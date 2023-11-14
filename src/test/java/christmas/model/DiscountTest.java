@@ -5,6 +5,7 @@ import christmas.model.discount.Discount;
 import christmas.model.discount.Special;
 import christmas.model.discount.WeekDay;
 import christmas.model.discount.Weekend;
+import christmas.model.order.OrderDetail;
 import java.time.LocalDate;
 import java.util.Map;
 import org.junit.jupiter.api.Assertions;

@@ -3,7 +3,7 @@ package christmas.model.discount;
 import christmas.model.Constants;
 import christmas.model.Day;
 import christmas.model.Price;
-import christmas.model.OrderDetail;
+import christmas.model.order.OrderDetail;
 
 public class DDay implements Discount {
 

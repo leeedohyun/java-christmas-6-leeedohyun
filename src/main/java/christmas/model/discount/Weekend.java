@@ -4,7 +4,7 @@ import christmas.model.Constants;
 import christmas.model.Day;
 import christmas.model.MenuType;
 import christmas.model.Price;
-import christmas.model.OrderDetail;
+import christmas.model.order.OrderDetail;
 
 public class Weekend implements Discount {
 

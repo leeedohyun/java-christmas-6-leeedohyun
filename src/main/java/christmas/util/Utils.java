@@ -1,5 +1,7 @@
-package christmas.model;
+package christmas.util;
 
+import christmas.model.Constants;
+import christmas.model.Menu;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.Arrays;

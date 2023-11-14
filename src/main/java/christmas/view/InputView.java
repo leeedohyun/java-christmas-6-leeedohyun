@@ -1,7 +1,7 @@
 package christmas.view;
 
 import camp.nextstep.edu.missionutils.Console;
-import christmas.model.Utils;
+import christmas.util.Utils;
 import java.time.LocalDate;
 import java.util.List;
 

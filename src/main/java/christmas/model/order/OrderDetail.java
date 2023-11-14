@@ -1,5 +1,9 @@
-package christmas.model;
+package christmas.model.order;
 
+import christmas.model.Constants;
+import christmas.model.Menu;
+import christmas.model.MenuType;
+import christmas.model.Price;
 import java.util.Collections;
 import java.util.Map;
 

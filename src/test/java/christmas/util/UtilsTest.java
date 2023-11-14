@@ -1,5 +1,7 @@
-package christmas.model;
+package christmas.util;
 
+import christmas.model.Menu;
+import christmas.util.Utils;
 import java.util.List;
 import java.util.Map;
 import org.assertj.core.api.Assertions;
