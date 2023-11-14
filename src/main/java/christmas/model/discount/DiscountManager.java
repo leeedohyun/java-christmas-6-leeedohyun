@@ -13,7 +13,8 @@ public class DiscountManager {
         this.discountPolicies = List.of(new DDay(), new WeekDay(), new Weekend(), new Special());
     }
 
-    public List<Price> calculateDiscountPrices(Day visitedDay, Price totalPrice, OrderDetail orderDetail) {
+    public List<Price> calculateDiscountPrices(final Day visitedDay, final Price totalPrice,
+                                               final OrderDetail orderDetail) {
         return discountPolicies.stream()
                 .map(discountPolicy -> discountPolicy.discount(visitedDay, totalPrice, orderDetail))
                 .toList();

@@ -27,8 +27,4 @@ public class GiveawayEvent {
     public Price getGiveawayEventMenuPrice() {
         return giveawayEventMenuPrice;
     }
-
-    public boolean isEventActive() {
-        return eventActive;
-    }
 }

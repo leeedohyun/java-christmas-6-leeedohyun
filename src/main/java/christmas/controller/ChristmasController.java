@@ -32,12 +32,11 @@ public class ChristmasController {
         outputView.printOrderDetails(day, orderDetail);
 
         final Order order = crateOrders(day, orderDetail);
-        outputView.printDiscountBenefitDetails(order.getDiscountPrices(), order.getGiveawayEventMenuPrice());
-
         final Price discountPrice = order.calculateTotalDiscountPrice();
-        outputView.printNoBenefitIfApplicable(discountPrice, order.getGiveawayEventMenuPrice());
-
         final Price totalBenefitPrice = order.calculateTotalBenefitPrice();
+
+        outputView.printDiscountBenefitDetails(order.getDiscountPrices(), order.getGiveawayEventMenuPrice());
+        outputView.printNoBenefitIfApplicable(discountPrice, order.getGiveawayEventMenuPrice());
         outputView.printTotalAndDiscountPrice(totalBenefitPrice, order, discountPrice);
     }
 

@@ -39,7 +39,7 @@ public enum Menu {
         return menu.price;
     }
 
-    public Price calculateMenuPrice(int quantity) {
+    public Price calculateMenuPrice(final int quantity) {
         return price.multiply(quantity);
     }
 

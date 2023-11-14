@@ -18,7 +18,7 @@ public final class Utils {
     }
 
     public static LocalDate convertStringToLocalDate(final String inputDate) {
-        int date = convertStringToInt(inputDate)
+        final int date = convertStringToInt(inputDate)
                 .orElseThrow(() -> new IllegalArgumentException(DATE_FORMAT_EXCEPTION_MESSAGE));
         return createLocalDate(date);
     }

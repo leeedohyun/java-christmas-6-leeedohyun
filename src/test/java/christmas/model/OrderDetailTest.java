@@ -7,20 +7,6 @@ import org.junit.jupiter.api.Test;
 class OrderDetailTest {
 
     @Test
-    public void 할인된_금액_테스트() {
-        // given
-        final Price totalPrice = new Price(10_000);
-        final Price discountPrice = new Price(1_000);
-
-        // when
-
-        final Price discountedPrice = OrderDetail.calculateDiscountedPrice(totalPrice, discountPrice);
-
-        // then
-        Assertions.assertEquals(discountedPrice, new Price(9_000));
-    }
-
-    @Test
     public void 주문_내역에서_메인_메뉴_개수_테스트() {
         // given
         final Map<Menu, Integer> orderedMenu = Map.of(Menu.CHAMPAGNE, 1,

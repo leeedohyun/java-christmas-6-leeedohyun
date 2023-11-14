@@ -12,10 +12,6 @@ public class OrderDetail {
         this.orderedMenus = orderedMenus;
     }
 
-    public static Price calculateDiscountedPrice(final Price totalPrice, final Price discountPrice) {
-        return totalPrice.minus(discountPrice);
-    }
-
     public int countNumberOfMenusByMenuType(final MenuType menuType) {
         return orderedMenus.keySet().stream()
                 .filter(orderedMenu -> orderedMenu.getMenuType() == menuType)

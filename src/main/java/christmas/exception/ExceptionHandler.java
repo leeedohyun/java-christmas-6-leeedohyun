@@ -8,7 +8,7 @@ public class ExceptionHandler {
     private ExceptionHandler() {
     }
 
-    public static <T> T createValidObject(Supplier<T> supplier, Consumer<Exception> exceptionConsumer) {
+    public static <T> T createValidObject(final Supplier<T> supplier, final Consumer<Exception> exceptionConsumer) {
         while (true) {
             try {
                 return supplier.get();
