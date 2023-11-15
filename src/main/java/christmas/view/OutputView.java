@@ -66,7 +66,7 @@ public class OutputView {
 
     public void printNoBenefitIfApplicable(final Price discountPrice, final Price giveawayEventMenuPrice) {
         if (discountPrice.equals(Constants.ZERO_WON) && giveawayEventMenuPrice.equals(Constants.ZERO_WON)) {
-            System.out.println(ViewConstants.NO_BENEFIT_MESSAGE);
+            System.out.println(Constants.NO_BENEFIT_MESSAGE);
         }
         printEmptyLine();
     }

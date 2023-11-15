@@ -2,6 +2,9 @@ package christmas.model;
 
 public class GiveawayEvent {
 
+    public static final int MIN_PRICE_FOR_GIVEAWAY_EVENT = 120_000;
+    public static final String GIVEAWAY_EVENT_MENU = "샴페인 1개";
+
     private final Price giveawayEventMenuPrice;
     private final boolean eventActive;
 
@@ -11,7 +14,7 @@ public class GiveawayEvent {
     }
 
     public static GiveawayEvent create(final Price priceBeforeDiscount) {
-        if (priceBeforeDiscount.isEqualAndOver(new Price(120_000))) {
+        if (priceBeforeDiscount.isEqualAndOver(new Price(MIN_PRICE_FOR_GIVEAWAY_EVENT))) {
             return new GiveawayEvent(Menu.getPriceByMenu(Menu.CHAMPAGNE), true);
         }
         return new GiveawayEvent(Constants.ZERO_WON, false);
@@ -19,9 +22,9 @@ public class GiveawayEvent {
 
     public String getGiveawayMenu() {
         if (eventActive) {
-            return "샴페인 1개";
+            return GIVEAWAY_EVENT_MENU;
         }
-        return "없음";
+        return Constants.NO_BENEFIT_MESSAGE;
     }
 
     public Price getGiveawayEventMenuPrice() {
