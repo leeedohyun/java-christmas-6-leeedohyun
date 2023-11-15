@@ -7,7 +7,7 @@ import java.util.List;
 
 public class InputView {
 
-    public LocalDate inputVisitedDate() {
+    public LocalDate inputDateOfVisit() {
         return Utils.convertStringToLocalDate(Console.readLine());
     }
 

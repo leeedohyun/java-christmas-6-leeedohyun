@@ -16,8 +16,7 @@ public class Order {
     private final GiveawayEvent giveawayEvent;
 
     public Order(final Date date, final OrderDetail orderDetail, final Price priceBeforeDiscount,
-                 final DiscountManager discountManager,
-                 final GiveawayEvent giveawayEvent) {
+                 final DiscountManager discountManager, final GiveawayEvent giveawayEvent) {
         this.date = date;
         this.orderDetail = orderDetail;
         this.priceBeforeDiscount = priceBeforeDiscount;
@@ -40,8 +39,7 @@ public class Order {
         return discountManager.calculateDiscountPrices(date, priceBeforeDiscount, orderDetail);
     }
 
-    public Price calculateTotalBenefitPrice() {
-        final Price discountPrice = calculateTotalDiscountPrice();
+    public Price calculateTotalBenefitPrice(final Price discountPrice) {
         return discountPrice.plus(giveawayEvent.getGiveawayEventMenuPrice());
     }
 

@@ -26,14 +26,14 @@ public class ChristmasController {
     public void play() {
         outputView.printWelcomeMessage();
 
-        final Date date = createValidDate();
+        final Date dateOfVisit = createValidDate();
         final OrderDetail orderDetail = createValidOrder();
 
-        outputView.printOrderDetails(date, orderDetail);
+        outputView.printOrderDetails(dateOfVisit, orderDetail);
 
-        final Order order = crateOrders(date, orderDetail);
+        final Order order = crateOrders(dateOfVisit, orderDetail);
         final Price discountPrice = order.calculateTotalDiscountPrice();
-        final Price totalBenefitPrice = order.calculateTotalBenefitPrice();
+        final Price totalBenefitPrice = order.calculateTotalBenefitPrice(discountPrice);
 
         outputView.printDiscountBenefitDetails(order.getDiscountPrices(), order.getGiveawayEventMenuPrice());
         outputView.printNoBenefitIfApplicable(discountPrice, order.getGiveawayEventMenuPrice());
@@ -52,7 +52,7 @@ public class ChristmasController {
     private Date createValidDate() {
         return ExceptionHandler.createValidObject(() -> {
             outputView.printVisitDateMessage();
-            return new Date(inputView.inputVisitedDate());
+            return new Date(inputView.inputDateOfVisit());
         }, outputView::printExceptionMessage);
     }
 

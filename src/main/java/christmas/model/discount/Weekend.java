@@ -12,8 +12,9 @@ public class Weekend implements Discount {
     private static final Price MINIMUM_ORDER_PRICE = new Price(10_000);
 
     @Override
-    public Price discount(final Date visitedDate, final Price totalPrice, final OrderDetail orderDetail) {
-        if (visitedDate.isEventNotEnded() && visitedDate.isWeekend() && totalPrice.isEqualAndOver(MINIMUM_ORDER_PRICE)) {
+    public Price discount(final Date dateOfVisit, final Price priceBeforeDiscount, final OrderDetail orderDetail) {
+        if (dateOfVisit.isEventNotEnded() && dateOfVisit.isWeekend() && priceBeforeDiscount.isEqualAndOver(
+                MINIMUM_ORDER_PRICE)) {
             return WEEKEND_DISCOUNT_PRICE.multiply(orderDetail.countNumberOfMenusByMenuType(MenuType.MAIN));
         }
         return Constants.ZERO_WON;

@@ -5,6 +5,8 @@ import java.util.Objects;
 
 public class Price {
 
+    private static final String MONEY_FORMAT_PATTERN = "###,###";
+
     private final int money;
 
     public Price(final int money) {
@@ -32,7 +34,7 @@ public class Price {
     }
 
     public String getFormattedMoney() {
-        DecimalFormat decimalFormat = new DecimalFormat("###,###");
+        DecimalFormat decimalFormat = new DecimalFormat(MONEY_FORMAT_PATTERN);
         return decimalFormat.format(money);
     }
 

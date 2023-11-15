@@ -23,8 +23,8 @@ public class OutputView {
         System.out.println(ViewConstants.ORDER_INSTRUCTION_MESSAGE);
     }
 
-    public void printOrderDetails(final Date date, final OrderDetail orderDetail) {
-        printEventPreview(date);
+    public void printOrderDetails(final Date dateOfVisit, final OrderDetail orderDetail) {
+        printEventPreview(dateOfVisit);
         printOrderedMenus(orderDetail);
     }
 
@@ -75,8 +75,8 @@ public class OutputView {
         System.out.println();
     }
 
-    private void printEventPreview(final Date visitedDate) {
-        System.out.printf(ViewConstants.EVENT_PREVIEW_MESSAGE_FORMAT, visitedDate.getMonth(), visitedDate.getDay());
+    private void printEventPreview(final Date dateOfVisit) {
+        System.out.printf(ViewConstants.EVENT_PREVIEW_MESSAGE_FORMAT, dateOfVisit.getMonth(), dateOfVisit.getDay());
         printEmptyLine();
     }
 
