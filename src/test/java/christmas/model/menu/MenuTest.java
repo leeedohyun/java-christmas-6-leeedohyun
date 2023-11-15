@@ -1,6 +1,5 @@
 package christmas.model.menu;
 
-import christmas.model.menu.Menu;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -10,14 +9,14 @@ class MenuTest {
 
     @ParameterizedTest
     @ValueSource(strings = {"타파스", "시저샐러드", "해산물파스타"})
-    public void 주문_메뉴가_메뉴판에_있는_경우_정상적으로_동작한다(String menu) {
+    public void 주문_메뉴가_메뉴판에_있는_경우_정상적으로_동작한다(final String menu) {
         Assertions.assertThatNoException()
                 .isThrownBy(() -> Menu.getMenuByName(menu));
     }
 
     @ParameterizedTest
     @ValueSource(strings = {"피자", "치킨", "족발"})
-    public void 주문_메뉴가_메뉴판에_없는_경우_예외가_발생한다(String menu) {
+    public void 주문_메뉴가_메뉴판에_없는_경우_예외가_발생한다(final String menu) {
         Assertions.assertThatThrownBy(() -> Menu.getMenuByName(menu))
                 .isInstanceOf(IllegalArgumentException.class);
     }
@@ -28,7 +27,7 @@ class MenuTest {
         final String menu = "제로콜라";
 
         // when
-        Menu zeroCola = Menu.getMenuByName(menu);
+        final Menu zeroCola = Menu.getMenuByName(menu);
 
         // then
         Assertions.assertThat(zeroCola).isEqualTo(Menu.ZERO_COLA);

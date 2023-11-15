@@ -15,14 +15,14 @@ class DiscountManagerTest {
     @Test
     public void 할인_금액_리스트를_반환합니다() {
         // given
-        Date date = new Date(LocalDate.of(2023, 12, 3));
-        Price price = new Price(142_000);
+        final Date date = new Date(LocalDate.of(2023, 12, 3));
+        final Price price = new Price(142_000);
         OrderDetail orderDetail = new OrderDetail(
                 Map.of(Menu.T_BONE_STEAK, 1, Menu.BBQ_RIBS, 1, Menu.CHOCOLATE_CAKE, 2, Menu.ZERO_COLA, 1));
 
         // when
-        DiscountManager discountManager = new DiscountManager();
-        List<Price> monies = discountManager.calculateDiscountPrices(date, price, orderDetail);
+        final DiscountManager discountManager = new DiscountManager();
+        final List<Price> monies = discountManager.calculateDiscountPrices(date, price, orderDetail);
 
         // then
         Assertions.assertThat(monies)
