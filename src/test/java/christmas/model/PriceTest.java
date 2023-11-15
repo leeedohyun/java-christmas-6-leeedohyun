@@ -71,4 +71,14 @@ class PriceTest {
         // then
         Assertions.assertEquals(minusedPrice, new Price(2_000));
     }
+
+    @Test
+    public void 빼기의_결과가_음수인_경우_예외가_발생한다() {
+        // given
+        final Price price1 = new Price(500);
+        final Price price2 = new Price(1_000);
+
+        // then
+        Assertions.assertThrows(IllegalArgumentException.class, () -> price1.minus(price2));
+    }
 }
