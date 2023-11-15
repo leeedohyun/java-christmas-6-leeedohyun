@@ -27,7 +27,7 @@ public class ChristmasController {
         outputView.printWelcomeMessage();
 
         final Date dateOfVisit = createValidDate();
-        final OrderDetail orderDetail = createValidOrder();
+        final OrderDetail orderDetail = createValidOrderDetail();
 
         outputView.printOrderDetails(dateOfVisit, orderDetail);
 
@@ -36,7 +36,7 @@ public class ChristmasController {
         final Price totalBenefitPrice = order.calculateTotalBenefitPrice(discountPrice);
 
         outputView.printDiscountBenefitDetails(order.getDiscountPrices(), order.getGiveawayEventMenuPrice());
-        outputView.printNoBenefitIfApplicable(discountPrice, order.getGiveawayEventMenuPrice());
+        outputView.printNoBenefitIfApplicable(totalBenefitPrice);
         outputView.printTotalAndDiscountPrice(totalBenefitPrice, order, discountPrice);
     }
 
@@ -51,7 +51,7 @@ public class ChristmasController {
 
     private Date createValidDate() {
         return ExceptionHandler.createValidObject(() -> {
-            outputView.printVisitDateMessage();
+            outputView.printDateOfVisitMessage();
             return new Date(inputView.inputDateOfVisit());
         }, outputView::printExceptionMessage);
     }
@@ -63,7 +63,7 @@ public class ChristmasController {
         }, outputView::printExceptionMessage);
     }
 
-    private OrderDetail createValidOrder() {
+    private OrderDetail createValidOrderDetail() {
         return ExceptionHandler.createValidObject(() -> new OrderDetail(createValidMenus()),
                 outputView::printExceptionMessage);
     }

@@ -15,7 +15,7 @@ public class OutputView {
         System.out.println(ViewConstants.WELCOME_MESSAGE);
     }
 
-    public void printVisitDateMessage() {
+    public void printDateOfVisitMessage() {
         System.out.println(ViewConstants.VISIT_DATE_QUESTION_MESSAGE);
     }
 
@@ -64,8 +64,8 @@ public class OutputView {
         printBenefitDetails(ViewConstants.GIVEAWAY_EVENT_MESSAGE, event);
     }
 
-    public void printNoBenefitIfApplicable(final Price discountPrice, final Price giveawayEventMenuPrice) {
-        if (discountPrice.equals(Constants.ZERO_WON) && giveawayEventMenuPrice.equals(Constants.ZERO_WON)) {
+    public void printNoBenefitIfApplicable(final Price totalBenefitPrice) {
+        if (totalBenefitPrice.equals(Constants.ZERO_WON)) {
             System.out.println(Constants.NO_BENEFIT_MESSAGE);
         }
         printEmptyLine();
