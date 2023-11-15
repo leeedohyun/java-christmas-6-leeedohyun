@@ -1,10 +1,13 @@
-package christmas.model;
+package christmas.model.discount;
 
+import christmas.model.Date;
+import christmas.model.Price;
 import christmas.model.discount.DDay;
 import christmas.model.discount.Discount;
 import christmas.model.discount.Special;
 import christmas.model.discount.WeekDay;
 import christmas.model.discount.Weekend;
+import christmas.model.menu.Menu;
 import christmas.model.order.OrderDetail;
 import java.time.LocalDate;
 import java.util.Map;

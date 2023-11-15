@@ -1,7 +1,7 @@
 package christmas.model.discount;
 
 import christmas.model.Date;
-import christmas.model.Menu;
+import christmas.model.menu.Menu;
 import christmas.model.Price;
 import christmas.model.order.OrderDetail;
 import java.time.LocalDate;

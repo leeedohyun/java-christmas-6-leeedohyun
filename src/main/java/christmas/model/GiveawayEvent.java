@@ -1,5 +1,7 @@
 package christmas.model;
 
+import christmas.model.menu.Menu;
+
 public class GiveawayEvent {
 
     public static final int MIN_PRICE_FOR_GIVEAWAY_EVENT = 120_000;

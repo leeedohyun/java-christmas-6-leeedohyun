@@ -1,5 +1,6 @@
-package christmas.model;
+package christmas.model.menu;
 
+import christmas.model.menu.Menu;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;

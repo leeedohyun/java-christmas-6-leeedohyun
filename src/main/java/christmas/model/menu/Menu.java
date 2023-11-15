@@ -1,5 +1,7 @@
-package christmas.model;
+package christmas.model.menu;
 
+import christmas.model.Constants;
+import christmas.model.Price;
 import java.util.Arrays;
 
 public enum Menu {

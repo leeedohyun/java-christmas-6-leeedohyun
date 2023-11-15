@@ -1,9 +1,8 @@
 package christmas.model.order;
 
-import christmas.model.Menu;
-import christmas.model.MenuType;
+import christmas.model.menu.Menu;
+import christmas.model.menu.MenuType;
 import christmas.model.Price;
-import christmas.model.order.OrderDetail;
 import java.util.Map;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

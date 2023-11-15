@@ -2,7 +2,7 @@ package christmas.model.discount;
 
 import christmas.model.Constants;
 import christmas.model.Date;
-import christmas.model.MenuType;
+import christmas.model.menu.MenuType;
 import christmas.model.Price;
 import christmas.model.order.OrderDetail;
 
