@@ -12,37 +12,37 @@ public class Date {
     private static final LocalDate CHRISTMAS = LocalDate.of(Constants.YEAR, Constants.MONTH, 25);
     private static final LocalDate EVENT_END_DATE = LocalDate.of(Constants.YEAR, Constants.MONTH, 31);
 
-    private final LocalDate day;
+    private final LocalDate date;
 
-    public Date(final LocalDate day) {
-        this.day = day;
+    public Date(final LocalDate date) {
+        this.date = date;
     }
 
     public boolean isWeekend() {
-        return day.getDayOfWeek() == DayOfWeek.FRIDAY || day.getDayOfWeek() == DayOfWeek.SATURDAY;
+        return date.getDayOfWeek() == DayOfWeek.FRIDAY || date.getDayOfWeek() == DayOfWeek.SATURDAY;
     }
 
     public boolean isBeforeOrEqualChristmas() {
-        return !day.isAfter(CHRISTMAS);
+        return !date.isAfter(CHRISTMAS);
     }
 
     public boolean isEventNotEnded() {
-        return !day.isAfter(EVENT_END_DATE);
+        return !date.isAfter(EVENT_END_DATE);
     }
 
     public int calculateDaysUntilEventStart() {
-        return (int) ChronoUnit.DAYS.between(EVENT_START_DATE, day);
+        return (int) ChronoUnit.DAYS.between(EVENT_START_DATE, date);
     }
 
     public boolean hasStar() {
-        return DATES_WITH_STAR.contains(day.getDayOfMonth());
+        return DATES_WITH_STAR.contains(date.getDayOfMonth());
     }
 
     public int getMonth() {
-        return day.getMonthValue();
+        return date.getMonthValue();
     }
 
-    public int getDay() {
-        return day.getDayOfMonth();
+    public int getDate() {
+        return date.getDayOfMonth();
     }
 }

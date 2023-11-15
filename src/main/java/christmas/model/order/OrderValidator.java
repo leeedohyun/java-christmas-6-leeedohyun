@@ -31,7 +31,7 @@ public class OrderValidator {
     }
 
     private static void validateNumberOfOrderedMenus(final Map<Menu, Integer> orderedMenus) {
-        int numberOfMenus = countNumberOfOrderedMenus(orderedMenus);
+        final int numberOfMenus = countNumberOfOrderedMenus(orderedMenus);
         if (isInvalidNumberOfMenus(numberOfMenus)) {
             throw new IllegalArgumentException(Constants.MENU_NOT_FOUND_EXCEPTION_MESSAGE);
         }

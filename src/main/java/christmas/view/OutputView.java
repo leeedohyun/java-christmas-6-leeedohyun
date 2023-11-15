@@ -76,7 +76,7 @@ public class OutputView {
     }
 
     private void printEventPreview(final Date dateOfVisit) {
-        System.out.printf(ViewConstants.EVENT_PREVIEW_MESSAGE_FORMAT, dateOfVisit.getMonth(), dateOfVisit.getDay());
+        System.out.printf(ViewConstants.EVENT_PREVIEW_MESSAGE_FORMAT, dateOfVisit.getMonth(), dateOfVisit.getDate());
         printEmptyLine();
     }
 

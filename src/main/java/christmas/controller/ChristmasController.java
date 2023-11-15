@@ -31,7 +31,7 @@ public class ChristmasController {
 
         outputView.printOrderDetails(dateOfVisit, orderDetail);
 
-        final Order order = crateOrders(dateOfVisit, orderDetail);
+        final Order order = createOrder(dateOfVisit, orderDetail);
         final Price discountPrice = order.calculateTotalDiscountPrice();
         final Price totalBenefitPrice = order.calculateTotalBenefitPrice(discountPrice);
 
@@ -40,7 +40,7 @@ public class ChristmasController {
         outputView.printTotalAndDiscountPrice(totalBenefitPrice, order, discountPrice);
     }
 
-    private Order crateOrders(final Date date, final OrderDetail orderDetail) {
+    private Order createOrder(final Date date, final OrderDetail orderDetail) {
         final Price priceBeforeDiscount = orderDetail.calculateOrderedPriceBeforeDiscount();
         final GiveawayEvent giveawayEvent = GiveawayEvent.create(priceBeforeDiscount);
 

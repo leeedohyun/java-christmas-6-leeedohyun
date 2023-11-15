@@ -23,7 +23,7 @@ public class Price {
     }
 
     public Price minus(final Price another) {
-        int minussedPrice = price - another.price;
+        final int minussedPrice = price - another.price;
         if (minussedPrice < 0) {
             throw new IllegalArgumentException(INVALID_PRICE_EXCEPTION);
         }
@@ -39,7 +39,7 @@ public class Price {
     }
 
     public String getFormattedMoney() {
-        DecimalFormat decimalFormat = new DecimalFormat(MONEY_FORMAT_PATTERN);
+        final DecimalFormat decimalFormat = new DecimalFormat(MONEY_FORMAT_PATTERN);
         return decimalFormat.format(price);
     }
 
