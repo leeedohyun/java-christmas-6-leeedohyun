@@ -35,7 +35,7 @@ public enum Menu {
                 .orElseThrow(() -> new IllegalArgumentException(Constants.MENU_NOT_FOUND_EXCEPTION_MESSAGE));
     }
 
-    public static Price getPriceByMenu(Menu menu) {
+    public static Price getPriceByMenu(final Menu menu) {
         return menu.price;
     }
 
