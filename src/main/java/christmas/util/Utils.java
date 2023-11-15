@@ -31,12 +31,16 @@ public final class Utils {
     }
 
     public static Map<Menu, Integer> convertToMenuQuantityMap(final List<String> menus) {
-        return menus.stream()
-                .map(menu -> Arrays.asList(menu.split(MENU_AND_QUANTITY_SEPARATOR)))
-                .collect(Collectors.toMap(
-                        menu -> Menu.getMenuByName(menu.get(0)),
-                        menu -> convertStringToMenuQuantity(menu.get(1)))
-                );
+        try {
+            return menus.stream()
+                    .map(menu -> Arrays.asList(menu.split(MENU_AND_QUANTITY_SEPARATOR)))
+                    .collect(Collectors.toMap(
+                            menu -> Menu.getMenuByName(menu.get(0)),
+                            menu -> convertStringToMenuQuantity(menu.get(1)))
+                    );
+        } catch (IndexOutOfBoundsException | IllegalStateException exception) {
+            throw new IllegalArgumentException(Constants.MENU_NOT_FOUND_EXCEPTION_MESSAGE);
+        }
     }
 
     private static Optional<Integer> convertStringToInt(final String string) {
