@@ -38,7 +38,7 @@ public final class Utils {
                             menu -> Menu.getMenuByName(menu.get(0)),
                             menu -> convertStringToMenuQuantity(menu.get(1)))
                     );
-        } catch (IndexOutOfBoundsException | IllegalStateException exception) {
+        } catch (final IndexOutOfBoundsException | IllegalStateException exception) {
             throw new IllegalArgumentException(Constants.MENU_NOT_FOUND_EXCEPTION_MESSAGE);
         }
     }

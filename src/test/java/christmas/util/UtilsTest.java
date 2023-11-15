@@ -1,7 +1,6 @@
 package christmas.util;
 
 import christmas.model.Menu;
-import christmas.util.Utils;
 import java.util.List;
 import java.util.Map;
 import org.assertj.core.api.Assertions;
@@ -73,6 +72,26 @@ class UtilsTest {
     public void 주문_메뉴의_개수가_숫자가_아니면_예외가_발생한다() {
         // given
         final List<String> menus = List.of("양송이수프-1j", "바비큐립-2", "레드와인-1");
+
+        // then
+        Assertions.assertThatThrownBy(() -> Utils.convertToMenuQuantityMap(menus))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @Test
+    public void 주문_메뉴의_입력_형식이_맞지_않으면_예외가_발생한다() {
+        // given
+        final List<String> menus = List.of("양송이수프", "1", "레드와인-1");
+
+        // then
+        Assertions.assertThatThrownBy(() -> Utils.convertToMenuQuantityMap(menus))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @Test
+    public void 주문_메뉴가_중복되면_예외가_발생한다() {
+        // given
+        final List<String> menus = List.of("티본스테이크-1", "제로콜라-1", "티본스테이크-2");
 
         // then
         Assertions.assertThatThrownBy(() -> Utils.convertToMenuQuantityMap(menus))
