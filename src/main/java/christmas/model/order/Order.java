@@ -1,7 +1,7 @@
 package christmas.model.order;
 
 import christmas.model.Constants;
-import christmas.model.Day;
+import christmas.model.Date;
 import christmas.model.GiveawayEvent;
 import christmas.model.Price;
 import christmas.model.discount.DiscountManager;
@@ -9,16 +9,16 @@ import java.util.List;
 
 public class Order {
 
-    private final Day day;
+    private final Date date;
     private final OrderDetail orderDetail;
     private final Price priceBeforeDiscount;
     private final DiscountManager discountManager;
     private final GiveawayEvent giveawayEvent;
 
-    public Order(final Day day, final OrderDetail orderDetail, final Price priceBeforeDiscount,
+    public Order(final Date date, final OrderDetail orderDetail, final Price priceBeforeDiscount,
                  final DiscountManager discountManager,
                  final GiveawayEvent giveawayEvent) {
-        this.day = day;
+        this.date = date;
         this.orderDetail = orderDetail;
         this.priceBeforeDiscount = priceBeforeDiscount;
         this.discountManager = discountManager;
@@ -37,7 +37,7 @@ public class Order {
     }
 
     public List<Price> getDiscountPrices() {
-        return discountManager.calculateDiscountPrices(day, priceBeforeDiscount, orderDetail);
+        return discountManager.calculateDiscountPrices(date, priceBeforeDiscount, orderDetail);
     }
 
     public Price calculateTotalBenefitPrice() {

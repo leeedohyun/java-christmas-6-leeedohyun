@@ -1,7 +1,7 @@
 package christmas.model.discount;
 
 import christmas.model.Constants;
-import christmas.model.Day;
+import christmas.model.Date;
 import christmas.model.Price;
 import christmas.model.order.OrderDetail;
 
@@ -12,10 +12,10 @@ public class DDay implements Discount {
     private static final Price MINIMUM_ORDER_PRICE = new Price(10_000);
 
     @Override
-    public Price discount(final Day visitedDay, final Price totalPrice, final OrderDetail orderDetail) {
-        if (visitedDay.isBeforeOrEqualChristmas() && totalPrice.isEqualAndOver(MINIMUM_ORDER_PRICE)) {
+    public Price discount(final Date visitedDate, final Price totalPrice, final OrderDetail orderDetail) {
+        if (visitedDate.isBeforeOrEqualChristmas() && totalPrice.isEqualAndOver(MINIMUM_ORDER_PRICE)) {
             return D_DAY_BASIC_DISCOUNT_PRICE.plus(
-                    D_DAY_ADDITIONAL_DISCOUNT_PRICE.multiply(visitedDay.calculateDaysUntilEventStart()));
+                    D_DAY_ADDITIONAL_DISCOUNT_PRICE.multiply(visitedDate.calculateDaysUntilEventStart()));
         }
         return Constants.ZERO_WON;
     }

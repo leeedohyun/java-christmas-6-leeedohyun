@@ -6,15 +6,15 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
-class DayTest {
+class DateTest {
 
     @Test
     public void 주말인_경우_true를_반환한다() {
         // given
-        final Day visitedDay = new Day(LocalDate.of(2023, 12, 1));
+        final Date visitedDate = new Date(LocalDate.of(2023, 12, 1));
 
         // when
-        final boolean isWeekend = visitedDay.isWeekend();
+        final boolean isWeekend = visitedDate.isWeekend();
 
         // then
         Assertions.assertEquals(isWeekend, true);
@@ -23,10 +23,10 @@ class DayTest {
     @Test
     public void 평일인_경우_false를_반환한다() {
         // given
-        final Day visitedDay = new Day(LocalDate.of(2023, 12, 4));
+        final Date visitedDate = new Date(LocalDate.of(2023, 12, 4));
 
         // when
-        final boolean isWeekend = visitedDay.isWeekend();
+        final boolean isWeekend = visitedDate.isWeekend();
 
         // then
         Assertions.assertEquals(isWeekend, false);
@@ -36,10 +36,10 @@ class DayTest {
     @ValueSource(strings = {"2023-12-24", "2023-12-25"})
     public void 크리스마스_이전이거나_당일인_경우_true를_반환한다(final String date) {
         // given
-        final Day visitedDay = new Day(LocalDate.parse(date));
+        final Date visitedDate = new Date(LocalDate.parse(date));
 
         // when
-        final boolean beforeOrEqualChristmas = visitedDay.isBeforeOrEqualChristmas();
+        final boolean beforeOrEqualChristmas = visitedDate.isBeforeOrEqualChristmas();
 
         // then
         Assertions.assertEquals(beforeOrEqualChristmas, true);
@@ -49,10 +49,10 @@ class DayTest {
     @ValueSource(strings = {"2023-12-26", "2023-12-30"})
     public void 크리스마스_이후인_경우_false를_반환한다(final String date) {
         // given
-        final Day visitedDay = new Day(LocalDate.parse(date));
+        final Date visitedDate = new Date(LocalDate.parse(date));
 
         // when
-        boolean beforeOrEqualChristmas = visitedDay.isBeforeOrEqualChristmas();
+        boolean beforeOrEqualChristmas = visitedDate.isBeforeOrEqualChristmas();
 
         // then
         Assertions.assertEquals(beforeOrEqualChristmas, false);
@@ -63,10 +63,10 @@ class DayTest {
     public void 이벤트_이전인_경우_true를_반환한다(final String date) {
         // given
         LocalDate localDate = LocalDate.parse(date);
-        Day visitedDay = new Day(localDate);
+        Date visitedDate = new Date(localDate);
 
         // when
-        boolean beforeOrEqualChristmas = visitedDay.isEventNotEnded();
+        boolean beforeOrEqualChristmas = visitedDate.isEventNotEnded();
 
         // then
         Assertions.assertEquals(beforeOrEqualChristmas, true);
@@ -76,10 +76,10 @@ class DayTest {
     @ValueSource(strings = {"2024-01-01", "2024-01-05"})
     public void 이벤트_이후인_경우_false를_반환한다(final String date) {
         // given
-        final Day visitedDay = new Day(LocalDate.parse(date));
+        final Date visitedDate = new Date(LocalDate.parse(date));
 
         // when
-        final boolean beforeOrEqualChristmas = visitedDay.isEventNotEnded();
+        final boolean beforeOrEqualChristmas = visitedDate.isEventNotEnded();
 
         // then
         Assertions.assertEquals(beforeOrEqualChristmas, false);
@@ -88,10 +88,10 @@ class DayTest {
     @Test
     public void 방문_날짜와_이벤트_시작_날짜의_차이_테스트() {
         // given
-        final Day visitedDay = new Day(LocalDate.of(2023, 12, 6));
+        final Date visitedDate = new Date(LocalDate.of(2023, 12, 6));
 
         // when
-        final int gapUntilEventStart = visitedDay.calculateDaysUntilEventStart();
+        final int gapUntilEventStart = visitedDate.calculateDaysUntilEventStart();
 
         // then
         Assertions.assertEquals(gapUntilEventStart, 5);
@@ -101,10 +101,10 @@ class DayTest {
     @ValueSource(strings = {"2023-12-03", "2023-12-25", "2023-12-31"})
     public void 별이_있는_날짜는_true를_반환한다(final String date) {
         // given
-        final Day visitedDay = new Day(LocalDate.parse(date));
+        final Date visitedDate = new Date(LocalDate.parse(date));
 
         // when
-        final boolean hasStar = visitedDay.hasStar();
+        final boolean hasStar = visitedDate.hasStar();
 
         // then
         Assertions.assertTrue(hasStar);
@@ -114,10 +114,10 @@ class DayTest {
     @ValueSource(strings = {"2023-12-05", "2023-12-13", "2023-12-29"})
     public void 별이_없는_날짜는_false를_반환한다(final String date) {
         // given
-        final Day visitedDay = new Day(LocalDate.parse(date));
+        final Date visitedDate = new Date(LocalDate.parse(date));
 
         // when
-        final boolean hasNotStar = visitedDay.hasStar();
+        final boolean hasNotStar = visitedDate.hasStar();
 
         // then
         Assertions.assertFalse(hasNotStar);

@@ -2,7 +2,7 @@ package christmas.view;
 
 import christmas.model.Badge;
 import christmas.model.Constants;
-import christmas.model.Day;
+import christmas.model.Date;
 import christmas.model.GiveawayEvent;
 import christmas.model.Price;
 import christmas.model.order.OrderDetail;
@@ -23,8 +23,8 @@ public class OutputView {
         System.out.println(ViewConstants.ORDER_INSTRUCTION_MESSAGE);
     }
 
-    public void printOrderDetails(final Day day, final OrderDetail orderDetail) {
-        printEventPreview(day);
+    public void printOrderDetails(final Date date, final OrderDetail orderDetail) {
+        printEventPreview(date);
         printOrderedMenus(orderDetail);
     }
 
@@ -75,8 +75,8 @@ public class OutputView {
         System.out.println();
     }
 
-    private void printEventPreview(final Day visitedDay) {
-        System.out.printf(ViewConstants.EVENT_PREVIEW_MESSAGE_FORMAT, visitedDay.getMonth(), visitedDay.getDay());
+    private void printEventPreview(final Date visitedDate) {
+        System.out.printf(ViewConstants.EVENT_PREVIEW_MESSAGE_FORMAT, visitedDate.getMonth(), visitedDate.getDay());
         printEmptyLine();
     }
 

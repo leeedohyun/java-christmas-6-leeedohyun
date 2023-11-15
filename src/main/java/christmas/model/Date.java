@@ -5,7 +5,7 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
-public class Day {
+public class Date {
 
     private static final int START_DATE = 1;
     private static final int CHRISTMAS_DATE = 25;
@@ -17,7 +17,7 @@ public class Day {
 
     private final LocalDate day;
 
-    public Day(final LocalDate day) {
+    public Date(final LocalDate day) {
         this.day = day;
     }
 
