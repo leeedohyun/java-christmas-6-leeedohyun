@@ -2,17 +2,17 @@ package christmas.model;
 
 public enum Badge {
 
-    STAR("별", new Price(5_000)),
-    TREE("트리", new Price(10_000)),
-    SANTA("산타", new Price(20_000)),
-    NONE("없음", Constants.ZERO_WON);
+    STAR("별", 5_000),
+    TREE("트리", 10_000),
+    SANTA("산타", 20_000),
+    NONE("없음", 0);
 
     private final String name;
     private final Price standardPrice;
 
-    Badge(final String name, final Price standardPrice) {
+    Badge(final String name, final int standardPrice) {
         this.name = name;
-        this.standardPrice = standardPrice;
+        this.standardPrice = new Price(standardPrice);
     }
 
     public static Badge decide(final Price totalBenefitPrice) {
