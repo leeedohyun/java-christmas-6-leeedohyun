@@ -27,7 +27,7 @@ public class OrderValidator {
 
     private static boolean containsOnlyBeverages(final Map<Menu, Integer> orderedMenus) {
         return orderedMenus.keySet().stream()
-                .allMatch(menu -> menu.getMenuType() == MenuType.BEVERAGE);
+                .allMatch(menu -> menu.isMenuTypeMatch(MenuType.BEVERAGE));
     }
 
     private static void validateNumberOfOrderedMenus(final Map<Menu, Integer> orderedMenus) {

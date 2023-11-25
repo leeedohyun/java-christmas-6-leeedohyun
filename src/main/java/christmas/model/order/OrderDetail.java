@@ -18,7 +18,7 @@ public class OrderDetail {
 
     public int countNumberOfMenusByMenuType(final MenuType menuType) {
         return orderedMenus.keySet().stream()
-                .filter(orderedMenu -> orderedMenu.getMenuType() == menuType)
+                .filter(orderedMenu -> orderedMenu.isMenuTypeMatch(menuType))
                 .mapToInt(orderedMenus::get)
                 .sum();
     }

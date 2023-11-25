@@ -45,12 +45,12 @@ public enum Menu {
         return price.multiply(quantity);
     }
 
-    public String getName() {
-        return name;
+    public boolean isMenuTypeMatch(final MenuType menuType) {
+        return this.menuType == menuType;
     }
 
-    public MenuType getMenuType() {
-        return menuType;
+    public String getName() {
+        return name;
     }
 
     private static void validateMenuPresence(final String menu) {
