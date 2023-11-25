@@ -1,11 +1,20 @@
 package christmas.model.menu;
 
+import christmas.model.Price;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 class MenuTest {
+
+    private Menu menu;
+
+    @BeforeEach
+    public void beforeEach() {
+        menu = Menu.BBQ_RIBS;
+    }
 
     @ParameterizedTest
     @ValueSource(strings = {"타파스", "시저샐러드", "해산물파스타"})
@@ -31,5 +40,22 @@ class MenuTest {
 
         // then
         Assertions.assertThat(zeroCola).isEqualTo(Menu.ZERO_COLA);
+    }
+
+    @Test
+    void 메뉴의_가격을_반환하는_기능_테스트() {
+        Assertions.assertThat(Menu.getPriceByMenu(Menu.T_BONE_STEAK)).isEqualTo(new Price(55_000));
+    }
+
+    @Test
+    void 메뉴_수량을_입력하면_하나의_메뉴에_대한_가격을_계산한다() {
+        // given
+        final int quantity = 3;
+
+        // when
+        final Price price = menu.calculateMenuPrice(quantity);
+
+        // then
+        Assertions.assertThat(price).isEqualTo(new Price(162_000));
     }
 }
