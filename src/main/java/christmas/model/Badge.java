@@ -1,5 +1,7 @@
 package christmas.model;
 
+import java.util.Arrays;
+
 public enum Badge {
 
     STAR("별", 5_000, 10_000),
@@ -18,16 +20,10 @@ public enum Badge {
     }
 
     public static Badge decide(final Price totalBenefitPrice) {
-        if (totalBenefitPrice.isWithinRange(STAR.minPrice, STAR.maxPrice)) {
-            return STAR;
-        }
-        if (totalBenefitPrice.isWithinRange(TREE.minPrice, TREE.maxPrice)) {
-            return TREE;
-        }
-        if (totalBenefitPrice.isWithinRange(SANTA.minPrice, SANTA.maxPrice)) {
-            return SANTA;
-        }
-        return NONE;
+        return Arrays.stream(Badge.values())
+                .filter(badge -> totalBenefitPrice.isWithinRange(badge.minPrice, badge.maxPrice))
+                .findFirst()
+                .orElse(NONE);
     }
 
     public String getName() {
