@@ -34,8 +34,8 @@ public class Price {
         return price >= another.price;
     }
 
-    public boolean isUnder(final Price another) {
-        return price < another.price;
+    public boolean isWithinRange(final Price minPrice, final Price maxPrice) {
+        return this.price >= minPrice.price && this.price < maxPrice.price;
     }
 
     public String getFormattedMoney() {
