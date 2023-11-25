@@ -6,7 +6,7 @@ import java.util.Objects;
 public class Price {
 
     private static final String MONEY_FORMAT_PATTERN = "###,###";
-    public static final String INVALID_PRICE_EXCEPTION = "[ERROR] 가격은 음수일 수 없습니다.";
+    public static final String INVALID_PRICE_EXCEPTION = "가격은 음수일 수 없습니다.";
 
     private final int price;
 

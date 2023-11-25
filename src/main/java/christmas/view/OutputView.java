@@ -42,7 +42,7 @@ public class OutputView {
     }
 
     public void printExceptionMessage(final Exception exception) {
-        System.out.println(exception.getMessage());
+        System.out.println(ViewConstants.ERROR_HEADER + exception.getMessage());
     }
 
     public void printGiveawayMenu(final GiveawayEvent giveawayEvent) {

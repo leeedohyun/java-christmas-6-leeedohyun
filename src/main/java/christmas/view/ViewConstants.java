@@ -25,6 +25,7 @@ public final class ViewConstants {
     static final int SPECIAL_DISCOUNT_INDEX = 3;
     static final String BENEFIT_HEADER = "<혜택 내역>";
     static final String GIVEAWAY_EVENT_MESSAGE = "증정 이벤트";
+    static final String ERROR_HEADER = "[ERROR] ";
 
     private ViewConstants() {
     }

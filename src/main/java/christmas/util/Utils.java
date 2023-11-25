@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 
 public final class Utils {
 
-    private static final String DATE_FORMAT_EXCEPTION_MESSAGE = "[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.";
+    private static final String DATE_FORMAT_EXCEPTION_MESSAGE = "유효하지 않은 날짜입니다. 다시 입력해 주세요.";
     private static final String MENU_SEPARATOR = ",";
     private static final String MENU_AND_QUANTITY_SEPARATOR = "-";
 
