@@ -7,7 +7,6 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 public final class Utils {
@@ -20,7 +19,7 @@ public final class Utils {
     }
 
     public static LocalDate convertStringToLocalDate(final String inputDate) {
-        final int date = convertStringToInt(inputDate)
+        final int date = StringToIntConvertor.convert(inputDate)
                 .orElseThrow(() -> new IllegalArgumentException(DATE_FORMAT_EXCEPTION_MESSAGE));
         return createLocalDate(date);
     }
@@ -43,14 +42,6 @@ public final class Utils {
         }
     }
 
-    private static Optional<Integer> convertStringToInt(final String string) {
-        try {
-            return Optional.of(Integer.parseInt(string));
-        } catch (final NumberFormatException numberFormatException) {
-            return Optional.empty();
-        }
-    }
-
     private static LocalDate createLocalDate(final int date) {
         try {
             return LocalDate.of(Constants.YEAR, Constants.MONTH, date);
@@ -60,7 +51,7 @@ public final class Utils {
     }
 
     private static int convertStringToMenuQuantity(final String quantity) {
-        return convertStringToInt(quantity)
+        return StringToIntConvertor.convert(quantity)
                 .orElseThrow(() -> new IllegalArgumentException(Constants.MENU_NOT_FOUND_EXCEPTION_MESSAGE));
     }
 }
