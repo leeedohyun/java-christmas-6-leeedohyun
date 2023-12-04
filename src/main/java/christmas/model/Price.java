@@ -11,6 +11,7 @@ public class Price {
     private final int price;
 
     public Price(final int price) {
+        validate(price);
         this.price = price;
     }
 
@@ -24,9 +25,6 @@ public class Price {
 
     public Price minus(final Price another) {
         final int minussedPrice = price - another.price;
-        if (minussedPrice < 0) {
-            throw new IllegalArgumentException(INVALID_PRICE_EXCEPTION);
-        }
         return new Price(minussedPrice);
     }
 
@@ -58,5 +56,11 @@ public class Price {
     @Override
     public int hashCode() {
         return Objects.hash(price);
+    }
+
+    private void validate(final int minussedPrice) {
+        if (minussedPrice < 0) {
+            throw new IllegalArgumentException(INVALID_PRICE_EXCEPTION);
+        }
     }
 }
