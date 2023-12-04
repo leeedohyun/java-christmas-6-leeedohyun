@@ -50,17 +50,13 @@ public class ChristmasController {
     }
 
     private Date createValidDate() {
-        return ExceptionHandler.createValidObject(() -> {
-            outputView.printDateOfVisitMessage();
-            return new Date(inputView.inputDateOfVisit());
-        }, outputView::printExceptionMessage);
+        return ExceptionHandler.createValidObject(() -> new Date(inputView.inputDateOfVisit()),
+                outputView::printExceptionMessage);
     }
 
     private Map<Menu, Integer> createValidMenus() {
-        return ExceptionHandler.createValidObject(() -> {
-            outputView.printOrderInstruction();
-            return Utils.convertToMenuQuantityMap(inputView.inputMenusWithQuantity());
-        }, outputView::printExceptionMessage);
+        return ExceptionHandler.createValidObject(() ->
+                Utils.convertToMenuQuantityMap(inputView.inputMenusWithQuantity()), outputView::printExceptionMessage);
     }
 
     private OrderDetail createValidOrderDetail() {

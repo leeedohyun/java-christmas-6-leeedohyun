@@ -15,14 +15,6 @@ public class OutputView {
         System.out.println(ViewConstants.WELCOME_MESSAGE);
     }
 
-    public void printDateOfVisitMessage() {
-        System.out.println(ViewConstants.VISIT_DATE_QUESTION_MESSAGE);
-    }
-
-    public void printOrderInstruction() {
-        System.out.println(ViewConstants.ORDER_INSTRUCTION_MESSAGE);
-    }
-
     public void printOrderDetails(final Date dateOfVisit, final OrderDetail orderDetail) {
         printEventPreview(dateOfVisit);
         printOrderedMenus(orderDetail);
