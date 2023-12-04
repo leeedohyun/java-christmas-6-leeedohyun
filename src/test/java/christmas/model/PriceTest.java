@@ -81,4 +81,10 @@ class PriceTest {
         // then
         Assertions.assertThrows(IllegalArgumentException.class, () -> price1.minus(price2));
     }
+
+    @ParameterizedTest
+    @ValueSource(ints = {-100, -4000, -10000})
+    void Price의_값이_음수이면_예외가_발생한다(final int price) {
+        Assertions.assertThrows(IllegalArgumentException.class, () -> new Price(price));
+    }
 }
