@@ -1,8 +1,8 @@
 package christmas.model.menu;
 
+import java.util.Arrays;
 import christmas.model.Constants;
 import christmas.model.Price;
-import java.util.Arrays;
 
 public enum Menu {
 
@@ -37,10 +37,6 @@ public enum Menu {
                 .orElseThrow(() -> new IllegalArgumentException(Constants.MENU_NOT_FOUND_EXCEPTION_MESSAGE));
     }
 
-    public static Price getPriceByMenu(final Menu menu) {
-        return menu.price;
-    }
-
     public Price calculateMenuPrice(final int quantity) {
         return price.multiply(quantity);
     }
@@ -51,6 +47,10 @@ public enum Menu {
 
     public String getName() {
         return name;
+    }
+
+    public Price getPrice() {
+        return price;
     }
 
     private static void validateMenuPresence(final String menu) {

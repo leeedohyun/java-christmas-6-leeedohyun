@@ -1,11 +1,12 @@
 package christmas.model.menu;
 
-import christmas.model.Price;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
+
+import christmas.model.Price;
 
 class MenuTest {
 
@@ -40,11 +41,6 @@ class MenuTest {
 
         // then
         Assertions.assertThat(zeroCola).isEqualTo(Menu.ZERO_COLA);
-    }
-
-    @Test
-    void 메뉴의_가격을_반환하는_기능_테스트() {
-        Assertions.assertThat(Menu.getPriceByMenu(Menu.T_BONE_STEAK)).isEqualTo(new Price(55_000));
     }
 
     @Test

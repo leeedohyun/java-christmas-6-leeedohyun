@@ -17,7 +17,7 @@ public class GiveawayEvent {
 
     public static GiveawayEvent create(final Price priceBeforeDiscount) {
         if (priceBeforeDiscount.isEqualAndOver(new Price(MIN_PRICE_FOR_GIVEAWAY_EVENT))) {
-            return new GiveawayEvent(Menu.getPriceByMenu(Menu.CHAMPAGNE), true);
+            return new GiveawayEvent(Menu.CHAMPAGNE.getPrice(), true);
         }
         return new GiveawayEvent(Constants.ZERO_WON, false);
     }
