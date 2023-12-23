@@ -1,11 +1,9 @@
 package christmas.model;
 
-import java.text.DecimalFormat;
 import java.util.Objects;
 
 public class Price {
 
-    private static final String MONEY_FORMAT_PATTERN = "###,###";
     private static final String INVALID_PRICE_EXCEPTION = "가격은 음수일 수 없습니다.";
 
     private final int price;
@@ -36,9 +34,8 @@ public class Price {
         return this.price >= minPrice.price && this.price < maxPrice.price;
     }
 
-    public String getFormattedMoney() {
-        final DecimalFormat decimalFormat = new DecimalFormat(MONEY_FORMAT_PATTERN);
-        return decimalFormat.format(price);
+    public int getPrice() {
+        return price;
     }
 
     @Override

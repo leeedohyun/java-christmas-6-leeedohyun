@@ -1,13 +1,15 @@
 package christmas.view;
 
+import java.util.List;
+
 import christmas.model.Badge;
 import christmas.model.Constants;
 import christmas.model.Date;
 import christmas.model.GiveawayEvent;
 import christmas.model.Price;
-import christmas.model.order.OrderDetail;
 import christmas.model.order.Order;
-import java.util.List;
+import christmas.model.order.OrderDetail;
+import christmas.util.ViewFormatter;
 
 public class OutputView {
 
@@ -22,7 +24,7 @@ public class OutputView {
 
     public void printPriceBeforeDiscount(final Price priceBeforeDiscount) {
         System.out.println(ViewConstants.PRICE_BEFORE_DISCOUNT_HEADER);
-        System.out.printf(ViewConstants.PRICE_FORMAT, priceBeforeDiscount.getFormattedMoney());
+        System.out.printf(ViewConstants.PRICE_FORMAT, ViewFormatter.getFormattedMoney(priceBeforeDiscount));
         printEmptyLine();
     }
 
@@ -82,13 +84,13 @@ public class OutputView {
 
     private void printTotalBenefitPrice(final Price totalBenefitPrice) {
         System.out.println(ViewConstants.TOTAL_BENEFIT_PRICE_HEADER);
-        System.out.printf(ViewConstants.DISCOUNT_PRICE_FORMAT, totalBenefitPrice.getFormattedMoney());
+        System.out.printf(ViewConstants.DISCOUNT_PRICE_FORMAT, ViewFormatter.getFormattedMoney(totalBenefitPrice));
         printEmptyLine();
     }
 
     private void printDiscountedPrice(final Price discountedPrice) {
         System.out.println(ViewConstants.DISCOUNTED_PRICE_HEADER);
-        System.out.printf(ViewConstants.PRICE_FORMAT, discountedPrice.getFormattedMoney());
+        System.out.printf(ViewConstants.PRICE_FORMAT, ViewFormatter.getFormattedMoney(discountedPrice));
         printEmptyLine();
     }
 
@@ -99,7 +101,7 @@ public class OutputView {
 
     private void printBenefitDetails(final String message, final Price discountPrice) {
         if (!discountPrice.equals(Constants.ZERO_WON)) {
-            System.out.printf(ViewConstants.BENEFIT_DETAIL_FORMAT, message, discountPrice.getFormattedMoney());
+            System.out.printf(ViewConstants.BENEFIT_DETAIL_FORMAT, message, ViewFormatter.getFormattedMoney(discountPrice));
         }
     }
 }
