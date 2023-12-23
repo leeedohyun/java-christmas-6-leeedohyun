@@ -1,7 +1,5 @@
 package christmas.util;
 
-import christmas.model.Constants;
-import christmas.model.menu.Menu;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.Arrays;
@@ -9,11 +7,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import christmas.model.Constants;
+import christmas.model.menu.Menu;
+
 public final class Utils {
 
     private static final String DATE_FORMAT_EXCEPTION_MESSAGE = "유효하지 않은 날짜입니다. 다시 입력해 주세요.";
     private static final String MENU_SEPARATOR = ",";
     private static final String MENU_AND_QUANTITY_SEPARATOR = "-";
+
+    private static final int MENU_NAME_INDEX = 0;
+    private static final int MENU_QUANTITY_INDEX = 1;
 
     private Utils() {
     }
@@ -32,10 +36,10 @@ public final class Utils {
     public static Map<Menu, Integer> convertToMenuQuantityMap(final List<String> menus) {
         try {
             return menus.stream()
-                    .map(menu -> Arrays.asList(menu.split(MENU_AND_QUANTITY_SEPARATOR)))
+                    .map(Utils::splitMenuAndQuantity)
                     .collect(Collectors.toMap(
-                            menu -> Menu.getMenuByName(menu.get(0)),
-                            menu -> convertStringToMenuQuantity(menu.get(1)))
+                            menu -> Menu.getMenuByName(menu.get(MENU_NAME_INDEX)),
+                            menu -> convertStringToMenuQuantity(menu.get(MENU_QUANTITY_INDEX)))
                     );
         } catch (final IndexOutOfBoundsException | IllegalStateException exception) {
             throw new IllegalArgumentException(Constants.MENU_NOT_FOUND_EXCEPTION_MESSAGE);
@@ -53,5 +57,8 @@ public final class Utils {
     private static int convertStringToMenuQuantity(final String quantity) {
         return StringToIntConvertor.convert(quantity)
                 .orElseThrow(() -> new IllegalArgumentException(Constants.MENU_NOT_FOUND_EXCEPTION_MESSAGE));
+    }
+    private static List<String> splitMenuAndQuantity(final String menu) {
+        return Arrays.asList(menu.split(MENU_AND_QUANTITY_SEPARATOR));
     }
 }
