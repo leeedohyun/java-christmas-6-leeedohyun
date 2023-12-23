@@ -4,8 +4,8 @@ import christmas.model.menu.Menu;
 
 public class GiveawayEvent {
 
-    public static final int MIN_PRICE_FOR_GIVEAWAY_EVENT = 120_000;
-    public static final String GIVEAWAY_EVENT_MENU = "샴페인 1개";
+    private static final int MIN_PRICE_FOR_GIVEAWAY_EVENT = 120_000;
+    private static final String GIVEAWAY_EVENT_MENU = "샴페인 1개";
 
     private final Price giveawayEventMenuPrice;
     private final boolean eventActive;

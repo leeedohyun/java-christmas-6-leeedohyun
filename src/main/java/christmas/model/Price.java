@@ -6,7 +6,7 @@ import java.util.Objects;
 public class Price {
 
     private static final String MONEY_FORMAT_PATTERN = "###,###";
-    public static final String INVALID_PRICE_EXCEPTION = "가격은 음수일 수 없습니다.";
+    private static final String INVALID_PRICE_EXCEPTION = "가격은 음수일 수 없습니다.";
 
     private final int price;
 
@@ -58,8 +58,8 @@ public class Price {
         return Objects.hash(price);
     }
 
-    private void validate(final int minussedPrice) {
-        if (minussedPrice < 0) {
+    private void validate(final int minusedPrice) {
+        if (minusedPrice < 0) {
             throw new IllegalArgumentException(INVALID_PRICE_EXCEPTION);
         }
     }
