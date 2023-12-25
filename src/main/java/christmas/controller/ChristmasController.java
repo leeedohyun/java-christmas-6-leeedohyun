@@ -1,17 +1,18 @@
 package christmas.controller;
 
-import christmas.exception.ExceptionHandler;
+import java.util.Map;
+
+import christmas.exception.ValidObjectCreator;
 import christmas.model.Date;
 import christmas.model.GiveawayEvent;
-import christmas.model.menu.Menu;
 import christmas.model.Price;
-import christmas.model.order.OrderDetail;
-import christmas.model.order.Order;
-import christmas.util.Utils;
 import christmas.model.discount.DiscountManager;
+import christmas.model.menu.Menu;
+import christmas.model.order.Order;
+import christmas.model.order.OrderDetail;
+import christmas.util.Utils;
 import christmas.view.InputView;
 import christmas.view.OutputView;
-import java.util.Map;
 
 public class ChristmasController {
 
@@ -50,17 +51,15 @@ public class ChristmasController {
     }
 
     private Date createValidDate() {
-        return ExceptionHandler.createValidObject(() -> new Date(inputView.inputDateOfVisit()),
-                outputView::printExceptionMessage);
+        return ValidObjectCreator.createValidObject(() -> new Date(inputView.inputDateOfVisit()));
     }
 
     private Map<Menu, Integer> createValidMenus() {
-        return ExceptionHandler.createValidObject(() ->
-                Utils.convertToMenuQuantityMap(inputView.inputMenusWithQuantity()), outputView::printExceptionMessage);
+        return ValidObjectCreator.createValidObject(() ->
+                Utils.convertToMenuQuantityMap(inputView.inputMenusWithQuantity()));
     }
 
     private OrderDetail createValidOrderDetail() {
-        return ExceptionHandler.createValidObject(() -> new OrderDetail(createValidMenus()),
-                outputView::printExceptionMessage);
+        return ValidObjectCreator.createValidObject(() -> new OrderDetail(createValidMenus()));
     }
 }

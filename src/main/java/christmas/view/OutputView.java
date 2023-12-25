@@ -35,7 +35,7 @@ public class OutputView {
         printBadge(Badge.decide(totalBenefitPrice));
     }
 
-    public void printExceptionMessage(final Exception exception) {
+    public static void printExceptionMessage(final Exception exception) {
         System.out.println(ViewConstants.ERROR_HEADER + exception.getMessage());
     }
 
