@@ -13,10 +13,14 @@ public class WeekDay implements Discount {
 
     @Override
     public Price discount(final Date dateOfVisit, final Price priceBeforeDiscount, final OrderDetail orderDetail) {
-        if (dateOfVisit.isEventNotEnded() && !dateOfVisit.isWeekend()
-                && priceBeforeDiscount.isEqualAndOver(MINIMUM_ORDER_PRICE)) {
+        if (canApply(dateOfVisit, priceBeforeDiscount)) {
             return WEEKDAY_DISCOUNT_PRICE.multiply(orderDetail.countNumberOfMenusByMenuType(MenuType.DESSERT));
         }
         return Constants.ZERO_WON;
+    }
+
+    private boolean canApply(final Date dateOfVisit, final Price priceBeforeDiscount) {
+        return dateOfVisit.isEventNotEnded() && !dateOfVisit.isWeekend()
+                && priceBeforeDiscount.isEqualAndOver(MINIMUM_ORDER_PRICE);
     }
 }

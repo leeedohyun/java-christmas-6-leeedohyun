@@ -12,10 +12,14 @@ public class Special implements Discount {
 
     @Override
     public Price discount(final Date dateOfVisit, final Price priceBeforeDiscount, final OrderDetail orderDetail) {
-        if (dateOfVisit.isEventNotEnded() && dateOfVisit.hasStar()
-                && priceBeforeDiscount.isEqualAndOver(MINIMUM_ORDER_PRICE)) {
+        if (canApply(dateOfVisit, priceBeforeDiscount)) {
             return SPECIAL_DISCOUNT_PRICE;
         }
         return Constants.ZERO_WON;
+    }
+
+    private boolean canApply(final Date dateOfVisit, final Price priceBeforeDiscount) {
+        return dateOfVisit.isEventNotEnded() && dateOfVisit.hasStar()
+                && priceBeforeDiscount.isEqualAndOver(MINIMUM_ORDER_PRICE);
     }
 }
