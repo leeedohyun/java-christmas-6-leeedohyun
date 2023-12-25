@@ -1,12 +1,14 @@
 package christmas.util;
 
-import christmas.model.menu.Menu;
 import java.util.List;
 import java.util.Map;
+
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
+
+import christmas.model.menu.Menu;
 
 class UtilsTest {
 
@@ -21,22 +23,6 @@ class UtilsTest {
     @ParameterizedTest
     @ValueSource(strings = {"1e", "10b", "23x"})
     public void 방문_날짜가_숫자가_아닌_경우_예외가_발생한다(final String day) {
-        // then
-        Assertions.assertThatThrownBy(() -> Utils.convertStringToLocalDate(day))
-                .isInstanceOf(IllegalArgumentException.class);
-    }
-
-    @ParameterizedTest
-    @ValueSource(strings = {"1", "10", "23"})
-    public void 방문_날짜는_1이상_31이하의_숫자만_입력할_수_있다(final String day) {
-        // then
-        Assertions.assertThatNoException()
-                .isThrownBy(() -> Utils.convertStringToLocalDate(day));
-    }
-
-    @ParameterizedTest
-    @ValueSource(strings = {"-3", "0", "32", "40"})
-    public void 방문_날짜는_1이상_31이하의_숫자가_아닌_경우_예외가_발생한다(final String day) {
         // then
         Assertions.assertThatThrownBy(() -> Utils.convertStringToLocalDate(day))
                 .isInstanceOf(IllegalArgumentException.class);

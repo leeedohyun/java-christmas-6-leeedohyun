@@ -20,7 +20,6 @@ public class WeekDay implements Discount {
     }
 
     private boolean canApply(final Date dateOfVisit, final Price priceBeforeDiscount) {
-        return dateOfVisit.isEventNotEnded() && !dateOfVisit.isWeekend()
-                && priceBeforeDiscount.isEqualAndOver(MINIMUM_ORDER_PRICE);
+        return !dateOfVisit.isWeekend() && priceBeforeDiscount.isEqualAndOver(MINIMUM_ORDER_PRICE);
     }
 }

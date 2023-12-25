@@ -1,6 +1,5 @@
 package christmas.model.order;
 
-import java.time.LocalDate;
 import java.util.Map;
 
 import org.junit.jupiter.api.Assertions;
@@ -19,7 +18,7 @@ class OrderTest {
 
     @BeforeEach
     void beforeEach() {
-        final Date date = new Date(LocalDate.of(2023, 12, 3));
+        final Date date = new Date(3);
         final OrderDetail detail = new OrderDetail(
                 Map.of(Menu.T_BONE_STEAK, 1, Menu.BBQ_RIBS, 1, Menu.CHOCOLATE_CAKE, 2, Menu.ZERO_COLA, 1));
         final Price priceBeforeDiscount = new Price(142_000);

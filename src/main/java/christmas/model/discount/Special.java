@@ -19,7 +19,6 @@ public class Special implements Discount {
     }
 
     private boolean canApply(final Date dateOfVisit, final Price priceBeforeDiscount) {
-        return dateOfVisit.isEventNotEnded() && dateOfVisit.hasStar()
-                && priceBeforeDiscount.isEqualAndOver(MINIMUM_ORDER_PRICE);
+        return dateOfVisit.hasStar() && priceBeforeDiscount.isEqualAndOver(MINIMUM_ORDER_PRICE);
     }
 }

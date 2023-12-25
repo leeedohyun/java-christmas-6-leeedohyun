@@ -1,13 +1,13 @@
 package christmas.view;
 
+import java.util.List;
+
 import camp.nextstep.edu.missionutils.Console;
 import christmas.util.Utils;
-import java.time.LocalDate;
-import java.util.List;
 
 public class InputView {
 
-    public LocalDate inputDateOfVisit() {
+    public int inputDateOfVisit() {
         System.out.println(ViewConstants.VISIT_DATE_QUESTION_MESSAGE);
         return Utils.convertStringToLocalDate(Console.readLine());
     }

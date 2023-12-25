@@ -1,25 +1,21 @@
 package christmas.model.discount;
 
-import christmas.model.Date;
-import christmas.model.Price;
-import christmas.model.discount.DDay;
-import christmas.model.discount.Discount;
-import christmas.model.discount.Special;
-import christmas.model.discount.WeekDay;
-import christmas.model.discount.Weekend;
-import christmas.model.menu.Menu;
-import christmas.model.order.OrderDetail;
-import java.time.LocalDate;
 import java.util.Map;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
+import christmas.model.Date;
+import christmas.model.Price;
+import christmas.model.menu.Menu;
+import christmas.model.order.OrderDetail;
 
 class DiscountTest {
 
     @Test
     public void 디데이_할인_금액_계산_적용되는_경우_테스트() {
         // given
-        final Date visitedDate = new Date(LocalDate.of(2023, 12, 10));
+        final Date visitedDate = new Date(10);
         final Price totalPrice = new Price(10000);
         final OrderDetail orderDetail = new OrderDetail(Map.of(Menu.T_BONE_STEAK, 1));
 
@@ -34,7 +30,7 @@ class DiscountTest {
     @Test
     public void 날짜가_지난_경우_디데이_할인_금액은_0원이다() {
         // given
-        final Date visitedDate = new Date(LocalDate.of(2023, 12, 26));
+        final Date visitedDate = new Date(26);
         final Price totalPrice = new Price(10000);
         final OrderDetail orderDetail = new OrderDetail(Map.of(Menu.T_BONE_STEAK, 1));
 
@@ -49,7 +45,7 @@ class DiscountTest {
     @Test
     public void 주문_금액이_10000원이_넘지_않은_경우_디데이_할인_금액은_0원이다() {
         // given
-        final Date visitedDate = new Date(LocalDate.of(2023, 12, 10));
+        final Date visitedDate = new Date(10);
         final Price totalPrice = new Price(9900);
         final OrderDetail orderDetail = new OrderDetail(Map.of(Menu.T_BONE_STEAK, 1));
 
@@ -64,7 +60,7 @@ class DiscountTest {
     @Test
     public void 평일_할인_테스트() {
         // given
-        final Date visitedDate = new Date(LocalDate.of(2023, 12, 10));
+        final Date visitedDate = new Date(10);
         final Price totalPrice = new Price(10000);
         final OrderDetail orderDetail = new OrderDetail(Map.of(Menu.T_BONE_STEAK, 1, Menu.CHOCOLATE_CAKE, 1, Menu.ICE_CREAM, 2));
 
@@ -79,7 +75,7 @@ class DiscountTest {
     @Test
     public void 주문_금액이_10000원을_넘지_않는_경우_평일_할인_금액은_0원이다() {
         // given
-        final Date visitedDate = new Date(LocalDate.of(2023, 12, 10));
+        final Date visitedDate = new Date(10);
         final Price totalPrice = new Price(9900);
         final OrderDetail orderDetail = new OrderDetail(Map.of(Menu.T_BONE_STEAK, 1, Menu.CHOCOLATE_CAKE, 1, Menu.ICE_CREAM, 2));
 
@@ -94,7 +90,7 @@ class DiscountTest {
     @Test
     public void 디저트_메뉴의_개수가_0개이면_평일_할인_금액은_0원이다() {
         // given
-        final Date visitedDate = new Date(LocalDate.of(2023, 12, 10));
+        final Date visitedDate = new Date(10);
         final Price totalPrice = new Price(9900);
         final OrderDetail orderDetail = new OrderDetail(Map.of(Menu.T_BONE_STEAK, 1));
 
@@ -109,7 +105,7 @@ class DiscountTest {
     @Test
     public void 주말_할인_금액_테스트() {
         // given
-        final Date visitedDate = new Date(LocalDate.of(2023, 12, 30));
+        final Date visitedDate = new Date(30);
         final Price totalPrice = new Price(10000);
         final OrderDetail orderDetail = new OrderDetail(Map.of(Menu.T_BONE_STEAK, 1, Menu.ICE_CREAM, 2, Menu.BBQ_RIBS, 1));
 
@@ -125,7 +121,7 @@ class DiscountTest {
     @Test
     public void 주문_금액이_10000원을_넘지_않는_경우_주말_할인_금액은_0원이다() {
         // given
-        final Date visitedDate = new Date(LocalDate.of(2023, 12, 30));
+        final Date visitedDate = new Date(30);
         final Price totalPrice = new Price(9900);
         final OrderDetail orderDetail = new OrderDetail(Map.of(Menu.T_BONE_STEAK, 1, Menu.ICE_CREAM, 2, Menu.BBQ_RIBS, 1));
 
@@ -140,7 +136,7 @@ class DiscountTest {
     @Test
     public void 메인_메뉴의_개수가_0개이면_주말_할인_금액은_0원이다() {
         // given
-        final Date visitedDate = new Date(LocalDate.of(2023, 12, 30));
+        final Date visitedDate = new Date(30);
         final Price totalPrice = new Price(9900);
         final OrderDetail orderDetail = new OrderDetail(Map.of(Menu.ICE_CREAM, 2, Menu.CAESAR_SALAD, 4));
 
@@ -153,7 +149,7 @@ class DiscountTest {
     @Test
     public void 특별_할인_테스트() {
         // given
-        final Date visitedDate = new Date(LocalDate.of(2023, 12, 3));
+        final Date visitedDate = new Date(3);
         final Price totalPrice = new Price(10000);
         final OrderDetail orderDetail = new OrderDetail(Map.of(Menu.T_BONE_STEAK, 1, Menu.ICE_CREAM, 2, Menu.BBQ_RIBS, 1));
 
@@ -168,7 +164,7 @@ class DiscountTest {
     @Test
     public void 주문_금액이_10000원을_넘지_않은_경우_특별_할인_금액은_0원이다() {
         // given
-        final Date visitedDate = new Date(LocalDate.of(2023, 12, 31));
+        final Date visitedDate = new Date(31);
         final Price totalPrice = new Price(9900);
         final OrderDetail orderDetail = new OrderDetail(Map.of(Menu.T_BONE_STEAK, 1, Menu.ICE_CREAM, 2, Menu.BBQ_RIBS, 1));
 
@@ -183,7 +179,7 @@ class DiscountTest {
     @Test
     public void 별을_가지고_있지_않은_경우_특별_할인_금액은_0원이다() {
         // given
-        final Date visitedDate = new Date(LocalDate.of(2023, 12, 30));
+        final Date visitedDate = new Date(30);
         final Price totalPrice = new Price(10000);
         final OrderDetail orderDetail = new OrderDetail(Map.of(Menu.T_BONE_STEAK, 1, Menu.ICE_CREAM, 2, Menu.BBQ_RIBS, 1));
 
