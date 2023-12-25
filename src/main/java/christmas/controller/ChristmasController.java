@@ -10,6 +10,7 @@ import christmas.model.discount.DiscountManager;
 import christmas.model.menu.Menu;
 import christmas.model.order.Order;
 import christmas.model.order.OrderDetail;
+import christmas.model.order.OrderHistory;
 import christmas.util.Utils;
 import christmas.view.InputView;
 import christmas.view.OutputView;
@@ -47,7 +48,7 @@ public class ChristmasController {
 
         outputView.printPriceBeforeDiscount(priceBeforeDiscount);
         outputView.printGiveawayMenu(giveawayEvent);
-        return new Order(date, orderDetail, priceBeforeDiscount, new DiscountManager(), giveawayEvent);
+        return new Order(new DiscountManager(), new OrderHistory(date, orderDetail), giveawayEvent);
     }
 
     private Date createValidDate() {

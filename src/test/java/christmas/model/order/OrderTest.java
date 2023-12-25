@@ -1,15 +1,17 @@
 package christmas.model.order;
 
-import christmas.model.Date;
-import christmas.model.GiveawayEvent;
-import christmas.model.menu.Menu;
-import christmas.model.Price;
-import christmas.model.discount.DiscountManager;
 import java.time.LocalDate;
 import java.util.Map;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import christmas.model.Date;
+import christmas.model.GiveawayEvent;
+import christmas.model.Price;
+import christmas.model.discount.DiscountManager;
+import christmas.model.menu.Menu;
 
 class OrderTest {
 
@@ -23,7 +25,7 @@ class OrderTest {
         final Price priceBeforeDiscount = new Price(142_000);
         final DiscountManager discountManager = new DiscountManager();
         final GiveawayEvent giveawayEvent = GiveawayEvent.create(priceBeforeDiscount);
-        order = new Order(date, detail, priceBeforeDiscount, discountManager, giveawayEvent);
+        order = new Order(discountManager, new OrderHistory(date, detail), giveawayEvent);
     }
 
     @Test
