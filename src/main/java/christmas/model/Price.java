@@ -34,6 +34,10 @@ public class Price {
         return this.price >= minPrice.price && this.price < maxPrice.price;
     }
 
+    public boolean isZero() {
+        return price == 0;
+    }
+
     public int getPrice() {
         return price;
     }

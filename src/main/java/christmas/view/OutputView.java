@@ -3,7 +3,6 @@ package christmas.view;
 import java.util.List;
 
 import christmas.model.Badge;
-import christmas.model.Constants;
 import christmas.model.Date;
 import christmas.model.GiveawayEvent;
 import christmas.model.Price;
@@ -66,7 +65,7 @@ public class OutputView {
     }
 
     public void printNoBenefitIfApplicable(final Price totalBenefitPrice) {
-        if (totalBenefitPrice.equals(Constants.ZERO_WON)) {
+        if (totalBenefitPrice.isZero()) {
             System.out.println(NO_BENEFIT_MESSAGE);
         }
         printEmptyLine();
@@ -107,7 +106,7 @@ public class OutputView {
     }
 
     private void printBenefitDetails(final String message, final Price discountPrice) {
-        if (!discountPrice.equals(Constants.ZERO_WON)) {
+        if (!discountPrice.isZero()) {
             System.out.printf(ViewConstants.BENEFIT_DETAIL_FORMAT, message, ViewFormatter.getFormattedMoney(discountPrice));
         }
     }
