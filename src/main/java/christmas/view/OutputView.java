@@ -13,6 +13,9 @@ import christmas.util.ViewFormatter;
 
 public class OutputView {
 
+    private static final String GIVEAWAY_EVENT_MENU = "샴페인 1개";
+    private static final String NO_BENEFIT_MESSAGE = "없음";
+
     public void printWelcomeMessage() {
         System.out.println(ViewConstants.WELCOME_MESSAGE);
     }
@@ -41,7 +44,11 @@ public class OutputView {
 
     public void printGiveawayMenu(final GiveawayEvent giveawayEvent) {
         System.out.println(ViewConstants.DEFAULT_GIVEAWAY_MENU_HEADER);
-        System.out.println(giveawayEvent.getGiveawayMenu());
+        if (giveawayEvent.canGetGiveawayEventMenu()) {
+            System.out.println(GIVEAWAY_EVENT_MENU);
+            return;
+        }
+        System.out.println(NO_BENEFIT_MESSAGE);
         printEmptyLine();
     }
 
@@ -60,7 +67,7 @@ public class OutputView {
 
     public void printNoBenefitIfApplicable(final Price totalBenefitPrice) {
         if (totalBenefitPrice.equals(Constants.ZERO_WON)) {
-            System.out.println(Constants.NO_BENEFIT_MESSAGE);
+            System.out.println(NO_BENEFIT_MESSAGE);
         }
         printEmptyLine();
     }

@@ -5,28 +5,22 @@ import christmas.model.menu.Menu;
 public class GiveawayEvent {
 
     private static final int MIN_PRICE_FOR_GIVEAWAY_EVENT = 120_000;
-    private static final String GIVEAWAY_EVENT_MENU = "샴페인 1개";
 
     private final Price giveawayEventMenuPrice;
-    private final boolean eventActive;
 
-    private GiveawayEvent(final Price giveawayEventMenuPrice, final boolean eventActive) {
+    private GiveawayEvent(final Price giveawayEventMenuPrice) {
         this.giveawayEventMenuPrice = giveawayEventMenuPrice;
-        this.eventActive = eventActive;
     }
 
     public static GiveawayEvent create(final Price priceBeforeDiscount) {
         if (priceBeforeDiscount.isEqualAndOver(new Price(MIN_PRICE_FOR_GIVEAWAY_EVENT))) {
-            return new GiveawayEvent(Menu.CHAMPAGNE.getPrice(), true);
+            return new GiveawayEvent(Menu.CHAMPAGNE.getPrice());
         }
-        return new GiveawayEvent(Constants.ZERO_WON, false);
+        return new GiveawayEvent(Constants.ZERO_WON);
     }
 
-    public String getGiveawayMenu() {
-        if (eventActive) {
-            return GIVEAWAY_EVENT_MENU;
-        }
-        return Constants.NO_BENEFIT_MESSAGE;
+    public boolean canGetGiveawayEventMenu() {
+        return giveawayEventMenuPrice.equals(Menu.CHAMPAGNE.getPrice());
     }
 
     public Price getGiveawayEventMenuPrice() {
