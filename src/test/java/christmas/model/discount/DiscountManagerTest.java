@@ -22,7 +22,7 @@ class DiscountManagerTest {
                 Map.of(Menu.T_BONE_STEAK, 1, Menu.BBQ_RIBS, 1, Menu.CHOCOLATE_CAKE, 2, Menu.ZERO_COLA, 1));
 
         // when
-        final DiscountManager discountManager = new DiscountManager();
+        final DiscountManager discountManager = new DiscountManager(DiscountManager.getDiscountPolicies());
         final List<Price> monies = discountManager.calculateDiscountPrices(date, price, orderDetail);
 
         // then

@@ -22,7 +22,7 @@ class OrderTest {
         final OrderDetail detail = new OrderDetail(
                 Map.of(Menu.T_BONE_STEAK, 1, Menu.BBQ_RIBS, 1, Menu.CHOCOLATE_CAKE, 2, Menu.ZERO_COLA, 1));
         final Price priceBeforeDiscount = new Price(142_000);
-        final DiscountManager discountManager = new DiscountManager();
+        final DiscountManager discountManager = new DiscountManager(DiscountManager.getDiscountPolicies());
         final GiveawayEvent giveawayEvent = GiveawayEvent.create(priceBeforeDiscount);
         order = new Order(discountManager, new OrderHistory(date, detail), giveawayEvent);
     }

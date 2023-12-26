@@ -48,7 +48,8 @@ public class ChristmasController {
 
         outputView.printPriceBeforeDiscount(priceBeforeDiscount);
         outputView.printGiveawayMenu(giveawayEvent);
-        return new Order(new DiscountManager(), new OrderHistory(date, orderDetail), giveawayEvent);
+        return new Order(new DiscountManager(DiscountManager.getDiscountPolicies()),
+                new OrderHistory(date, orderDetail), giveawayEvent);
     }
 
     private Date createValidDate() {
