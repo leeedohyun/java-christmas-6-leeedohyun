@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import christmas.model.Constants;
+import christmas.exception.MenuNotFoundException;
 import christmas.model.menu.Menu;
 
 public final class Utils {
@@ -38,14 +38,14 @@ public final class Utils {
                             menu -> Menu.getMenuByName(menu.get(MENU_NAME_INDEX)),
                             menu -> convertStringToMenuQuantity(menu.get(MENU_QUANTITY_INDEX)))
                     );
-        } catch (final IndexOutOfBoundsException | IllegalStateException exception) {
-            throw new IllegalArgumentException(Constants.MENU_NOT_FOUND_EXCEPTION_MESSAGE);
+        } catch (final IndexOutOfBoundsException | IllegalStateException | MenuNotFoundException exception) {
+            throw new MenuNotFoundException();
         }
     }
 
     private static int convertStringToMenuQuantity(final String quantity) {
         return StringToIntConvertor.convert(quantity)
-                .orElseThrow(() -> new IllegalArgumentException(Constants.MENU_NOT_FOUND_EXCEPTION_MESSAGE));
+                .orElseThrow(MenuNotFoundException::new);
     }
     private static List<String> splitMenuAndQuantity(final String menu) {
         return Arrays.asList(menu.split(MENU_AND_QUANTITY_SEPARATOR));

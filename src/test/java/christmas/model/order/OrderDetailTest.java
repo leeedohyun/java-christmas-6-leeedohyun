@@ -5,6 +5,7 @@ import java.util.Map;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import christmas.exception.MenuNotFoundException;
 import christmas.model.Price;
 import christmas.model.menu.Menu;
 import christmas.model.menu.MenuType;
@@ -59,7 +60,7 @@ class OrderDetailTest {
         final Map<Menu, Integer> orderedMenu = Map.of(Menu.CHAMPAGNE, 3, Menu.RED_WINE, 2);
 
         // then
-        Assertions.assertThrows(IllegalArgumentException.class, () -> new OrderDetail(orderedMenu));
+        Assertions.assertThrows(MenuNotFoundException.class, () -> new OrderDetail(orderedMenu));
     }
 
     @Test
@@ -69,7 +70,7 @@ class OrderDetailTest {
                 Menu.CHRISTMAS_PASTA, 4, Menu.T_BONE_STEAK, 5, Menu.ICE_CREAM, 7);
 
         // then
-        Assertions.assertThrows(IllegalArgumentException.class, () -> new OrderDetail(orderedMenu));
+        Assertions.assertThrows(MenuNotFoundException.class, () -> new OrderDetail(orderedMenu));
     }
 
     @Test
@@ -79,6 +80,6 @@ class OrderDetailTest {
                 Menu.CHRISTMAS_PASTA, 4, Menu.T_BONE_STEAK, 5, Menu.ICE_CREAM, 7);
 
         // then
-        Assertions.assertThrows(IllegalArgumentException.class, () -> new OrderDetail(orderedMenu));
+        Assertions.assertThrows(MenuNotFoundException.class, () -> new OrderDetail(orderedMenu));
     }
 }

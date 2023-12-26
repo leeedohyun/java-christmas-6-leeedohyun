@@ -15,6 +15,9 @@ public class ValidObjectCreator {
                 return supplier.get();
             } catch (final IllegalArgumentException | IllegalStateException exception) {
                 OutputView.printExceptionMessage(exception);
+            } catch (final MenuNotFoundException e) {
+                System.out.println("e.getMessage() = " + e.getMessage());
+                OutputView.printExceptionMessage(e);
             }
         }
     }

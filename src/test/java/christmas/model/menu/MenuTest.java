@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import christmas.exception.MenuNotFoundException;
 import christmas.model.Price;
 
 class MenuTest {
@@ -28,7 +29,7 @@ class MenuTest {
     @ValueSource(strings = {"피자", "치킨", "족발"})
     public void 주문_메뉴가_메뉴판에_없는_경우_예외가_발생한다(final String menu) {
         Assertions.assertThatThrownBy(() -> Menu.getMenuByName(menu))
-                .isInstanceOf(IllegalArgumentException.class);
+                .isInstanceOf(MenuNotFoundException.class);
     }
 
     @Test

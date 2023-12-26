@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import christmas.exception.MenuNotFoundException;
 import christmas.model.menu.Menu;
 
 class UtilsTest {
@@ -61,7 +62,7 @@ class UtilsTest {
 
         // then
         Assertions.assertThatThrownBy(() -> Utils.convertToMenuQuantityMap(menus))
-                .isInstanceOf(IllegalArgumentException.class);
+                .isInstanceOf(MenuNotFoundException.class);
     }
 
     @Test
@@ -71,7 +72,7 @@ class UtilsTest {
 
         // then
         Assertions.assertThatThrownBy(() -> Utils.convertToMenuQuantityMap(menus))
-                .isInstanceOf(IllegalArgumentException.class);
+                .isInstanceOf(MenuNotFoundException.class);
     }
 
     @Test
@@ -81,6 +82,6 @@ class UtilsTest {
 
         // then
         Assertions.assertThatThrownBy(() -> Utils.convertToMenuQuantityMap(menus))
-                .isInstanceOf(IllegalArgumentException.class);
+                .isInstanceOf(MenuNotFoundException.class);
     }
 }

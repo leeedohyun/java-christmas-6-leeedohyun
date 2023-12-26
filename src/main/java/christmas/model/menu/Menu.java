@@ -2,7 +2,7 @@ package christmas.model.menu;
 
 import java.util.Arrays;
 
-import christmas.model.Constants;
+import christmas.exception.MenuNotFoundException;
 import christmas.model.Price;
 
 public enum Menu {
@@ -35,7 +35,7 @@ public enum Menu {
         return Arrays.stream(values())
                 .filter(menu -> menu.name.equals(name))
                 .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException(Constants.MENU_NOT_FOUND_EXCEPTION_MESSAGE));
+                .orElseThrow(MenuNotFoundException::new);
     }
 
     public Price calculateMenuPrice(final int quantity) {
@@ -56,7 +56,7 @@ public enum Menu {
 
     private static void validateMenuPresence(final String menu) {
         if (hasNotMenu(menu)) {
-            throw new IllegalArgumentException(Constants.MENU_NOT_FOUND_EXCEPTION_MESSAGE);
+            throw new MenuNotFoundException();
         }
     }
 

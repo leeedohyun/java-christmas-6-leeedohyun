@@ -2,7 +2,7 @@ package christmas.model.order;
 
 import java.util.Map;
 
-import christmas.model.Constants;
+import christmas.exception.MenuNotFoundException;
 import christmas.model.menu.Menu;
 import christmas.model.menu.MenuType;
 
@@ -22,7 +22,7 @@ public class OrderValidator {
 
     private static void validateOrderForBeverages(final Map<Menu, Integer> orderedMenus) {
         if (containsOnlyBeverages(orderedMenus)) {
-            throw new IllegalArgumentException(Constants.MENU_NOT_FOUND_EXCEPTION_MESSAGE);
+            throw new MenuNotFoundException();
         }
     }
 
@@ -34,7 +34,7 @@ public class OrderValidator {
     private static void validateNumberOfOrderedMenus(final Map<Menu, Integer> orderedMenus) {
         final int numberOfMenus = countNumberOfOrderedMenus(orderedMenus);
         if (isInvalidNumberOfMenus(numberOfMenus)) {
-            throw new IllegalArgumentException(Constants.MENU_NOT_FOUND_EXCEPTION_MESSAGE);
+            throw new MenuNotFoundException();
         }
     }
 
@@ -50,7 +50,7 @@ public class OrderValidator {
 
     private static void validateMinimumOrderQuantity(final Map<Menu, Integer> orderedMenus) {
         if (isInvalidNumberOfMenu(orderedMenus)) {
-            throw new IllegalArgumentException(Constants.MENU_NOT_FOUND_EXCEPTION_MESSAGE);
+            throw new MenuNotFoundException();
         }
     }
 
