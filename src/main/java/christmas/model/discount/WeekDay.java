@@ -1,9 +1,8 @@
 package christmas.model.discount;
 
-import christmas.model.Constants;
 import christmas.model.Date;
-import christmas.model.menu.MenuType;
 import christmas.model.Price;
+import christmas.model.menu.MenuType;
 import christmas.model.order.OrderDetail;
 
 public class WeekDay implements Discount {
@@ -16,7 +15,7 @@ public class WeekDay implements Discount {
         if (canApply(dateOfVisit, priceBeforeDiscount)) {
             return WEEKDAY_DISCOUNT_PRICE.multiply(orderDetail.countNumberOfMenusByMenuType(MenuType.DESSERT));
         }
-        return Constants.ZERO_WON;
+        return Price.createZeroWon();
     }
 
     private boolean canApply(final Date dateOfVisit, final Price priceBeforeDiscount) {

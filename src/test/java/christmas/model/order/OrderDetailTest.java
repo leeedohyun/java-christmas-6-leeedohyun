@@ -1,11 +1,13 @@
 package christmas.model.order;
 
-import christmas.model.menu.Menu;
-import christmas.model.menu.MenuType;
-import christmas.model.Price;
 import java.util.Map;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
+import christmas.model.Price;
+import christmas.model.menu.Menu;
+import christmas.model.menu.MenuType;
 
 class OrderDetailTest {
 

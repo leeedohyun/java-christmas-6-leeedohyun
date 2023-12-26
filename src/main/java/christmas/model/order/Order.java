@@ -2,7 +2,6 @@ package christmas.model.order;
 
 import java.util.List;
 
-import christmas.model.Constants;
 import christmas.model.GiveawayEvent;
 import christmas.model.Price;
 import christmas.model.discount.DiscountManager;
@@ -24,7 +23,7 @@ public class Order {
         final List<Price> discountPrices = getDiscountPrices();
         return discountPrices.stream()
                 .reduce(Price::plus)
-                .orElse(Constants.ZERO_WON);
+                .orElse(Price.createZeroWon());
     }
 
     public Price calculateDiscountedPrice(final Price discountPrice) {

@@ -20,11 +20,6 @@ public final class Utils {
     private Utils() {
     }
 
-//    public static LocalDate convertStringToLocalDate(final String inputDate) {
-//        final int date = StringToIntConvertor.convert(inputDate)
-//                .orElseThrow(() -> new IllegalArgumentException(DATE_FORMAT_EXCEPTION_MESSAGE));
-//        return createLocalDate(date);
-//    }
     public static int convertStringToLocalDate(final String inputDate) {
         return StringToIntConvertor.convert(inputDate)
                 .orElseThrow(() -> new IllegalArgumentException(DATE_FORMAT_EXCEPTION_MESSAGE));
@@ -47,14 +42,6 @@ public final class Utils {
             throw new IllegalArgumentException(Constants.MENU_NOT_FOUND_EXCEPTION_MESSAGE);
         }
     }
-
-//    private static LocalDate createLocalDate(final int date) {
-//        try {
-//            return LocalDate.of(Constants.YEAR, Constants.MONTH, date);
-//        } catch (final DateTimeException dateTimeException) {
-//            throw new IllegalArgumentException(DATE_FORMAT_EXCEPTION_MESSAGE);
-//        }
-//    }
 
     private static int convertStringToMenuQuantity(final String quantity) {
         return StringToIntConvertor.convert(quantity)

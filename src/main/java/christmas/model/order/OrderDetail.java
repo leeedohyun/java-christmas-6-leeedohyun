@@ -1,11 +1,11 @@
 package christmas.model.order;
 
-import christmas.model.Constants;
-import christmas.model.menu.Menu;
-import christmas.model.menu.MenuType;
-import christmas.model.Price;
 import java.util.Collections;
 import java.util.Map;
+
+import christmas.model.Price;
+import christmas.model.menu.Menu;
+import christmas.model.menu.MenuType;
 
 public class OrderDetail {
 
@@ -27,7 +27,7 @@ public class OrderDetail {
         return orderedMenus.keySet().stream()
                 .map(menu -> menu.calculateMenuPrice(orderedMenus.get(menu)))
                 .reduce(Price::plus)
-                .orElse(Constants.ZERO_WON);
+                .orElse(Price.createZeroWon());
     }
 
     public Map<Menu, Integer> getOrderedMenus() {

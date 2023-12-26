@@ -1,9 +1,10 @@
 package christmas.model.order;
 
+import java.util.Map;
+
 import christmas.model.Constants;
 import christmas.model.menu.Menu;
 import christmas.model.menu.MenuType;
-import java.util.Map;
 
 public class OrderValidator {
 

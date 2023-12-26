@@ -1,6 +1,5 @@
 package christmas.model.discount;
 
-import christmas.model.Constants;
 import christmas.model.Date;
 import christmas.model.Price;
 import christmas.model.order.OrderDetail;
@@ -17,7 +16,7 @@ public class DDay implements Discount {
             return BASIC_DISCOUNT_PRICE.plus(
                     ADDITIONAL_DISCOUNT_PRICE.multiply(dateOfVisit.calculateDaysUntilEventStart()));
         }
-        return Constants.ZERO_WON;
+        return Price.createZeroWon();
     }
 
     private boolean canApply(final Date dateOfVisit, final Price priceBeforeDiscount) {

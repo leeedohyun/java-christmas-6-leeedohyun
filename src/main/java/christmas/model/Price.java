@@ -5,12 +5,17 @@ import java.util.Objects;
 public class Price {
 
     private static final String INVALID_PRICE_EXCEPTION = "가격은 음수일 수 없습니다.";
+    private static final Price ZERO_WON = new Price(0);
 
     private final int price;
 
     public Price(final int price) {
         validate(price);
         this.price = price;
+    }
+
+    public static Price createZeroWon() {
+        return ZERO_WON;
     }
 
     public Price plus(final Price another) {
