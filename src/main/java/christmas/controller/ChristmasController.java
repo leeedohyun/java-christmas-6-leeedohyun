@@ -1,8 +1,9 @@
 package christmas.controller;
 
 import java.util.Map;
+import java.util.function.Supplier;
 
-import christmas.exception.ValidObjectCreator;
+import christmas.exception.MenuNotFoundException;
 import christmas.model.Date;
 import christmas.model.GiveawayEvent;
 import christmas.model.Price;
@@ -53,15 +54,24 @@ public class ChristmasController {
     }
 
     private Date createValidDate() {
-        return ValidObjectCreator.createValidObject(() -> new Date(inputView.inputDateOfVisit()));
+        return createValidObject(() -> new Date(inputView.inputDateOfVisit()));
     }
 
     private Map<Menu, Integer> createValidMenus() {
-        return ValidObjectCreator.createValidObject(() ->
-                Utils.convertToMenuQuantityMap(inputView.inputMenusWithQuantity()));
+        return createValidObject(() -> Utils.convertToMenuQuantityMap(inputView.inputMenusWithQuantity()));
     }
 
     private OrderDetail createValidOrderDetail() {
-        return ValidObjectCreator.createValidObject(() -> new OrderDetail(createValidMenus()));
+        return createValidObject(() -> new OrderDetail(createValidMenus()));
+    }
+
+    private  <T> T createValidObject(final Supplier<T> supplier) {
+        while (true) {
+            try {
+                return supplier.get();
+            } catch (final IllegalArgumentException | IllegalStateException | MenuNotFoundException exception) {
+                outputView.printExceptionMessage(exception);
+            }
+        }
     }
 }
