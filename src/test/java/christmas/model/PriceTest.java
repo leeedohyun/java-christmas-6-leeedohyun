@@ -22,15 +22,15 @@ class PriceTest {
 
     @ParameterizedTest
     @ValueSource(ints = {9_999, 8_000, 7_000})
-    public void 총_주문_금액이_10000원_미만이면_true를_반환한다(final int price) {
+    public void 총_주문_금액이_10000원_미만이면_false를_반환한다(final int price) {
         // given
         final Price money = new Price(price);
 
         // when
-        final boolean isNotOverTenThousand = money.isUnder(new Price(10_000));
+        final boolean isNotOverTenThousand = money.isEqualAndOver(new Price(10_000));
 
         // then
-        Assertions.assertTrue(isNotOverTenThousand);
+        Assertions.assertFalse(isNotOverTenThousand);
     }
 
     @Test
@@ -80,5 +80,11 @@ class PriceTest {
 
         // then
         Assertions.assertThrows(IllegalArgumentException.class, () -> price1.minus(price2));
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints = {-100, -4000, -10000})
+    void Price의_값이_음수이면_예외가_발생한다(final int price) {
+        Assertions.assertThrows(IllegalArgumentException.class, () -> new Price(price));
     }
 }

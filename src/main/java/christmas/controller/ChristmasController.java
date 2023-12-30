@@ -1,17 +1,20 @@
 package christmas.controller;
 
-import christmas.exception.ExceptionHandler;
+import java.util.Map;
+import java.util.function.Supplier;
+
+import christmas.exception.MenuNotFoundException;
 import christmas.model.Date;
 import christmas.model.GiveawayEvent;
-import christmas.model.menu.Menu;
 import christmas.model.Price;
-import christmas.model.order.OrderDetail;
-import christmas.model.order.Order;
-import christmas.util.Utils;
 import christmas.model.discount.DiscountManager;
+import christmas.model.menu.Menu;
+import christmas.model.order.Order;
+import christmas.model.order.OrderDetail;
+import christmas.model.order.OrderHistory;
+import christmas.util.Utils;
 import christmas.view.InputView;
 import christmas.view.OutputView;
-import java.util.Map;
 
 public class ChristmasController {
 
@@ -46,25 +49,29 @@ public class ChristmasController {
 
         outputView.printPriceBeforeDiscount(priceBeforeDiscount);
         outputView.printGiveawayMenu(giveawayEvent);
-        return new Order(date, orderDetail, priceBeforeDiscount, new DiscountManager(), giveawayEvent);
+        return new Order(new DiscountManager(DiscountManager.getDiscountPolicies()),
+                new OrderHistory(date, orderDetail), giveawayEvent);
     }
 
     private Date createValidDate() {
-        return ExceptionHandler.createValidObject(() -> {
-            outputView.printDateOfVisitMessage();
-            return new Date(inputView.inputDateOfVisit());
-        }, outputView::printExceptionMessage);
+        return createValidObject(() -> new Date(inputView.inputDateOfVisit()));
     }
 
     private Map<Menu, Integer> createValidMenus() {
-        return ExceptionHandler.createValidObject(() -> {
-            outputView.printOrderInstruction();
-            return Utils.convertToMenuQuantityMap(inputView.inputMenusWithQuantity());
-        }, outputView::printExceptionMessage);
+        return createValidObject(() -> Utils.convertToMenuQuantityMap(inputView.inputMenusWithQuantity()));
     }
 
     private OrderDetail createValidOrderDetail() {
-        return ExceptionHandler.createValidObject(() -> new OrderDetail(createValidMenus()),
-                outputView::printExceptionMessage);
+        return createValidObject(() -> new OrderDetail(createValidMenus()));
+    }
+
+    private  <T> T createValidObject(final Supplier<T> supplier) {
+        while (true) {
+            try {
+                return supplier.get();
+            } catch (final IllegalArgumentException | IllegalStateException | MenuNotFoundException exception) {
+                outputView.printExceptionMessage(exception);
+            }
+        }
     }
 }

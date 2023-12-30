@@ -1,17 +1,21 @@
 package christmas.model;
 
-import java.text.DecimalFormat;
 import java.util.Objects;
 
 public class Price {
 
-    private static final String MONEY_FORMAT_PATTERN = "###,###";
-    public static final String INVALID_PRICE_EXCEPTION = "[ERROR] 가격은 음수일 수 없습니다.";
+    private static final String INVALID_PRICE_EXCEPTION = "가격은 음수일 수 없습니다.";
+    private static final Price ZERO_WON = new Price(0);
 
     private final int price;
 
     public Price(final int price) {
+        validate(price);
         this.price = price;
+    }
+
+    public static Price createZeroWon() {
+        return ZERO_WON;
     }
 
     public Price plus(final Price another) {
@@ -24,9 +28,6 @@ public class Price {
 
     public Price minus(final Price another) {
         final int minussedPrice = price - another.price;
-        if (minussedPrice < 0) {
-            throw new IllegalArgumentException(INVALID_PRICE_EXCEPTION);
-        }
         return new Price(minussedPrice);
     }
 
@@ -34,13 +35,16 @@ public class Price {
         return price >= another.price;
     }
 
-    public boolean isUnder(final Price another) {
-        return price < another.price;
+    public boolean isWithinRange(final Price minPrice, final Price maxPrice) {
+        return this.price >= minPrice.price && this.price < maxPrice.price;
     }
 
-    public String getFormattedMoney() {
-        final DecimalFormat decimalFormat = new DecimalFormat(MONEY_FORMAT_PATTERN);
-        return decimalFormat.format(price);
+    public boolean isZero() {
+        return price == 0;
+    }
+
+    public int getPrice() {
+        return price;
     }
 
     @Override
@@ -58,5 +62,11 @@ public class Price {
     @Override
     public int hashCode() {
         return Objects.hash(price);
+    }
+
+    private void validate(final int minusedPrice) {
+        if (minusedPrice < 0) {
+            throw new IllegalArgumentException(INVALID_PRICE_EXCEPTION);
+        }
     }
 }

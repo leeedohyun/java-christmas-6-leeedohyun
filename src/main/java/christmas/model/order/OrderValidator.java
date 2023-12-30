@@ -1,9 +1,10 @@
 package christmas.model.order;
 
-import christmas.model.Constants;
+import java.util.Map;
+
+import christmas.exception.MenuNotFoundException;
 import christmas.model.menu.Menu;
 import christmas.model.menu.MenuType;
-import java.util.Map;
 
 public class OrderValidator {
 
@@ -21,19 +22,19 @@ public class OrderValidator {
 
     private static void validateOrderForBeverages(final Map<Menu, Integer> orderedMenus) {
         if (containsOnlyBeverages(orderedMenus)) {
-            throw new IllegalArgumentException(Constants.MENU_NOT_FOUND_EXCEPTION_MESSAGE);
+            throw new MenuNotFoundException();
         }
     }
 
     private static boolean containsOnlyBeverages(final Map<Menu, Integer> orderedMenus) {
         return orderedMenus.keySet().stream()
-                .allMatch(menu -> menu.getMenuType() == MenuType.BEVERAGE);
+                .allMatch(menu -> menu.isMenuTypeMatch(MenuType.BEVERAGE));
     }
 
     private static void validateNumberOfOrderedMenus(final Map<Menu, Integer> orderedMenus) {
         final int numberOfMenus = countNumberOfOrderedMenus(orderedMenus);
         if (isInvalidNumberOfMenus(numberOfMenus)) {
-            throw new IllegalArgumentException(Constants.MENU_NOT_FOUND_EXCEPTION_MESSAGE);
+            throw new MenuNotFoundException();
         }
     }
 
@@ -49,7 +50,7 @@ public class OrderValidator {
 
     private static void validateMinimumOrderQuantity(final Map<Menu, Integer> orderedMenus) {
         if (isInvalidNumberOfMenu(orderedMenus)) {
-            throw new IllegalArgumentException(Constants.MENU_NOT_FOUND_EXCEPTION_MESSAGE);
+            throw new MenuNotFoundException();
         }
     }
 

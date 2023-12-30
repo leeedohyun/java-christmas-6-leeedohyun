@@ -1,26 +1,21 @@
 package christmas.model.order;
 
-import christmas.model.Constants;
-import christmas.model.Date;
+import java.util.List;
+
 import christmas.model.GiveawayEvent;
 import christmas.model.Price;
 import christmas.model.discount.DiscountManager;
-import java.util.List;
 
 public class Order {
 
-    private final Date date;
-    private final OrderDetail orderDetail;
-    private final Price priceBeforeDiscount;
     private final DiscountManager discountManager;
+    private final OrderHistory orderHistory;
     private final GiveawayEvent giveawayEvent;
 
-    public Order(final Date date, final OrderDetail orderDetail, final Price priceBeforeDiscount,
-                 final DiscountManager discountManager, final GiveawayEvent giveawayEvent) {
-        this.date = date;
-        this.orderDetail = orderDetail;
-        this.priceBeforeDiscount = priceBeforeDiscount;
+    public Order(final DiscountManager discountManager, final OrderHistory orderHistory,
+                 final GiveawayEvent giveawayEvent) {
         this.discountManager = discountManager;
+        this.orderHistory = orderHistory;
         this.giveawayEvent = giveawayEvent;
     }
 
@@ -28,15 +23,16 @@ public class Order {
         final List<Price> discountPrices = getDiscountPrices();
         return discountPrices.stream()
                 .reduce(Price::plus)
-                .orElse(Constants.ZERO_WON);
+                .orElse(Price.createZeroWon());
     }
 
     public Price calculateDiscountedPrice(final Price discountPrice) {
-        return priceBeforeDiscount.minus(discountPrice);
+        return getPriceBeforeDiscount().minus(discountPrice);
     }
 
     public List<Price> getDiscountPrices() {
-        return discountManager.calculateDiscountPrices(date, priceBeforeDiscount, orderDetail);
+        return discountManager.calculateDiscountPrices(orderHistory.getDate(), getPriceBeforeDiscount(),
+                orderHistory.getOrderDetail());
     }
 
     public Price calculateTotalBenefitPrice(final Price discountPrice) {
@@ -45,5 +41,9 @@ public class Order {
 
     public Price getGiveawayEventMenuPrice() {
         return giveawayEvent.getGiveawayEventMenuPrice();
+    }
+
+    private Price getPriceBeforeDiscount() {
+        return orderHistory.getPriceBeforeDiscount();
     }
 }

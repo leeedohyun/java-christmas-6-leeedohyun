@@ -1,28 +1,28 @@
 package christmas.util;
 
-import christmas.model.Constants;
-import christmas.model.menu.Menu;
-import java.time.DateTimeException;
-import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import christmas.exception.MenuNotFoundException;
+import christmas.model.menu.Menu;
+
 public final class Utils {
 
-    private static final String DATE_FORMAT_EXCEPTION_MESSAGE = "[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.";
     private static final String MENU_SEPARATOR = ",";
     private static final String MENU_AND_QUANTITY_SEPARATOR = "-";
+
+    private static final int MENU_NAME_INDEX = 0;
+    private static final int MENU_QUANTITY_INDEX = 1;
 
     private Utils() {
     }
 
-    public static LocalDate convertStringToLocalDate(final String inputDate) {
-        final int date = convertStringToInt(inputDate)
-                .orElseThrow(() -> new IllegalArgumentException(DATE_FORMAT_EXCEPTION_MESSAGE));
-        return createLocalDate(date);
+    public static int convertStringToLocalDate(final String inputDate) {
+        return convertStringToInt(inputDate).orElseThrow(
+                () -> new IllegalArgumentException("유효하지 않은 날짜입니다. 다시 입력해 주세요."));
     }
     
     public static List<String> splitDifferentMenus(final String string) {
@@ -33,14 +33,22 @@ public final class Utils {
     public static Map<Menu, Integer> convertToMenuQuantityMap(final List<String> menus) {
         try {
             return menus.stream()
-                    .map(menu -> Arrays.asList(menu.split(MENU_AND_QUANTITY_SEPARATOR)))
+                    .map(Utils::splitMenuAndQuantity)
                     .collect(Collectors.toMap(
-                            menu -> Menu.getMenuByName(menu.get(0)),
-                            menu -> convertStringToMenuQuantity(menu.get(1)))
+                            menu -> Menu.getMenuByName(menu.get(MENU_NAME_INDEX)),
+                            menu -> convertStringToMenuQuantity(menu.get(MENU_QUANTITY_INDEX)))
                     );
-        } catch (final IndexOutOfBoundsException | IllegalStateException exception) {
-            throw new IllegalArgumentException(Constants.MENU_NOT_FOUND_EXCEPTION_MESSAGE);
+        } catch (final IndexOutOfBoundsException | IllegalStateException | MenuNotFoundException exception) {
+            throw new MenuNotFoundException();
         }
+    }
+
+    private static int convertStringToMenuQuantity(final String quantity) {
+        return convertStringToInt(quantity).orElseThrow(MenuNotFoundException::new);
+    }
+
+    private static List<String> splitMenuAndQuantity(final String menu) {
+        return Arrays.asList(menu.split(MENU_AND_QUANTITY_SEPARATOR));
     }
 
     private static Optional<Integer> convertStringToInt(final String string) {
@@ -49,18 +57,5 @@ public final class Utils {
         } catch (final NumberFormatException numberFormatException) {
             return Optional.empty();
         }
-    }
-
-    private static LocalDate createLocalDate(final int date) {
-        try {
-            return LocalDate.of(Constants.YEAR, Constants.MONTH, date);
-        } catch (final DateTimeException dateTimeException) {
-            throw new IllegalArgumentException(DATE_FORMAT_EXCEPTION_MESSAGE);
-        }
-    }
-
-    private static int convertStringToMenuQuantity(final String quantity) {
-        return convertStringToInt(quantity)
-                .orElseThrow(() -> new IllegalArgumentException(Constants.MENU_NOT_FOUND_EXCEPTION_MESSAGE));
     }
 }

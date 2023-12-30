@@ -1,31 +1,32 @@
 package christmas.model.menu;
 
-import christmas.model.Constants;
-import christmas.model.Price;
 import java.util.Arrays;
+
+import christmas.exception.MenuNotFoundException;
+import christmas.model.Price;
 
 public enum Menu {
 
-    MUSHROOM_SOUP("양송이수프", new Price(6_000), MenuType.APPETIZER),
-    TAPAS("타파스", new Price(5_500), MenuType.APPETIZER),
-    CAESAR_SALAD("시저샐러드", new Price(8_000), MenuType.APPETIZER),
-    T_BONE_STEAK("티본스테이크", new Price(55_000), MenuType.MAIN),
-    BBQ_RIBS("바비큐립", new Price(54_000), MenuType.MAIN),
-    SEAFOOD_PASTA("해산물파스타", new Price(35_000), MenuType.MAIN),
-    CHRISTMAS_PASTA("크리스마스파스타", new Price(25_000), MenuType.MAIN),
-    CHOCOLATE_CAKE("초코케이크", new Price(15_000), MenuType.DESSERT),
-    ICE_CREAM("아이스크림", new Price(5_000), MenuType.DESSERT),
-    ZERO_COLA("제로콜라", new Price(3_000), MenuType.BEVERAGE),
-    RED_WINE("레드와인", new Price(6_0000), MenuType.BEVERAGE),
-    CHAMPAGNE("샴페인", new Price(25_000), MenuType.BEVERAGE);
+    MUSHROOM_SOUP("양송이수프", 6_000, MenuType.APPETIZER),
+    TAPAS("타파스", 5_500, MenuType.APPETIZER),
+    CAESAR_SALAD("시저샐러드", 8_000, MenuType.APPETIZER),
+    T_BONE_STEAK("티본스테이크", 55_000, MenuType.MAIN),
+    BBQ_RIBS("바비큐립", 54_000, MenuType.MAIN),
+    SEAFOOD_PASTA("해산물파스타", 35_000, MenuType.MAIN),
+    CHRISTMAS_PASTA("크리스마스파스타", 25_000, MenuType.MAIN),
+    CHOCOLATE_CAKE("초코케이크", 15_000, MenuType.DESSERT),
+    ICE_CREAM("아이스크림", 5_000, MenuType.DESSERT),
+    ZERO_COLA("제로콜라", 3_000, MenuType.BEVERAGE),
+    RED_WINE("레드와인", 60_000, MenuType.BEVERAGE),
+    CHAMPAGNE("샴페인", 25_000, MenuType.BEVERAGE);
 
     private final String name;
     private final Price price;
     private final MenuType menuType;
 
-    Menu(final String name, final Price price, final MenuType menuType) {
+    Menu(final String name, final int price, final MenuType menuType) {
         this.name = name;
-        this.price = price;
+        this.price = new Price(price);
         this.menuType = menuType;
     }
 
@@ -34,28 +35,28 @@ public enum Menu {
         return Arrays.stream(values())
                 .filter(menu -> menu.name.equals(name))
                 .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException(Constants.MENU_NOT_FOUND_EXCEPTION_MESSAGE));
-    }
-
-    public static Price getPriceByMenu(final Menu menu) {
-        return menu.price;
+                .orElseThrow(MenuNotFoundException::new);
     }
 
     public Price calculateMenuPrice(final int quantity) {
         return price.multiply(quantity);
     }
 
+    public boolean isMenuTypeMatch(final MenuType menuType) {
+        return this.menuType == menuType;
+    }
+
     public String getName() {
         return name;
     }
 
-    public MenuType getMenuType() {
-        return menuType;
+    public Price getPrice() {
+        return price;
     }
 
     private static void validateMenuPresence(final String menu) {
         if (hasNotMenu(menu)) {
-            throw new IllegalArgumentException(Constants.MENU_NOT_FOUND_EXCEPTION_MESSAGE);
+            throw new MenuNotFoundException();
         }
     }
 
